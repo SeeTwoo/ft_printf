@@ -12,7 +12,7 @@ struct s_pf
 	char		*buf;
 	int			len;
 	int			ret;
-	va_arg		arg;
+	va_list		arg;
 };
 
 static int	init(t_pf *pf, char const *format)
@@ -51,6 +51,7 @@ static int	regular_string(t_pf *pf)
 	}
 	memcpy(pf->buf + pf->len, pf->format, offset);
 	pf->len += offset;
+	pf->format += offset;
 	pf->buf[pf->len] = '\0';
 	return (0);
 }
