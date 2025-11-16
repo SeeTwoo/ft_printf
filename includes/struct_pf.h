@@ -13,7 +13,6 @@ struct s_pf
 	size_t		buf_sz;
 	char		*buf;
 	size_t		len;
-	int			ret;
 	va_list		arg;
 };
 
