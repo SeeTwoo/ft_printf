@@ -1,1 +1,1 @@
-cc -Wall -Wextra -Werror main.c libftprintf.a
+cc -Wall -Wextra -Werror -g3 -Iincludes main.c libftprintf.a

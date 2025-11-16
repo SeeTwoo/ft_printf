@@ -1,18 +1,6 @@
 #include <string.h>
 #include <stdlib.h>
 
-void	*ft_realloc(void *ptr, size_t size)
-{
-	char	*dest;
-
-	dest = malloc(size);
-	if (!dest)
-		return (free(ptr), NULL);
-	memcpy(dest, ptr, ptr - sizeof(size_t));
-	free(ptr);
-	return (dest);
-}
-
 void	ft_free(void *ptr)
 {
 	if (!ptr)
@@ -23,10 +11,26 @@ void	ft_free(void *ptr)
 void	*ft_malloc(size_t s)
 {
 	void	*ptr;
+	size_t	*block;
 
 	ptr = malloc(sizeof(size_t) + s);
 	if (!ptr)
-		reutrn (NULL);
-	ptr[0] = sizeof(size_t) + s;
+		return (NULL);
+	block = (size_t *)ptr;
+	block[0] = s;
 	return (ptr + sizeof(size_t));
+}
+
+void	*ft_realloc(void *ptr, size_t size)
+{
+	void	*dest;
+	size_t	*block;
+
+	dest = ft_malloc(size);
+	if (!dest)
+		return (ft_free(ptr), NULL);
+	block = (size_t *)ptr;
+	memcpy(dest, ptr, *(block - sizeof(size_t)));
+	free(ptr);
+	return (dest);
 }
