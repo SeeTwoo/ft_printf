@@ -4,8 +4,9 @@
 int	ft_printf(char const *format, ...);
 
 int	main(void) {
-	ft_printf(BIGASS_STRING);
+	ft_printf("%s\n", "hello world");
 	ft_printf("hello world\n");
+	ft_printf("%s%s\n", BIGASS_STRING, BIGASS_STRING);
 	ft_printf("");
 	ft_printf(NULL);
 	return (0);

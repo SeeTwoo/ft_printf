@@ -1,39 +1,42 @@
 #include <string.h>
 #include <stdlib.h>
 
-
-
-
-#include <stdio.h>
-
 void	ft_free(void *ptr)
 {
+	char	*temp;
+
 	if (!ptr)
 		return ;
-	free(ptr - sizeof(size_t));
+	temp = (char *)ptr;
+	free(temp - sizeof(size_t));
 }
 
 void	*ft_malloc(size_t s)
 {
-	void	*ptr;
-	size_t	*block;
+	char	*ptr;
 
 	ptr = malloc(sizeof(size_t) + s);
 	if (!ptr)
 		return (NULL);
-	block = (size_t *)ptr;
-	block[0] = s;
+	*ptr = s;
 	return (ptr + sizeof(size_t));
 }
 
 void	*ft_realloc(void *ptr, size_t size)
 {
-	void	*dest;
+	char	*dest;
+	size_t	old;
 
 	dest = ft_malloc(size);
+	if (!ptr)
+		return (dest);
 	if (!dest)
 		return (ft_free(ptr), NULL);
-	memcpy(dest, ptr, *((size_t *)(ptr - sizeof(size_t))));
+	old = *((char *)ptr - sizeof(size_t));
+	if (size < old)
+		memcpy(dest, ptr, size);
+	else
+		memcpy(dest, ptr, old);
 	ft_free(ptr);
 	return (dest);
 }
