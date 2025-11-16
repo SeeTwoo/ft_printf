@@ -10,6 +10,9 @@ void	*ft_malloc(size_t);
 void	*ft_realloc(void *, size_t);
 int		regular_string(t_pf *);
 
+#include <stdio.h>
+
+
 static int	init(t_pf *pf, char const *format)
 {
 	pf->buf_sz = 256;

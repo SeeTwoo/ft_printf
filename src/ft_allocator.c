@@ -1,6 +1,11 @@
 #include <string.h>
 #include <stdlib.h>
 
+
+
+
+#include <stdio.h>
+
 void	ft_free(void *ptr)
 {
 	if (!ptr)
@@ -24,13 +29,11 @@ void	*ft_malloc(size_t s)
 void	*ft_realloc(void *ptr, size_t size)
 {
 	void	*dest;
-	size_t	*block;
 
 	dest = ft_malloc(size);
 	if (!dest)
 		return (ft_free(ptr), NULL);
-	block = (size_t *)ptr;
-	memcpy(dest, ptr, *(block - sizeof(size_t)));
-	free(ptr);
+	memcpy(dest, ptr, *((size_t *)(ptr - sizeof(size_t))));
+	ft_free(ptr);
 	return (dest);
 }
