@@ -4,7 +4,7 @@
 
 int	pf_realloc(t_pf *, int);
 
-static int	regular_offset(char const *format, char *percent)
+static size_t	regular_offset(char const *format, char *percent)
 {
 	if (!percent)
 		return (strlen(format));
@@ -15,7 +15,7 @@ static int	regular_offset(char const *format, char *percent)
 int	regular_string(t_pf *pf)
 {
 	char	*percent;
-	int		offset;
+	size_t	offset;
 
 	percent = strchr(pf->format, '%');
 	offset = regular_offset(pf->format, percent);

@@ -10,12 +10,21 @@ void	*ft_malloc(size_t);
 void	*ft_realloc(void *, size_t);
 int		regular_string(t_pf *);
 
+#include <stdio.h>
+
+
 static int	init(t_pf *pf, char const *format)
 {
+	size_t	temp;
+	size_t	*chunk;
+
 	pf->buf_sz = 256;
 	pf->buf = ft_malloc(sizeof(char) * pf->buf_sz);
 	if (!pf->buf)
 		return (1);
+	chunk = (size_t *)(pf->buf - sizeof(size_t));
+	temp = *chunk;
+	dprintf(2, "chunk just alloced is %lu\n", temp);
 	pf->format = format;
 	pf->len = 0;
 	pf->ret = 0;

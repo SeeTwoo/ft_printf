@@ -12,7 +12,7 @@ struct s_pf
 	char const	*format;
 	size_t		buf_sz;
 	char		*buf;
-	int			len;
+	size_t		len;
 	int			ret;
 	va_list		arg;
 };
