@@ -29,15 +29,11 @@ void	*ft_malloc(size_t s)
 void	*ft_realloc(void *ptr, size_t size)
 {
 	void	*dest;
-	size_t	*block;
-	size_t	block_len;
 
 	dest = ft_malloc(size);
 	if (!dest)
 		return (ft_free(ptr), NULL);
-	block = (size_t *)(ptr - sizeof(size_t));
-	block_len = *block;
-	memcpy(dest, ptr, block_len);
+	memcpy(dest, ptr, *((size_t *)(ptr - sizeof(size_t))));
 	ft_free(ptr);
 	return (dest);
 }
