@@ -3,10 +3,12 @@ CFLAGS = -Wall -Wextra -Werror -Iincludes
 DFLAGS = $(CFLAGS) -g3
 
 SRC_DIR = src
-SRC_FILES = ft_allocator.c \
+SRC_FILES = argument_handling.c \
+			ft_allocator.c \
 			ft_printf.c \
 			pf_realloc.c \
-			regular_string.c
+			regular_string.c \
+			string_pf.c
 
 SRC = $(addprefix $(SRC_DIR)/, $(SRC_FILES))
 
