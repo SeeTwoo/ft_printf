@@ -55,7 +55,7 @@ static int	parse_spec(t_pf *pf, t_spec *spec)
 	spec->width = ft_strtoi(temp, &temp);
 	if (*temp == '.')
 		spec->precision = ft_strtoi(temp + 1, &temp);
-	if (!(*temp))
+	if (*temp >= 'z' || *temp <= 'a')
 		return (pf->format = temp, -1);
 	spec->type = *temp;
 	pf->format = temp + 1;
@@ -68,8 +68,8 @@ int	argument_handling(t_pf *pf)
 	t_argfunc	func;
 
 	spec.flags = 0;
-	spec.width = 0;
-	spec.precision = 0;
+	spec.width = -1;
+	spec.precision = -1;
 	if (parse_spec(pf, &spec) == -1)
 		return (-1);
 	func = pf->handlers[(unsigned char)(spec.type - 'a')];
