@@ -5,6 +5,8 @@
 int	ft_printf(char const *format, ...);
 
 int	main(void) {
-	ft_printf("%d\n", 2147483647);
+	char	s[] = "hello, world";
+
+	ft_printf("%20s\n", s);
 	return (0);
 }

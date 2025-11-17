@@ -1,0 +1,15 @@
+printf with 
+
+c
+p
+d - i
+u
+x - X
+s
+%
+
+c : prints a single byte character
+
+p : prints a pointer in hex prefixed with 0x, akin to %#x
+
+d - i: prints an int. 

@@ -13,7 +13,7 @@ static int	ft_strtoi(char const *s, char const **end)
 	unsigned char	c;
 	int				digit;
 
-	sign = -1 + 2 * (*s == '+');
+	sign = 1 - 2 * (*s == '-');
 	s += (*s == '+' || *s == '-');
 	number = 0;
 	c = *s;
@@ -67,6 +67,9 @@ int	argument_handling(t_pf *pf)
 	t_spec		spec;
 	t_argfunc	func;
 
+	spec.flags = 0;
+	spec.width = 0;
+	spec.precision = 0;
 	if (parse_spec(pf, &spec) == -1)
 		return (-1);
 	func = pf->handlers[(unsigned char)(spec.type - 'a')];

@@ -32,7 +32,7 @@ int	decimal_pf(t_pf *pf, t_spec spec)
 	int		len;
 	int		pair;
 	char	*temp;
-	char	pairs_literals[200] =
+	char	pairs_literals[201] =
 	"00010203040506070809"
 	"10111213141516171819"
 	"20212223242526272829"
