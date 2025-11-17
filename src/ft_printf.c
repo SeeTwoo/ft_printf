@@ -46,10 +46,10 @@ int	ft_printf(char const *format, ...)
 		return (-1);
 	while (*(pf.format))
 	{
-		if (*(pf.format) == '%')
-			argument_handling(&pf);
-		else
-			regular_string(&pf);
+		if (*(pf.format) == '%' && argument_handling(&pf) == -1)
+			return (ft_free(pf.buf), -1);
+		else if (regular_string(&pf) == -1)
+			return (ft_free(pf.buf), -1);
 	}
 	ret = write(1, pf.buf, pf.len);
 	ft_free(pf.buf);
