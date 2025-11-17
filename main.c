@@ -4,9 +4,9 @@
 
 int	ft_printf(char const *format, ...);
 
-int	main(void) {
-	char	*s = NULL;
-
-	ft_printf("%.5s\n", s);
+int	main(int ac, char **av) {
+	if (ac != 3)
+		return (1);
+	printf(av[1], av[2]);
 	return (0);
 }
