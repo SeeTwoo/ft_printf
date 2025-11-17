@@ -2,46 +2,38 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
+#include <ctype.h>
+#include <limits.h>
 
+#include "flags.h"
 #include "struct_pf.h"
+#include "struct_spec.h"
 
 void	ft_free(void *);
 void	*ft_malloc(size_t);
-void	*ft_realloc(void *, size_t);
+
+int		argument_handling(t_pf *);
 int		regular_string(t_pf *);
 
-int	pf_realloc(t_pf *, size_t offset);
+int		decimal_pf(t_pf *, t_spec);
+int		string_pf(t_pf *, t_spec);
 
 static int	init(t_pf *pf, char const *format)
 {
+	int	i;
+
 	pf->buf_sz = 256;
 	pf->buf = ft_malloc(sizeof(char) * pf->buf_sz);
 	if (!pf->buf)
 		return (1);
 	pf->format = format;
 	pf->len = 0;
+	i = -1;
+	while (++i < 26)
+		pf->handlers[i] = NULL;
+	pf->handlers['d' - 'a'] = &decimal_pf;
+	pf->handlers['s' - 'a'] = &string_pf;
 	return (0);
-}
-
-int	pf_s(t_pf *pf) {
-	char	*arg;
-	size_t	offset;
-
-	arg = va_arg(pf->arg, char *);
-	offset = strlen(arg);
-	if (pf_realloc(pf, offset) == -1)
-		return (-1);
-	strcpy(pf->buf + pf->len, arg);
-	pf->len += offset;
-	pf->format += 2;
-	return (0);
-}
-
-int	percent(t_pf *pf) {
-	if (pf->format[1] == 's')
-		return (pf_s(pf));
-	else
-		return (++(pf->format), -1);
 }
 
 int	ft_printf(char const *format, ...)
@@ -56,10 +48,10 @@ int	ft_printf(char const *format, ...)
 		return (-1);
 	while (*(pf.format))
 	{
-		if (*(pf.format) == '%')
-			percent(&pf);
-		else
-			regular_string(&pf);
+		if (*(pf.format) == '%' && argument_handling(&pf) == -1)
+			return (ft_free(pf.buf), -1);
+		else if (regular_string(&pf) == -1)
+			return (ft_free(pf.buf), -1);
 	}
 	ret = write(1, pf.buf, pf.len);
 	ft_free(pf.buf);
