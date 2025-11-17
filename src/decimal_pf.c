@@ -1,5 +1,9 @@
+#include <stdarg.h>
 
-int	num_len(int n)
+#include "struct_pf.h"
+#include "struct_spec.h"
+
+static int	num_len(int n)
 {
 	if (n >= 1000000000)
 		return (10);
@@ -27,25 +31,40 @@ int	decimal_pf(t_pf *pf, t_spec spec)
 	int		n;
 	int		len;
 	int		pair;
-	int		i;
+	char	*temp;
 	char	pairs_literals[200] =
-	"00 01 02 03 04 05 06 07 08 09"
-	"10 11 12 13 14 15 16 17 18 19"
-	"20 21 22 23 24 25 26 27 28 29"
-	"30 31 32 33 34 35 36 37 38 39"
-	"40 41 42 43 44 45 46 47 48 49"
-	"50 51 52 53 54 55 56 57 58 59"
-	"60 61 62 63 64 65 66 67 68 69"
-	"70 71 72 73 74 75 76 77 78 79"
-	"80 81 82 83 84 85 86 87 88 89"
-	"90 91 92 93 94 95 96 97 98 99"
+	"00010203040506070809"
+	"10111213141516171819"
+	"20212223242526272829"
+	"30313233343536373839"
+	"40414243444546474849"
+	"50515253545556575859"
+	"60616263646566676869"
+	"70717273747576777879"
+	"80818283848586878889"
+	"90919293949596979899";
+
+	(void)spec;
 	n = va_arg(pf->arg, int);
 	len = num_len(n);
-	i = len - 2;
+	temp = pf->buf + len;
 	while (n >= 100)
 	{
 		pair = n % 100;
 		n /= 100;
-		memcpy(pf->format + i, digit_pairs
+		temp -= 2;
+		temp[0] = pairs_literals[pair * 2];
+		temp[1] = pairs_literals[pair * 2 + 1];
 	}
+	if (n < 10)
+		*--temp = '0' + n;
+	else
+	{
+		pair = n;
+		temp -= 2;
+		temp[0] = pairs_literals[pair * 2];
+		temp[1] = pairs_literals[pair * 2 + 1];
+	}
+	pf->len += len;
+	return (0);
 }
