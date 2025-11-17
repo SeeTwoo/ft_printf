@@ -77,7 +77,13 @@ void compare_with(const char *fmt, const char *str)
 }
 
 int	main(void) {
+	compare_with(NULL, NULL);
+	compare_with("", NULL);
+	compare_with("%s\n", NULL);
 	compare_with("hello, %s\n", "world");
 	compare_with("%20s\n", "hello world");
+	compare_with("%0s\n", "hello world");
+	compare_with("%-0s\n", "hello world");
+	compare_with("%0.2s\n", "hello world");
 	return (0);
 }
