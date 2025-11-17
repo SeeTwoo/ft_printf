@@ -5,8 +5,7 @@
 int	ft_printf(char const *format, ...);
 
 int	main(void) {
-	char	*s = NULL;
-
-	ft_printf("%20.5s\n", s);
+	ft_printf("%-20\n", "hello world");
+	ft_printf("%20\n", "hello world");
 	return (0);
 }
