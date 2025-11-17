@@ -56,7 +56,7 @@ int	string_pf(t_pf *pf, t_spec spec)
 	string_init(spec, &str);
 	if (pf_realloc(pf, str.full_len) == -1)
 		return (-1);
-	if (spec.flags & MINUS)
+	if (spec.flags & DASH)
 	{
 		put_str(pf, str);
 		put_padding(pf, str);

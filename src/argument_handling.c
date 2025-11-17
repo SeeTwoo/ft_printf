@@ -45,7 +45,7 @@ static int	parse_spec(t_pf *pf, t_spec *spec)
 		else if (*temp == '+')
 			spec->flags |= PLUS;
 		else if (*temp == '-')
-			spec->flags |= MINUS;
+			spec->flags |= DASH;
 		else if (*temp == '0')
 			spec->flags |= ZERO;
 		else if (*temp == '#')
