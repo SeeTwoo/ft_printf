@@ -1,5 +1,7 @@
 #include <stdarg.h>
+#include <string.h>
 
+#include "decimal_pf.h"
 #include "struct_pf.h"
 #include "struct_spec.h"
 
@@ -32,18 +34,9 @@ int	decimal_pf(t_pf *pf, t_spec spec)
 	int		len;
 	int		pair;
 	char	*temp;
-	char	pairs_literals[201] =
-	"00010203040506070809"
-	"10111213141516171819"
-	"20212223242526272829"
-	"30313233343536373839"
-	"40414243444546474849"
-	"50515253545556575859"
-	"60616263646566676869"
-	"70717273747576777879"
-	"80818283848586878889"
-	"90919293949596979899";
+	char	pairs_literals[200];
 
+	memcpy(pairs_literals, PAIRS, 200);
 	(void)spec;
 	n = va_arg(pf->arg, int);
 	len = num_len(n);
