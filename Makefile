@@ -1,3 +1,5 @@
+NAME = libftprintf.a
+
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -Iincludes
 DFLAGS = $(CFLAGS) -g3
@@ -15,7 +17,10 @@ SRC = $(addprefix $(SRC_DIR)/, $(SRC_FILES))
 
 OBJ_DIR = obj
 
-NAME = libftprintf.a
+TESTDIR = tester
+TESTSRC = $(TESTDIR)/tester.c
+TESTOBJ = $(TESTSRC:.c=.o)
+TESTBIN = tester_exec
 
 all: $(NAME)
 
@@ -30,7 +35,15 @@ OBJ = $(SRC:$(SRC_DIR)%.c=$(OBJ_DIR)%.o)
 $(NAME): $(OBJ)
 	ar rcs $(NAME) $(OBJ)
 
-debug: fclean
+tester: $(NAME) $(TESTBIN)
+	./$(TESTBIN)
+	rm -f $(TESTBIN)
+	rm -f $(TESTDIR)/*.o
+
+$(TESTBIN): $(TESTOBJ)
+	$(CC) $(CFLAGS) $^ -L. libftprintf.a -o $@
+
+debug:
 	$(MAKE) CFLAGS="$(DFLAGS)"
 
 clean:

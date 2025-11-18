@@ -2,7 +2,7 @@
 
 #include "struct_pf.h"
 
-int	pf_realloc(t_pf *, int);
+int	pf_realloc(t_pf *pf, size_t size);
 
 static size_t	regular_offset(char const *format, char *percent)
 {
