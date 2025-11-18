@@ -4,9 +4,7 @@
 
 int	ft_printf(char const *format, ...);
 
-int	main(int ac, char **av) {
-	if (ac != 3)
-		return (1);
-	printf(av[1], av[2]);
+int	main(void) {
+	ft_printf("%s\n", NULL);
 	return (0);
 }

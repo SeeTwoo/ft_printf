@@ -80,6 +80,11 @@ int	main(void) {
 	compare_with(NULL, NULL);
 	compare_with("", NULL);
 	compare_with("%s\n", NULL);
+	compare_with("%20s\n", NULL);
+	compare_with("%-20s\n", NULL);
+	compare_with("%2s\n", NULL);
+	compare_with("%.2s\n", NULL);
+	compare_with("%.7s\n", NULL);
 	compare_with("hello, %s\n", "world");
 	compare_with("%20s\n", "hello world");
 	compare_with("%0s\n", "hello world");

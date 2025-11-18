@@ -7,32 +7,6 @@
 
 int	pf_realloc(t_pf *pf, size_t size);
 
-static int	null_string(t_pf *pf, t_spec spec, t_str str)
-{
-	char	s[7];
-
-	strcpy(s, "(null)");
-	(void)spec;
-	(void)str;
-	if (pf_realloc(pf, 6) == -1)
-		return (-1);
-	memcpy(pf->buf + pf->len, s, 6);
-	pf->len += 6;
-	return (0);
-}
-
-static void	string_init(t_spec spec, t_str *str)
-{
-	str->s_len = strlen(str->s);
-	if (spec.precision != -1 && (size_t)(spec.precision) < str->s_len)
-		str->s_len = spec.precision;
-	if (str->s_len > (size_t)spec.width)
-		str->full_len = str->s_len;
-	else
-		str->full_len = spec.width;
-	str->padding = str->full_len - str->s_len;
-}
-
 static void	right_justify(t_pf *pf, t_str str)
 {
 	memcpy(pf->buf + pf->len, str.s, str.s_len);
@@ -52,6 +26,41 @@ static void	left_justify(t_pf *pf, t_str str)
 	}
 	memcpy(pf->buf + pf->len, str.s, str.s_len);
 	pf->len += str.s_len;
+}
+
+static int	null_string(t_pf *pf, t_spec spec, t_str str)
+{
+	char	s[7];
+
+	strcpy(s, "(null)");
+	str.s = &s[0];
+	str.s_len = 6;
+	if (spec.precision != -1 && (size_t)(spec.precision) < str.s_len)
+		str.s_len = 0;
+	if (str.s_len > (size_t)spec.width)
+		str.full_len = str.s_len;
+	else
+		str.full_len = spec.width;
+	str.padding = str.full_len - str.s_len;
+	if (pf_realloc(pf, 6) == -1)
+		return (-1);
+	if (spec.flags & DASH)
+		right_justify(pf, str);
+	else
+		left_justify(pf, str);
+	return (0);
+}
+
+static void	string_init(t_spec spec, t_str *str)
+{
+	str->s_len = strlen(str->s);
+	if (spec.precision != -1 && (size_t)(spec.precision) < str->s_len)
+		str->s_len = spec.precision;
+	if (str->s_len > (size_t)spec.width)
+		str->full_len = str->s_len;
+	else
+		str->full_len = spec.width;
+	str->padding = str->full_len - str->s_len;
 }
 
 int	string_pf(t_pf *pf, t_spec spec)
