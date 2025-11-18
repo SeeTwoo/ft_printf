@@ -5,6 +5,7 @@
 int	ft_printf(char const *format, ...);
 
 int	main(void) {
-	ft_printf("%s\n", NULL);
+//	ft_printf("%s\n", NULL);
+	printf("[% -20d]\n", 42);
 	return (0);
 }

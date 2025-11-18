@@ -61,7 +61,7 @@ void compare_with(const char *fmt, const char *str)
 
     if (ret_mismatch)
         fprintf(stderr,
-            "Return value mismatch:\n"
+            "\e[31mReturn value mismatch:\e[0m\n"
             "    printf     -> %d\n"
             "    ft_printf  -> %d\n",
             ret_printf, ret_ft
@@ -69,7 +69,7 @@ void compare_with(const char *fmt, const char *str)
 
     if (out_mismatch)
         fprintf(stderr,
-            "Output mismatch:\n"
+            "\e[31mOutput mismatch:\e[0m\n"
             "    printf     -> \"%s\"\n"
             "    ft_printf  -> \"%s\"\n",
             buf_printf, buf_ft
