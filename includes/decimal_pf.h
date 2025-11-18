@@ -19,15 +19,16 @@
 typedef struct s_nbr
 {
 	int		n;
-	int		abs_n;
+	int		abs;
 	int		pair;
 	int		len;
 	int		padding;
 	char	padding_char;
 	char	*padding_start;
+	char	*number_start;
+	char	*temp;
 	int		full_len;
 	char	pairs_literal[200];
-	char	*temp;
 }	t_nbr;
 /*
 	int		n;

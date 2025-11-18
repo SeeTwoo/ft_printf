@@ -5,72 +5,89 @@
 #include "struct_pf.h"
 #include "struct_spec.h"
 
-static int	num_len(int n)
+static void	num_len(t_nbr *nbr, t_spec spec)
 {
-	if (n >= 1000000000)
-		return (10);
-	if (n >= 100000000)
-		return (9);
-	if (n >= 10000000)
-		return (8);
-	if (n >= 1000000)
-		return (7);
-	if (n >= 100000)
-		return (6);
-	if (n >= 10000)
-		return (5);
-	if (n >= 1000)
-		return (4);
-	if (n >= 100)
-		return (3);
-	if (n >= 10)
-		return (2);
-	return (1);
+	nbr->abs = nbr->n;
+	if (nbr->n < 0)
+		nbr->abs = -nbr->abs;
+	if (nbr->abs >= 1000000000)
+		nbr->len = 10;
+	else if (nbr->abs >= 100000000)
+		nbr->len = 9;
+	else if (nbs->abs >= 10000000)
+		nbr->len = 8;
+	else if (nbr->abs >= 1000000)
+		nbr->len = 7;
+	else if (nbr->abs >= 100000)
+		nbr->len = 6;
+	else if (nbr->abs >= 10000)
+		nbr->len = 5;
+	else if (nbr->abs >= 1000)
+		nbr->len = 4;
+	else if (nbr->abs >= 100)
+		nbr->len = 3;
+	else if (nbr->abs >= 10)
+		nbr->len = 2;
+	else
+		nbr->len = 1;
+	if (nbr->n < 0 || spec.flags & SPACE || spec.flags & PLUS)
+		nbr->len++;
 }
 
 
-//hint on the magic 16: ' ' is 32 and '0' is 48
 void	init(t_pf *pf, t_spec spec, t_nbr *nbr)
 {
-	nbr->padding_char = ' ' + 16 * (spec.flags & ZERO);
+	if (spec.flags & ZERO)
+		nbr->padding_char = '0';
+	else
+		nbr->padding_char = ' ';
 	memcpy(nbr->pairs_literals, PAIRS, 200);
-	nbr->abs_n = n;
-	if (nbr->abs_n < 0)
-		nbr->abs_n = -nbr->abs_n;
-	nbr->len = num_len(nbr->abs_n);
-	nbr->len += 1 * (nbr->n < 0 || spec.flags & DASH || spec.flags & PLUS);
+
+	num_len(nbr, spec);
+
 	if (spec.width != -1 && spec.width > nbr->len)
 		nbr->full_len = spec.width;
 	else
 		nbr->full_len = nbr->len;
+
 	nbr->padding = nbr->full_len - nbr->len
-	nbr->temp = pf->buf + nbr->len
-	nbr->padding_start = pf->buf + pf->len * (spec.flags & DASH);
+	if (spec.flags & DASH) {
+		nbr->padding_start = pf->buf + nbr->len;
+		nbr->nbr_start = pf->buf;
+	}
+	else
+	{
+		nbr->padding_start = pf->buf;
+		nbr->nbr_start = pf->buf + nbr->padding
+	}
+
+	nbr->temp = nbr->nbr_start + nbr->len;
 }
 
 int	decimal_pf(t_pf *pf, t_spec spec)
 {
 	t_nbr	nbr;
 
-	nbr.n = va_arg(pf->arg, int);
-	
-	while (n >= 100)
+	nbr.n = va_arg(pf.arg, int);
+	while (nbr.abs >= 100)
 	{
-		pair = n % 100;
-		n /= 100;
-		temp -= 2;
-		temp[0] = pairs_literals[pair * 2];
-		temp[1] = pairs_literals[pair * 2 + 1];
+		nbr.pair = nbr.abs % 100;
+		nbr.abs /= 100;
+		nbr.temp -= 2;
+		nbr.temp[0] = pairs_literals[nbr.pair * 2];
+		nbr.temp[1] = pairs_literals[nbr.pair * 2 + 1];
 	}
-	if (n < 10)
-		*--temp = '0' + n;
+	if (nbr.abs < 10)
+		*--(nbr.temp) = '0' + nbr.abs;
 	else
 	{
-		pair = n;
-		temp -= 2;
-		temp[0] = pairs_literals[pair * 2];
-		temp[1] = pairs_literals[pair * 2 + 1];
+		nbr.pair = nbr.abs;
+		nbr.temp -= 2;
+		nbr.temp[0] = pairs_literals[nbr.pair * 2];
+		nbr.temp[1] = pairs_literals[nbr.pair * 2 + 1];
 	}
+	if (nbr.padding)
+		memset(nbr.padding_start, nbr.padding_char, nbr.padding_len);
 	pf->len += nbr.full_len;
 	return (0);
 }
