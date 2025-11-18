@@ -9,14 +9,14 @@
 #include "struct_pf.h"
 #include "struct_spec.h"
 
-void	ft_free(void *);
-void	*ft_malloc(size_t);
+void	ft_free(void *ptr);
+void	*ft_malloc(size_t size);
 
-int		argument_handling(t_pf *);
-int		regular_string(t_pf *);
+int		argument_handling(t_pf *pf);
+int		regular_string(t_pf *pf);
 
-int		decimal_pf(t_pf *, t_spec);
-int		string_pf(t_pf *, t_spec);
+int		decimal_pf(t_pf *pf, t_spec spec);
+int		string_pf(t_pf *pf, t_spec spec);
 
 static int	init(t_pf *pf, char const *format)
 {

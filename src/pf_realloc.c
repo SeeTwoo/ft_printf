@@ -1,8 +1,9 @@
 #include "struct_pf.h"
 
-void	*ft_realloc(void *, size_t);
+void	*ft_realloc(void *ptr, size_t size);
 
-int	pf_realloc(t_pf *pf, int offset) {
+int	pf_realloc(t_pf *pf, int offset)
+{
 	if (pf->len + offset < pf->buf_sz)
 		return (0);
 	while (pf->len + offset > pf->buf_sz)

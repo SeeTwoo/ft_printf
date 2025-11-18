@@ -3,20 +3,15 @@
 #include "flags.h"
 #include "struct_pf.h"
 #include "struct_spec.h"
+#include "string_pf.h"
 
-typedef struct s_str {
-	char	*s;
-	size_t	s_len;
-	size_t	padding;
-	size_t	full_len;
-} t_str;
-
-int	pf_realloc(t_pf *, size_t);
+int	pf_realloc(t_pf *pf, size_t size);
 
 static int	null_string(t_pf *pf, t_spec spec, t_str str)
 {
-	char	s[7] = "(null)";
+	char	s[7];
 
+	strcpy(s, "(null)");
 	(void)spec;
 	(void)str;
 	if (pf_realloc(pf, 6) == -1)
@@ -26,7 +21,8 @@ static int	null_string(t_pf *pf, t_spec spec, t_str str)
 	return (0);
 }
 
-static void	string_init(t_spec spec, t_str *str) {
+static void	string_init(t_spec spec, t_str *str)
+{
 	str->s_len = strlen(str->s);
 	if (spec.precision != -1 && (size_t)(spec.precision) < str->s_len)
 		str->s_len = spec.precision;
@@ -37,7 +33,8 @@ static void	string_init(t_spec spec, t_str *str) {
 	str->padding = str->full_len - str->s_len;
 }
 
-static void	right_justify(t_pf *pf, t_str str) {
+static void	right_justify(t_pf *pf, t_str str)
+{
 	memcpy(pf->buf + pf->len, str.s, str.s_len);
 	pf->len += str.s_len;
 	if (!str.padding)
@@ -46,7 +43,8 @@ static void	right_justify(t_pf *pf, t_str str) {
 	pf->len += str.padding;
 }
 
-static void	left_justify(t_pf *pf, t_str str) {
+static void	left_justify(t_pf *pf, t_str str)
+{
 	if (str.padding)
 	{
 		memset(pf->buf + pf->len, ' ', str.padding);

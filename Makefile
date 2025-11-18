@@ -37,6 +37,8 @@ $(NAME): $(OBJ)
 
 tester: $(NAME) $(TESTBIN)
 	./$(TESTBIN)
+	rm -f $(TESTBIN)
+	rm -f $(TESTDIR)/*.o
 
 $(TESTBIN): $(TESTOBJ)
 	$(CC) $(CFLAGS) $^ -L. libftprintf.a -o $@
