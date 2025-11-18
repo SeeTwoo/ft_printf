@@ -23,6 +23,8 @@ typedef struct s_nbr
 	int		pair;
 	int		len;
 	int		padding;
+	char	padding_char;
+	char	*padding_start;
 	int		full_len;
 	char	pairs_literal[200];
 	char	*temp;

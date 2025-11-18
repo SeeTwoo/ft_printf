@@ -45,6 +45,7 @@ void	init(t_pf *pf, t_spec spec, t_nbr *nbr)
 		nbr->full_len = nbr->len;
 	nbr->padding = nbr->full_len - nbr->len
 	nbr->temp = pf->buf + nbr->len
+	nbr->padding_start = pf->buf + pf->len * (spec.flags & DASH);
 }
 
 int	decimal_pf(t_pf *pf, t_spec spec)
