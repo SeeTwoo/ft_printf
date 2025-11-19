@@ -100,29 +100,29 @@ static void assert_fmt_d(const char *fmt, int val)
 }
 
 /* ------------------------ */
-/*         %s TESTS         */
-/* ------------------------ */
-
-Test(s_tests, null_and_basic)
-{
-    assert_fmt_s("%s\n", NULL);
-    assert_fmt_s("%20s\n", NULL);
-    assert_fmt_s("%-20s\n", NULL);
-    assert_fmt_s("%.2s\n", NULL);
-    assert_fmt_s("hello, %s\n", "world");
-    assert_fmt_s("%20s\n", "hello world");
-    assert_fmt_s("%0.2s\n", "hello world");
-}
-
-/* ------------------------ */
 /*         %d TESTS         */
 /* ------------------------ */
 
 Test(d_tests, simple_integers)
 {
-    assert_fmt_d("%d\n", 0);
-    assert_fmt_d("%d\n", -1);
-    assert_fmt_d("%d\n", 1);
-    assert_fmt_d("%5d\n", 42);
-    assert_fmt_d("%05d\n", 42);
+    assert_fmt_d("%d", 0);
+    assert_fmt_d("%d", -1);
+    assert_fmt_d("%d", 1);
+    assert_fmt_d("%5d", 42);
+    assert_fmt_d("%05d", 42);
+}
+
+/* ------------------------ */
+/*         %s TESTS         */
+/* ------------------------ */
+
+Test(s_tests, null_and_basic)
+{
+    assert_fmt_s("%s", NULL);
+    assert_fmt_s("%20s", NULL);
+    assert_fmt_s("%-20s", NULL);
+    assert_fmt_s("%.2s", NULL);
+    assert_fmt_s("hello, %s", "world");
+    assert_fmt_s("%20s", "hello world");
+    assert_fmt_s("%0.2s", "hello world");
 }
