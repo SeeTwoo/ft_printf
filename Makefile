@@ -17,11 +17,6 @@ SRC = $(addprefix $(SRC_DIR)/, $(SRC_FILES))
 
 OBJ_DIR = obj
 
-TESTDIR = tester
-TESTSRC = $(TESTDIR)/tester.c
-TESTOBJ = $(TESTSRC:.c=.o)
-TESTBIN = tester_exec
-
 all: $(NAME)
 
 $(OBJ_DIR):
@@ -35,13 +30,10 @@ OBJ = $(SRC:$(SRC_DIR)%.c=$(OBJ_DIR)%.o)
 $(NAME): $(OBJ)
 	ar rcs $(NAME) $(OBJ)
 
-tester: $(NAME) $(TESTBIN)
-	./$(TESTBIN)
-	rm -f $(TESTBIN)
-	rm -f $(TESTDIR)/*.o
-
-$(TESTBIN): $(TESTOBJ)
-	$(CC) $(CFLAGS) $^ -L. libftprintf.a -o $@
+tester: $(NAME)
+	cc tester/criterion_testing.c libftprintf.a -o tester/tester -lcriterion
+	./tester/tester
+	rm -f tester/tester
 
 debug:
 	$(MAKE) CFLAGS="$(DFLAGS)"
