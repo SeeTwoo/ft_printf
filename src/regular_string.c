@@ -4,21 +4,13 @@
 
 int	pf_realloc(t_pf *pf, size_t size);
 
-static size_t	regular_offset(char const *format, char *percent)
-{
-	if (!percent)
-		return (strlen(format));
-	else
-		return (percent - format);
-}
-
 int	regular_string(t_pf *pf)
 {
-	char	*percent;
 	size_t	offset;
 
-	percent = strchr(pf->format, '%');
-	offset = regular_offset(pf->format, percent);
+	offset = 0;
+	while (pf->format[offset] && pf->format[offset != '%')
+		offset++;
 	if (pf_realloc(pf, offset) == -1)
 		return (-1);
 	memcpy(pf->buf + pf->len, pf->format, offset);
