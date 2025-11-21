@@ -8,8 +8,15 @@ x - X
 s
 %
 
+flags : ' ', -, +, 0, #, .
+
 c : prints a single byte character
 
 p : prints a pointer in hex prefixed with 0x, akin to %#x
 
 d - i: prints an int. 
+
+
+
+
+if we think of it as padding, string, padding

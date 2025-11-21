@@ -9,7 +9,7 @@ int	regular_string(t_pf *pf)
 	size_t	offset;
 
 	offset = 0;
-	while (pf->format[offset] && pf->format[offset != '%')
+	while (pf->format[offset] && pf->format[offset] != '%')
 		offset++;
 	if (pf_realloc(pf, offset) == -1)
 		return (-1);

@@ -83,10 +83,9 @@ int	decimal_pf(t_pf *pf, t_spec spec)
 		nbr.temp -= 2;
 		nbr.temp[0] = nbr.pairs_literal[nbr.pair * 2];
 		nbr.temp[1] = nbr.pairs_literal[nbr.pair * 2 + 1];
-		nbr.temp--;
 	}
 	if (nbr.n < 0)
-		nbr.temp[0] = '-';
+		*--(nbr.temp) = '-';
 	if (nbr.padding > 0)
 		memset(nbr.padding_start, nbr.padding_char, nbr.padding);
 	pf->len += nbr.full_len;
