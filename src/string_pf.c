@@ -1,8 +1,8 @@
 #include <string.h>
 
 #include "flags.h"
-#include "struct_pf.h"
-#include "struct_spec.h"
+#include "pf_struct.h"
+#include "spec_struct.h"
 #include "string_pf.h"
 
 int	pf_realloc(t_pf *pf, size_t size);

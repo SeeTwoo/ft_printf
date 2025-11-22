@@ -1,6 +1,6 @@
 #include <string.h>
 
-#include "struct_pf.h"
+#include "pf_struct.h"
 
 int	pf_realloc(t_pf *pf, size_t size);
 

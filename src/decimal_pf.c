@@ -3,8 +3,8 @@
 
 #include "decimal_pf.h"
 #include "flags.h"
-#include "struct_pf.h"
-#include "struct_spec.h"
+#include "pf_struct.h"
+#include "spec_struct.h"
 
 static void	num_len(t_nbr *nbr, t_spec spec)
 {
@@ -65,7 +65,7 @@ int	decimal_pf(t_pf *pf, t_spec spec)
 {
 	t_nbr	nbr;
 
-	nbr.n = va_arg(pf->arg, int);
+	nbr.n = (long)va_arg(pf->arg, int);
 	init(pf, spec, &nbr);
 	while (nbr.abs >= 100)
 	{

@@ -1,4 +1,4 @@
-#include "struct_pf.h"
+#include "pf_struct.h"
 
 void	*ft_realloc(void *ptr, size_t size);
 

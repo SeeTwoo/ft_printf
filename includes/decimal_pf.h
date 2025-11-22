@@ -18,8 +18,8 @@
 
 typedef struct s_nbr
 {
-	int		n;
-	int		abs;
+	long	n;
+	long	abs;
 	int		pair;
 	int		len;
 	int		padding;

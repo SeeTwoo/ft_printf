@@ -3,8 +3,8 @@
 #include <limits.h>
 
 #include "flags.h"
-#include "struct_pf.h"
-#include "struct_spec.h"
+#include "pf_struct.h"
+#include "spec_struct.h"
 
 static int	ft_strtoi(char const *s, char const **end)
 {

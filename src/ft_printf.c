@@ -6,8 +6,8 @@
 #include <limits.h>
 
 #include "flags.h"
-#include "struct_pf.h"
-#include "struct_spec.h"
+#include "pf_struct.h"
+#include "spec_struct.h"
 
 void	ft_free(void *ptr);
 void	*ft_malloc(size_t size);
