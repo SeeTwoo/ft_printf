@@ -7,27 +7,6 @@
 
 int	pf_realloc(t_pf *pf, size_t size);
 
-static void	right_justify(t_pf *pf, t_str str)
-{
-	memcpy(pf->buf + pf->len, str.s, str.s_len);
-	pf->len += str.s_len;
-	if (!str.padding)
-		return ;
-	memset(pf->buf + pf->len, ' ', str.padding);
-	pf->len += str.padding;
-}
-
-static void	left_justify(t_pf *pf, t_str str)
-{
-	if (str.padding)
-	{
-		memset(pf->buf + pf->len, ' ', str.padding);
-		pf->len += str.padding;
-	}
-	memcpy(pf->buf + pf->len, str.s, str.s_len);
-	pf->len += str.s_len;
-}
-
 static int	null_string(t_pf *pf, t_spec spec, t_str str)
 {
 	char	s[7];
@@ -42,16 +21,24 @@ static int	null_string(t_pf *pf, t_spec spec, t_str str)
 	else
 		str.full_len = spec.width;
 	str.padding = str.full_len - str.s_len;
+	if (spec.flags & DASH)
+	{
+		str.s_start = pf->buf;
+		str.padding_start = pf->buf + str.s_len;
+	}
+	else
+	{
+		str.s_start = pf->buf + str.padding;
+		str.padding_start = pf->buf;
+	}
 	if (pf_realloc(pf, 6) == -1)
 		return (-1);
-	if (spec.flags & DASH)
-		right_justify(pf, str);
-	else
-		left_justify(pf, str);
+	memcpy(str.s_start, str.s, str.s_len);
+	memset(str.padding_start, ' ', str.padding);
 	return (0);
 }
 
-static void	string_init(t_spec spec, t_str *str)
+static void	string_init(t_pf *pf, t_spec spec, t_str *str)
 {
 	str->s_len = strlen(str->s);
 	if (spec.precision != -1 && (size_t)(spec.precision) < str->s_len)
@@ -61,6 +48,16 @@ static void	string_init(t_spec spec, t_str *str)
 	else
 		str->full_len = spec.width;
 	str->padding = str->full_len - str->s_len;
+	if (spec.flags & DASH)
+	{
+		str->s_start = pf->buf;
+		str->padding_start = pf->buf + str->s_len;
+	}
+	else
+	{
+		str->s_start = pf->buf + str->padding;
+		str->padding_start = pf->buf;
+	}
 }
 
 int	string_pf(t_pf *pf, t_spec spec)
@@ -70,12 +67,10 @@ int	string_pf(t_pf *pf, t_spec spec)
 	str.s = va_arg(pf->arg, char *);
 	if (!str.s)
 		return (null_string(pf, spec, str));
-	string_init(spec, &str);
+	string_init(pf, spec, &str);
 	if (pf_realloc(pf, str.full_len) == -1)
 		return (-1);
-	if (spec.flags & DASH)
-		right_justify(pf, str);
-	else
-		left_justify(pf, str);
+	memcpy(str.s_start, str.s, str.s_len);
+	memset(str.padding_start, ' ', str.padding);
 	return (0);
 }

@@ -61,12 +61,8 @@ void	init(t_pf *pf, t_spec spec, t_nbr *nbr)
 	nbr->temp = nbr->number_start + nbr->len;
 }
 
-int	decimal_pf(t_pf *pf, t_spec spec)
+void	pour_number(t_nbr nbr, t_spec spec)
 {
-	t_nbr	nbr;
-
-	nbr.n = (long)va_arg(pf->arg, int);
-	init(pf, spec, &nbr);
 	while (nbr.abs >= 100)
 	{
 		nbr.pair = nbr.abs % 100;
@@ -86,8 +82,19 @@ int	decimal_pf(t_pf *pf, t_spec spec)
 	}
 	if (nbr.n < 0)
 		*--(nbr.temp) = '-';
-	if (nbr.padding > 0)
-		memset(nbr.padding_start, nbr.padding_char, nbr.padding);
+	if (nbr.n >= 0 && spec.flags & PLUS)
+		*--(nbr.temp) = '+';
+	memset(nbr.number_start, nbr.padding_char, nbr.temp - nbr.number_start);
+}
+
+int	decimal_pf(t_pf *pf, t_spec spec)
+{
+	t_nbr	nbr;
+
+	nbr.n = (long)va_arg(pf->arg, int);
+	init(pf, spec, &nbr);
+	pour_number(nbr, spec);
+	memset(nbr.padding_start, ' ', nbr.padding);
 	pf->len += nbr.full_len;
 	return (0);
 }
