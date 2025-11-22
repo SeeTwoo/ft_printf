@@ -4,9 +4,8 @@
 
 int	main(void)
 {
-	char	s[] = "hello, world !";
 	int		n = 42;
 
-	printf("[%-20.3s]\n", NULL);
+	printf("[%0 20d]\n", 42);
 	return (0);
 }
