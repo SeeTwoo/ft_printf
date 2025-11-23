@@ -47,6 +47,8 @@ void	init(t_pf *pf, t_spec spec, t_nbr *nbr)
 		nbr->full_len = spec.width;
 	else
 		nbr->full_len = nbr->len;
+	if (spec.precision == -1)
+		nbr->len = nbr->full_len;
 	nbr->padding = nbr->full_len - nbr->len;
 	if (spec.flags & DASH)
 	{
