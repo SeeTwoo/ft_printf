@@ -15,6 +15,7 @@ void	*ft_malloc(size_t size);
 int		argument_handling(t_pf *pf);
 int		regular_string(t_pf *pf);
 
+int		char_pf(t_pf *pf, t_spec spec);
 int		decimal_pf(t_pf *pf, t_spec spec);
 int		string_pf(t_pf *pf, t_spec spec);
 
@@ -34,6 +35,7 @@ static int	init(t_pf *pf, char const *format)
 	pf->handlers['d' - 'a'] = &decimal_pf;
 	pf->handlers['i' - 'a'] = &decimal_pf;
 	pf->handlers['s' - 'a'] = &string_pf;
+	pf->handlers['c' - 'a'] = &char_pf;
 	return (0);
 }
 

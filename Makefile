@@ -6,6 +6,7 @@ DFLAGS = $(CFLAGS) -g3
 
 SRC_DIR = src
 SRC_FILES = argument_handling.c \
+			char_pf.c \
 			decimal_pf.c \
 			ft_allocator.c \
 			ft_printf.c \
