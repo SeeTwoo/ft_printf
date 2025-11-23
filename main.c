@@ -5,6 +5,6 @@
 int	ft_printf(char const *format, ...);
 
 int	main(void) {
-	printf("[%+d]\n", 0);
+	ft_printf("%20s\n", "hello world");
 	return (0);
 }

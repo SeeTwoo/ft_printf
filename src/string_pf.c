@@ -23,18 +23,19 @@ static int	null_string(t_pf *pf, t_spec spec, t_str str)
 	str.padding = str.full_len - str.s_len;
 	if (spec.flags & DASH)
 	{
-		str.s_start = pf->buf;
-		str.padding_start = pf->buf + str.s_len;
+		str.s_start = pf->buf + pf->len;
+		str.padding_start = pf->buf + pf->len + str.s_len;
 	}
 	else
 	{
-		str.s_start = pf->buf + str.padding;
-		str.padding_start = pf->buf;
+		str.s_start = pf->buf + pf->len + str.padding;
+		str.padding_start = pf->buf + pf->len;
 	}
 	if (pf_realloc(pf, 6) == -1)
 		return (-1);
 	memcpy(str.s_start, str.s, str.s_len);
 	memset(str.padding_start, ' ', str.padding);
+	pf->len += str.full_len;
 	return (0);
 }
 
@@ -50,13 +51,13 @@ static void	string_init(t_pf *pf, t_spec spec, t_str *str)
 	str->padding = str->full_len - str->s_len;
 	if (spec.flags & DASH)
 	{
-		str->s_start = pf->buf;
-		str->padding_start = pf->buf + str->s_len;
+		str->s_start = pf->buf + pf->len;
+		str->padding_start = pf->buf + pf->len + str->s_len;
 	}
 	else
 	{
-		str->s_start = pf->buf + str->padding;
-		str->padding_start = pf->buf;
+		str->s_start = pf->buf + pf->len + str->padding;
+		str->padding_start = pf->buf + pf->len;
 	}
 }
 
@@ -72,5 +73,6 @@ int	string_pf(t_pf *pf, t_spec spec)
 		return (-1);
 	memcpy(str.s_start, str.s, str.s_len);
 	memset(str.padding_start, ' ', str.padding);
+	pf->len += str.full_len;
 	return (0);
 }
