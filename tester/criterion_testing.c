@@ -126,6 +126,8 @@ Test(d_tests, simple_integers)
 	assert_fmt_d("%-30.3d", 234567);
 	assert_fmt_d("%- 30.3d", 234567);
 	assert_fmt_d("%-+30.3d", 234567);
+	assert_fmt_d("%030.3d", 234567);
+	assert_fmt_d("%030.10d", 234567);
 }
 
 /* ------------------------ */

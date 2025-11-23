@@ -5,6 +5,6 @@
 int	ft_printf(char const *format, ...);
 
 int	main(void) {
-	ft_printf("%20s\n", "hello world");
+	ft_printf("%030.10d\n", 234567);
 	return (0);
 }
