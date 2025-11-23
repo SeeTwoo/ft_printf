@@ -2,31 +2,6 @@
 #include <emmintrin.h>
 #include <stdio.h>
 
-/*
-void	*ft_memcpy(void *dest, void *src, size_t n)
-{
-	size_t	i;
-	size_t	j;
-	__m128i	vect;
-
-	i = 0;
-	j = i + 16;
-	while (j < n)
-	{
-		vect = _mm_loadu_si128((__m128i*)src + i);
-		_mm_storeu_si128((__m128i*)dest + i, vect);
-		i = j;
-		j += 16;
-	}
-	while (i < n)
-	{
-		((char *)dest)[i] = ((char *)src)[i];
-		i++;
-	}
-	return (dest);
-}
-*/
-
 void	*ft_memcpy(void *dest, void *src, size_t n)
 {
 	__m128i	vect;
@@ -35,8 +10,8 @@ void	*ft_memcpy(void *dest, void *src, size_t n)
 	ret = dest;
 	while (n >= 16)
 	{
-		vect = _mm_loadu_si128((__m128i*)src);
-		_mm_storeu_si128((__m128i*)dest, vect);
+		vect = _mm_loadu_si128((__m128i *)src);
+		_mm_storeu_si128((__m128i *)dest, vect);
 		n -= 16;
 		dest += 16;
 		src += 16;
@@ -46,6 +21,7 @@ void	*ft_memcpy(void *dest, void *src, size_t n)
 	return (ret);
 }
 
+/*
 int	main(void) {
 	char	src[] = "hello";
 	char	lg_src[] = "this is the base 16 0123456789abcdef";
@@ -57,3 +33,4 @@ int	main(void) {
 	printf("dest : %s\n", dest);
 	return (0);
 }
+*/

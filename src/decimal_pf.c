@@ -35,7 +35,6 @@ static void	num_len(t_nbr *nbr, t_spec spec)
 		nbr->len++;
 }
 
-
 void	init(t_pf *pf, t_spec spec, t_nbr *nbr)
 {
 	if (spec.flags & ZERO)
@@ -49,7 +48,8 @@ void	init(t_pf *pf, t_spec spec, t_nbr *nbr)
 	else
 		nbr->full_len = nbr->len;
 	nbr->padding = nbr->full_len - nbr->len;
-	if (spec.flags & DASH) {
+	if (spec.flags & DASH)
+	{
 		nbr->padding_start = pf->buf + nbr->len;
 		nbr->number_start = pf->buf;
 	}

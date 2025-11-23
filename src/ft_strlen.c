@@ -13,6 +13,7 @@
 #include <stddef.h>
 #include <stdint.h>
 #include <string.h>
+#include <stdio.h>
 
 size_t	ft_strlen(char const *s)
 {
@@ -29,7 +30,8 @@ size_t	ft_strlen(char const *s)
 	word_ptr = (const uintptr_t *)p;
 	while (1)
 	{
-		if (((*word_ptr) - 0x0101010101010101) & ~(*word_ptr) & 0x8080808080808080)
+		if (((*word_ptr) - 0x0101010101010101)
+			& ~(*word_ptr) & 0x8080808080808080)
 			break ;
 		word_ptr++;
 	}
@@ -38,19 +40,7 @@ size_t	ft_strlen(char const *s)
 		p++;
 	return (p - s);
 }
-
-/*size_t	ft_strlen(char const *s)
-{
-	int	i;
-
-	i = 0;
-	while (s[i])
-		i++;
-	return (i);
-}
-*/
-
-#include <stdio.h>
+/*
 int	main(void)
 {
 	char	s[] = "hello";
@@ -64,3 +54,4 @@ int	main(void)
 		return (printf("fuuuuuuck\n"));
 	return (0);
 }
+*/
