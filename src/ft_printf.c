@@ -32,6 +32,7 @@ static int	init(t_pf *pf, char const *format)
 	while (++i < 26)
 		pf->handlers[i] = NULL;
 	pf->handlers['d' - 'a'] = &decimal_pf;
+	pf->handlers['i' - 'a'] = &decimal_pf;
 	pf->handlers['s' - 'a'] = &string_pf;
 	return (0);
 }

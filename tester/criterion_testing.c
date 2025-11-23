@@ -1,6 +1,7 @@
 /* tester/test_printf.c */
 #include <criterion/criterion.h>
 #include <criterion/redirect.h>
+#include <limits.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -108,8 +109,23 @@ Test(d_tests, simple_integers)
     assert_fmt_d("%d", 0);
     assert_fmt_d("%d", -1);
     assert_fmt_d("%d", 1);
+    assert_fmt_d("%d", -10);
+    assert_fmt_d("%d", 10);
+    assert_fmt_d("%d", -100);
+    assert_fmt_d("%d", 100);
+    assert_fmt_d("%d", -10000);
+    assert_fmt_d("%d", 10000);
+	assert_fmt_d("%d", 234567);
+	assert_fmt_d("%d", -234567);
+	assert_fmt_d("%d", INT_MAX);
+	assert_fmt_d("%d", INT_MIN);
     assert_fmt_d("%5d", 42);
     assert_fmt_d("%05d", 42);
+	assert_fmt_d("%3d", 234567);
+	assert_fmt_d("%30d", 234567);
+	assert_fmt_d("%-30.3d", 234567);
+	assert_fmt_d("%- 30.3d", 234567);
+	assert_fmt_d("%-+30.3d", 234567);
 }
 
 /* ------------------------ */
