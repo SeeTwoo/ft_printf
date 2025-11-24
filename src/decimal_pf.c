@@ -6,6 +6,19 @@
 #include "pf_struct.h"
 #include "spec_struct.h"
 
+static const char pairs[200] = 
+	"00010203040506070809"
+	"10111213141516171819"
+	"20212223242526272829"
+	"30313233343536373839"
+	"40414243444546474849"
+	"50515253545556575859"
+	"60616263646566676869"
+	"70717273747576777879"
+	"80818283848586878889"
+	"90919293949596979899";
+
+
 static void	num_len(t_nbr *nbr, t_spec spec)
 {
 	nbr->abs = nbr->n;
@@ -41,7 +54,6 @@ void	init(t_pf *pf, t_spec spec, t_nbr *nbr)
 		nbr->padding_char = '0';
 	else
 		nbr->padding_char = ' ';
-	memcpy(nbr->pairs_literal, PAIRS, 200);
 	num_len(nbr, spec);
 	if (spec.width != -1 && spec.width > nbr->len)
 		nbr->full_len = spec.width;
@@ -72,8 +84,8 @@ void	pour_number(t_nbr nbr, t_spec spec)
 		nbr.pair = nbr.abs % 100;
 		nbr.abs /= 100;
 		nbr.temp -= 2;
-		nbr.temp[0] = nbr.pairs_literal[nbr.pair * 2];
-		nbr.temp[1] = nbr.pairs_literal[nbr.pair * 2 + 1];
+		nbr.temp[0] = pairs[nbr.pair * 2];
+		nbr.temp[1] = pairs[nbr.pair * 2 + 1];
 	}
 	if (nbr.abs < 10)
 		*--(nbr.temp) = '0' + nbr.abs;
@@ -81,8 +93,8 @@ void	pour_number(t_nbr nbr, t_spec spec)
 	{
 		nbr.pair = nbr.abs;
 		nbr.temp -= 2;
-		nbr.temp[0] = nbr.pairs_literal[nbr.pair * 2];
-		nbr.temp[1] = nbr.pairs_literal[nbr.pair * 2 + 1];
+		nbr.temp[0] = pairs[nbr.pair * 2];
+		nbr.temp[1] = pairs[nbr.pair * 2 + 1];
 	}
 	if (nbr.n < 0)
 		*--(nbr.temp) = '-';
