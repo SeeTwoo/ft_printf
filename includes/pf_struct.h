@@ -12,7 +12,7 @@ typedef int	(*t_argfunc)(t_pf *, t_spec);
 
 struct s_pf
 {
-	t_argfunc	handlers[26];
+	t_argfunc	handlers[128];
 	char const	*format;
 	size_t		buf_sz;
 	char		*buf;

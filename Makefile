@@ -10,6 +10,7 @@ SRC_FILES = argument_handling.c \
 			decimal_pf.c \
 			ft_allocator.c \
 			ft_printf.c \
+			percent_pf.c \
 			pf_realloc.c \
 			regular_string.c \
 			string_pf.c

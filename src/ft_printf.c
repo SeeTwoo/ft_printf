@@ -17,25 +17,23 @@ int		regular_string(t_pf *pf);
 
 int		char_pf(t_pf *pf, t_spec spec);
 int		decimal_pf(t_pf *pf, t_spec spec);
+int		percent_pf(t_pf *pf, t_spec spec);
 int		string_pf(t_pf *pf, t_spec spec);
 
 static int	init(t_pf *pf, char const *format)
 {
-	int	i;
-
 	pf->buf_sz = 256;
 	pf->buf = ft_malloc(sizeof(char) * pf->buf_sz);
 	if (!pf->buf)
 		return (1);
 	pf->format = format;
 	pf->len = 0;
-	i = -1;
-	while (++i < 26)
-		pf->handlers[i] = NULL;
-	pf->handlers['d' - 'a'] = &decimal_pf;
-	pf->handlers['i' - 'a'] = &decimal_pf;
-	pf->handlers['s' - 'a'] = &string_pf;
-	pf->handlers['c' - 'a'] = &char_pf;
+	memset(pf->handlers, 0, 128 * sizeof(void *));
+	pf->handlers['d'] = &decimal_pf;
+	pf->handlers['i'] = &decimal_pf;
+	pf->handlers['s'] = &string_pf;
+	pf->handlers['c'] = &char_pf;
+	pf->handlers['%'] = &percent_pf;
 	return (0);
 }
 

@@ -38,6 +38,8 @@ static int	parse_spec(t_pf *pf, t_spec *spec)
 	char const	*temp;
 
 	temp = pf->format + 1;
+	if (*temp == '%')
+		return (spec->type = *temp, pf->format = temp + 1, 0);
 	while (is_flag(*temp))
 	{
 		if (*temp == ' ')
