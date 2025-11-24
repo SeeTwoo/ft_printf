@@ -74,7 +74,7 @@ int	argument_handling(t_pf *pf)
 	spec.precision = -1;
 	if (parse_spec(pf, &spec) == -1)
 		return (-1);
-	func = pf->handlers[(unsigned char)(spec.type - 'a')];
+	func = pf->handlers[(unsigned char)(spec.type)];
 	if (!func)
 		return (-1);
 	func(pf, spec);

@@ -1,27 +1,22 @@
-/* tester/test_printf.c */
 #include <criterion/criterion.h>
-#include <criterion/redirect.h>
-#include <limits.h>
-#include <stdarg.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 #include <unistd.h>
+#include <string.h>
+#include <limits.h>
+#include <stdio.h>
 
-int ft_printf(const char *, ...);
 typedef int (*printf_fn)(const char *, ...);
+int ft_printf(const char *, ...);
 
-static int run_capturev(printf_fn fn, char *out, size_t out_size,
-                        const char *fmt, va_list args)
+static int run_capture_char(printf_fn fn, char *out, size_t out_size,
+                           const char *fmt, char arg)
 {
     int fd[2];
     pipe(fd);
-
     int saved = dup(STDOUT_FILENO);
     dup2(fd[1], STDOUT_FILENO);
     close(fd[1]);
 
-    int ret = fn(fmt, args); // your fn must support va_list version
+    int ret = fn(fmt, arg);
 
     fflush(stdout);
     dup2(saved, STDOUT_FILENO);
@@ -34,36 +29,89 @@ static int run_capturev(printf_fn fn, char *out, size_t out_size,
     return ret;
 }
 
-static void assert_fmt(const char *fmt, ...)
+static int run_capture_str(printf_fn fn, char *out, size_t out_size,
+                           const char *fmt, const char *arg)
 {
-	char	out_sys[1024];
-	char	out_ft[1024];
+    int fd[2];
+    pipe(fd);
+    int saved = dup(STDOUT_FILENO);
+    dup2(fd[1], STDOUT_FILENO);
+    close(fd[1]);
+
+    int ret = fn(fmt, arg);
+
+    fflush(stdout);
+    dup2(saved, STDOUT_FILENO);
+    close(saved);
+
+    ssize_t n = read(fd[0], out, out_size - 1);
+    close(fd[0]);
+    out[n < 0 ? 0 : n] = '\0';
+
+    return ret;
+}
+
+static int run_capture_int(printf_fn fn, char *out, size_t out_size,
+                           const char *fmt, int val)
+{
+    int fd[2];
+    pipe(fd);
+    int saved = dup(STDOUT_FILENO);
+    dup2(fd[1], STDOUT_FILENO);
+    close(fd[1]);
+
+    int ret = fn(fmt, val);
+
+    fflush(stdout);
+    dup2(saved, STDOUT_FILENO);
+    close(saved);
+
+    ssize_t n = read(fd[0], out, out_size - 1);
+    close(fd[0]);
+    out[n < 0 ? 0 : n] = '\0';
+
+    return ret;
+}
+
+/* Unified assert_fmt with type tag */
+typedef enum { FMT_CHAR, FMT_INT, FMT_STR } fmt_type;
+
+static void assert_fmt(fmt_type type, const char *fmt, ...)
+{
+    char out_sys[1024], out_ft[1024];
+    int ret_sys, ret_ft;
+
     va_list args;
     va_start(args, fmt);
 
-    va_list args_sys, args_ft;
-    va_copy(args_sys, args);
-    va_copy(args_ft, args);
+    switch (type) {
+        case FMT_CHAR: {
+            char arg = (char)va_arg(args, int); // char promoted to int
+            ret_sys = run_capture_char(printf, out_sys, sizeof(out_sys), fmt, arg);
+            ret_ft  = run_capture_char(ft_printf, out_ft, sizeof(out_ft), fmt, arg);
+            break;
+        }
+        case FMT_INT: {
+            int arg = va_arg(args, int);
+            ret_sys = run_capture_int(printf, out_sys, sizeof(out_sys), fmt, arg);
+            ret_ft  = run_capture_int(ft_printf, out_ft, sizeof(out_ft), fmt, arg);
+            break;
+        }
+        case FMT_STR: {
+            const char *arg = va_arg(args, const char *);
+            ret_sys = run_capture_str(printf, out_sys, sizeof(out_sys), fmt, arg);
+            ret_ft  = run_capture_str(ft_printf, out_ft, sizeof(out_ft), fmt, arg);
+            break;
+        }
+    }
 
-    int ret_sys = run_capturev(printf, out_sys, sizeof(out_sys), fmt, args_sys);
-    int ret_ft  = run_capturev(ft_printf, out_ft, sizeof(out_ft), fmt, args_ft);
-
-    va_end(args_sys);
-    va_end(args_ft);
     va_end(args);
 
     cr_expect_eq(ret_sys, ret_ft,
-        "Return value mismatch for format \"%s\" : "
-        "printf=%d ft_printf=%d",
-        fmt, ret_sys, ret_ft);
-
+        "Return value mismatch for format \"%s\"", fmt);
     cr_expect_str_eq(out_sys, out_ft,
-        "Output mismatch for format \"%s\" :\n"
-        "printf    : \"%s\"\n"
-        "ft_printf : \"%s\"",
-        fmt, out_sys, out_ft);
+        "Output mismatch for format \"%s\"", fmt);
 }
-
 
 /* ------------------------ */
 /*         %c TESTS         */
@@ -71,11 +119,11 @@ static void assert_fmt(const char *fmt, ...)
 
 Test(c_tests, simple_chars)
 {
-	assert_fmt("%c", 'a');
-	assert_fmt("%5c", 'a');
-	assert_fmt("%-5c", 'a');
-	assert_fmt("%-5.5c", 'a');
-	assert_fmt("% -5.5c", 'a');
+	assert_fmt(FMT_CHAR, "%c", 'a');
+	assert_fmt(FMT_CHAR, "%5c", 'a');
+	assert_fmt(FMT_CHAR, "%-5c", 'a');
+	assert_fmt(FMT_CHAR, "%-5.5c", 'a');
+	assert_fmt(FMT_CHAR, "% -5.5c", 'a');
 }
 
 /* ------------------------ */
@@ -84,28 +132,28 @@ Test(c_tests, simple_chars)
 
 Test(d_tests, simple_integers)
 {
-    assert_fmt("%d", 0);
-    assert_fmt("%d", -1);
-    assert_fmt("%d", 1);
-    assert_fmt("%d", -10);
-    assert_fmt("%d", 10);
-    assert_fmt("%d", -100);
-    assert_fmt("%d", 100);
-    assert_fmt("%d", -10000);
-    assert_fmt("%d", 10000);
-	assert_fmt("%d", 234567);
-	assert_fmt("%d", -234567);
-	assert_fmt("%d", INT_MAX);
-	assert_fmt("%d", INT_MIN);
-    assert_fmt("%5d", 42);
-    assert_fmt("%05d", 42);
-	assert_fmt("%3d", 234567);
-	assert_fmt("%30d", 234567);
-	assert_fmt("%-30.3d", 234567);
-	assert_fmt("%- 30.3d", 234567);
-	assert_fmt("%-+30.3d", 234567);
-	assert_fmt("%030.3d", 234567);
-	assert_fmt("%030.10d", 234567);
+    assert_fmt(FMT_INT, "%d", 0);
+    assert_fmt(FMT_INT, "%d", -1);
+    assert_fmt(FMT_INT, "%d", 1);
+    assert_fmt(FMT_INT, "%d", -10);
+    assert_fmt(FMT_INT, "%d", 10);
+    assert_fmt(FMT_INT, "%d", -100);
+    assert_fmt(FMT_INT, "%d", 100);
+    assert_fmt(FMT_INT, "%d", -10000);
+    assert_fmt(FMT_INT, "%d", 10000);
+	assert_fmt(FMT_INT, "%d", 234567);
+	assert_fmt(FMT_INT, "%d", -234567);
+	assert_fmt(FMT_INT, "%d", INT_MAX);
+	assert_fmt(FMT_INT, "%d", INT_MIN);
+    assert_fmt(FMT_INT, "%5d", 42);
+    assert_fmt(FMT_INT, "%05d", 42);
+	assert_fmt(FMT_INT, "%3d", 234567);
+	assert_fmt(FMT_INT, "%30d", 234567);
+	assert_fmt(FMT_INT, "%-30.3d", 234567);
+	assert_fmt(FMT_INT, "%- 30.3d", 234567);
+	assert_fmt(FMT_INT, "%-+30.3d", 234567);
+	assert_fmt(FMT_INT, "%030.3d", 234567);
+	assert_fmt(FMT_INT, "%030.10d", 234567);
 }
 
 /* ------------------------ */
@@ -114,11 +162,11 @@ Test(d_tests, simple_integers)
 
 Test(s_tests, null_and_basic)
 {
-    assert_fmt("%s", NULL);
-    assert_fmt("%20s", NULL);
-    assert_fmt("%-20s", NULL);
-    assert_fmt("%.2s", NULL);
-    assert_fmt("hello, %s", "world");
-    assert_fmt("%20s", "hello world");
-    assert_fmt("%0.2s", "hello world");
+    assert_fmt(FMT_STR, "%s", NULL);
+    assert_fmt(FMT_STR, "%20s", NULL);
+    assert_fmt(FMT_STR, "%-20s", NULL);
+    assert_fmt(FMT_STR, "%.2s", NULL);
+    assert_fmt(FMT_STR, "hello, %s", "world");
+    assert_fmt(FMT_STR, "%20s", "hello world");
+    assert_fmt(FMT_STR, "%0.2s", "hello world");
 }
