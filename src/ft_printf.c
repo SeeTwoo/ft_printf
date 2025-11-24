@@ -28,12 +28,6 @@ static int	init(t_pf *pf, char const *format)
 		return (1);
 	pf->format = format;
 	pf->len = 0;
-	memset(pf->handlers, 0, 128 * sizeof(void *));
-	pf->handlers['d'] = &decimal_pf;
-	pf->handlers['i'] = &decimal_pf;
-	pf->handlers['s'] = &string_pf;
-	pf->handlers['c'] = &char_pf;
-	pf->handlers['%'] = &percent_pf;
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 #include "pf_struct.h"
 #include "spec_struct.h"
 
-static const char pairs[200] = 
+static const char pairs[201] = 
 	"00010203040506070809"
 	"10111213141516171819"
 	"20212223242526272829"

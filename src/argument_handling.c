@@ -6,6 +6,23 @@
 #include "pf_struct.h"
 #include "spec_struct.h"
 
+int		char_pf(t_pf *pf, t_spec spec);
+int		decimal_pf(t_pf *pf, t_spec spec);
+int		percent_pf(t_pf *pf, t_spec spec);
+int		string_pf(t_pf *pf, t_spec spec);
+
+typedef int	(*t_argfunc)(t_pf *, t_spec);
+
+static const t_argfunc	g_handlers[128] = {
+	[0 ... '%' - 1] = NULL,
+	['%'] = &percent_pf,
+	['%' + 1 ... 'c' - 1] = NULL,
+	['c'] = &char_pf,
+	['d'] = &decimal_pf,
+	['i'] = &decimal_pf,
+	['s'] = &string_pf,
+};
+
 static int	ft_strtoi(char const *s, char const **end)
 {
 	int				sign;
@@ -74,7 +91,7 @@ int	argument_handling(t_pf *pf)
 	spec.precision = -1;
 	if (parse_spec(pf, &spec) == -1)
 		return (-1);
-	func = pf->handlers[(unsigned char)(spec.type)];
+	func = g_handlers[(unsigned char)(spec.type)];
 	if (!func)
 		return (-1);
 	func(pf, spec);
