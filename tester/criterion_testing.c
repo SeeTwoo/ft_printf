@@ -107,10 +107,12 @@ static void assert_fmt(fmt_type type, const char *fmt, ...)
 
     va_end(args);
 
-    cr_expect_eq(ret_sys, ret_ft,
-        "Return value mismatch for format \"%s\"", fmt);
-    cr_expect_str_eq(out_sys, out_ft,
-        "Output mismatch for format \"%s\"", fmt);
+	cr_expect_eq(ret_sys, ret_ft,
+		"Return value mismatch for format \"%s\"", fmt);
+	cr_expect_str_eq(out_sys, out_ft,
+		"Output mismatch for format \"%s\"", fmt);
+	if (ret_sys == ret_ft && strncmp(out_sys, out_ft, ret_sys) == 0)
+		dprintf(2, "[\e[32mOK\e[0m]\n");
 }
 
 /* ------------------------ */

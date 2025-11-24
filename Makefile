@@ -33,9 +33,9 @@ $(NAME): $(OBJ)
 	ar rcs $(NAME) $(OBJ)
 
 tester: $(NAME)
-	cc tester/criterion_testing.c libftprintf.a -o tester/tester -lcriterion
-	./tester/tester
 	rm -f tester/tester
+	cc tester/criterion_testing.c libftprintf.a -o tester/tester -lcriterion
+	./tester/tester --verbose
 
 debug:
 	$(MAKE) CFLAGS="$(DFLAGS)"
