@@ -57,7 +57,7 @@ static int	parse_spec(t_pf *pf, t_spec *spec)
 	spec->width = ft_strtoi(temp, &temp);
 	if (*temp == '.')
 		spec->precision = ft_strtoi(temp + 1, &temp);
-	if (*temp >= 'z' || *temp <= 'a')
+	if (*temp >= 'x' || *temp <= '%')
 		return (pf->format = temp, -1);
 	spec->type = *temp;
 	pf->format = temp + 1;
