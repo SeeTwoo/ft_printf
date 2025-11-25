@@ -145,8 +145,8 @@ static void assert_fmt(fmt_type type, const char *fmt, ...)
 		"printf : %s\n"
 		"ft_printf : %s\n"
 		, fmt, out_sys, out_ft);
-	if (ret_sys == ret_ft && strncmp(out_sys, out_ft, ret_sys) == 0)
-		dprintf(2, "[\e[32mOK\e[0m]\n");
+	//if (ret_sys == ret_ft && strncmp(out_sys, out_ft, ret_sys) == 0)
+	//	dprintf(2, "[\e[32mOK\e[0m]\n");
 }
 
 /* ------------------------ */
@@ -203,6 +203,19 @@ Test(x_tests, lowercase_hex)
 	assert_fmt(FMT_U_INT, "%x", 16);
 	assert_fmt(FMT_U_INT, "%x", 17);
 	assert_fmt(FMT_U_INT, "%x", 20);
+}
+
+/* ------------------------ */
+/*         %X TESTS         */
+/* ------------------------ */
+
+Test(X_tests, uppercase_hex)
+{
+	assert_fmt(FMT_U_INT, "%X", 0);
+	assert_fmt(FMT_U_INT, "%X", 10);
+	assert_fmt(FMT_U_INT, "%X", 16);
+	assert_fmt(FMT_U_INT, "%X", 17);
+	assert_fmt(FMT_U_INT, "%X", 20);
 }
 
 /* ------------------------ */
