@@ -10,6 +10,7 @@ int		char_pf(t_pf *pf, t_spec spec);
 int		decimal_pf(t_pf *pf, t_spec spec);
 int		percent_pf(t_pf *pf, t_spec spec);
 int		string_pf(t_pf *pf, t_spec spec);
+int		unsigned_base_pf(t_pf *pf, t_spec spec);
 
 typedef int	(*t_argfunc)(t_pf *, t_spec);
 
@@ -21,6 +22,7 @@ static const t_argfunc	g_handlers[128] = {
 ['d'] = &decimal_pf,
 ['i'] = &decimal_pf,
 ['s'] = &string_pf,
+['u'] = &unsigned_base_pf,
 };
 
 static int	ft_strtoi(char const *s, char const **end)

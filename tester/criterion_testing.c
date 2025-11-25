@@ -51,6 +51,28 @@ static int run_capture_str(printf_fn fn, char *out, size_t out_size,
     return ret;
 }
 
+static int run_capture_unsigned_int(printf_fn fn, char *out, size_t out_size,
+                           const char *fmt, unsigned int val)
+{
+    int fd[2];
+    pipe(fd);
+    int saved = dup(STDOUT_FILENO);
+    dup2(fd[1], STDOUT_FILENO);
+    close(fd[1]);
+
+    int ret = fn(fmt, val);
+
+    fflush(stdout);
+    dup2(saved, STDOUT_FILENO);
+    close(saved);
+
+    ssize_t n = read(fd[0], out, out_size - 1);
+    close(fd[0]);
+    out[n < 0 ? 0 : n] = '\0';
+
+    return ret;
+}
+
 static int run_capture_int(printf_fn fn, char *out, size_t out_size,
                            const char *fmt, int val)
 {
@@ -74,7 +96,7 @@ static int run_capture_int(printf_fn fn, char *out, size_t out_size,
 }
 
 /* Unified assert_fmt with type tag */
-typedef enum { FMT_CHAR, FMT_INT, FMT_STR } fmt_type;
+typedef enum { FMT_CHAR, FMT_INT, FMT_STR, FMT_U_INT} fmt_type;
 
 static void assert_fmt(fmt_type type, const char *fmt, ...)
 {
@@ -103,14 +125,26 @@ static void assert_fmt(fmt_type type, const char *fmt, ...)
             ret_ft  = run_capture_str(ft_printf, out_ft, sizeof(out_ft), fmt, arg);
             break;
         }
+		case FMT_U_INT: {
+			unsigned int	val = va_arg(args, unsigned int);
+			ret_sys = run_capture_unsigned_int(printf, out_sys, sizeof(out_sys), fmt, val);
+			ret_ft = run_capture_unsigned_int(ft_printf, out_ft, sizeof(out_ft), fmt, val);
+			break;
+		}
     }
 
     va_end(args);
 
 	cr_expect_eq(ret_sys, ret_ft,
-		"Return value mismatch for format \"%s\"", fmt);
+		"Return value mismatch for format \"%s\"\n"
+		"printf	: %d\n"
+		"ft_printf : %d\n"
+		, fmt, ret_sys, ret_ft);
 	cr_expect_str_eq(out_sys, out_ft,
-		"Output mismatch for format \"%s\"", fmt);
+		"Output mismatch for format \"%s\"\n"
+		"printf : %s\n"
+		"ft_printf : %s\n"
+		, fmt, out_sys, out_ft);
 	if (ret_sys == ret_ft && strncmp(out_sys, out_ft, ret_sys) == 0)
 		dprintf(2, "[\e[32mOK\e[0m]\n");
 }
@@ -156,6 +190,17 @@ Test(d_tests, simple_integers)
 	assert_fmt(FMT_INT, "%-+30.3d", 234567);
 	assert_fmt(FMT_INT, "%030.3d", 234567);
 	assert_fmt(FMT_INT, "%030.10d", 234567);
+}
+
+/* ------------------------ */
+/*         %u TESTS         */
+/* ------------------------ */
+
+Test(u_tests, unsigned_integers)
+{
+	assert_fmt(FMT_U_INT, "%u", 0);
+	assert_fmt(FMT_U_INT, "%u", 1);
+	assert_fmt(FMT_U_INT, "%u", 10);
 }
 
 /* ------------------------ */

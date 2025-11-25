@@ -13,7 +13,8 @@ SRC_FILES = argument_handling.c \
 			percent_pf.c \
 			pf_realloc.c \
 			regular_string.c \
-			string_pf.c
+			string_pf.c \
+			unsigned_base_pf.c
 
 SRC = $(addprefix $(SRC_DIR)/, $(SRC_FILES))
 
