@@ -77,7 +77,7 @@ void	init(t_pf *pf, t_spec spec, t_nbr *nbr)
 	nbr->temp = nbr->number_start + nbr->len;
 }
 
-void	pour_number(t_nbr nbr, t_spec spec)
+void	pouring_number(t_nbr nbr, t_spec spec)
 {
 	while (nbr.abs >= 100)
 	{
@@ -109,7 +109,7 @@ int	decimal_pf(t_pf *pf, t_spec spec)
 
 	nbr.n = (long)va_arg(pf->arg, int);
 	init(pf, spec, &nbr);
-	pour_number(nbr, spec);
+	pouring_number(nbr, spec);
 	memset(nbr.padding_start, ' ', nbr.padding);
 	pf->len += nbr.full_len;
 	return (0);

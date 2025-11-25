@@ -203,6 +203,14 @@ Test(x_tests, lowercase_hex)
 	assert_fmt(FMT_U_INT, "%x", 16);
 	assert_fmt(FMT_U_INT, "%x", 17);
 	assert_fmt(FMT_U_INT, "%x", 20);
+	// %30u		160
+	// %1u		160
+	// %.1		160
+	// %.5		160
+	// %30.1	160
+	// %30.5	160
+	// %1.1		160
+	// %1.5		160
 }
 
 /* ------------------------ */
@@ -236,6 +244,7 @@ Test(u_tests, unsigned_integers)
 	assert_fmt(FMT_U_INT, "%u", 1002);
 	assert_fmt(FMT_U_INT, "%u", UINT_MAX);
 	assert_fmt(FMT_U_INT, "%u", UINT_MAX + 1);
+	assert_fmt(FMT_U_INT, "%30u", 3045);
 }
 
 /* ------------------------ */
