@@ -54,32 +54,28 @@ static int	is_flag(char const c)
 
 static int	parse_spec(t_pf *pf, t_spec *spec)
 {
-	char const	*temp;
-
-	temp = pf->format + 1;
-	if (*temp == '%')
-		return (spec->type = *temp, pf->format = temp + 1, 0);
-	while (is_flag(*temp))
+	pf->format++;
+	if (*pf->format == '%')
+		return (spec->type = *pf->format, pf->format++, 0);
+	while (is_flag(*pf->format))
 	{
-		if (*temp == ' ')
+		if (*pf->format == ' ')
 			spec->flags |= SPACE;
-		else if (*temp == '+')
+		else if (*pf->format == '+')
 			spec->flags |= PLUS;
-		else if (*temp == '-')
+		else if (*pf->format == '-')
 			spec->flags |= DASH;
-		else if (*temp == '0')
+		else if (*pf->format == '0')
 			spec->flags |= ZERO;
-		else if (*temp == '#')
+		else if (*pf->format == '#')
 			spec->flags |= SHARP;
-		temp++;
+		pf->format++;
 	}
-	spec->width = ft_strtoi(temp, &temp);
-	if (*temp == '.')
-		spec->precision = ft_strtoi(temp + 1, &temp);
-	if (*temp >= 'x' || *temp <= '%')
-		return (pf->format = temp, -1);
-	spec->type = *temp;
-	pf->format = temp + 1;
+	spec->width = ft_strtoi(pf->format, &pf->format);
+	if (*pf->format == '.')
+		spec->precision = ft_strtoi(pf->format + 1, &pf->format);
+	spec->type = *pf->format;
+	pf->format++;
 	return (0);
 }
 
