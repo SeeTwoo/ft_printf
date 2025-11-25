@@ -245,6 +245,7 @@ Test(u_tests, unsigned_integers)
 	assert_fmt(FMT_U_INT, "%u", UINT_MAX);
 	assert_fmt(FMT_U_INT, "%u", UINT_MAX + 1);
 	assert_fmt(FMT_U_INT, "%30u", 3045);
+	assert_fmt(FMT_U_INT, "%-30u", 3045);
 }
 
 /* ------------------------ */

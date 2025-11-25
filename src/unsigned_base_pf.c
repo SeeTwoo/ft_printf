@@ -1,5 +1,6 @@
 #include <string.h>
 
+#include "flags.h"
 #include "pf_struct.h"
 #include "spec_struct.h"
 
@@ -62,8 +63,16 @@ static void	init_unsigned(t_spec spec, t_unbr *unbr, t_pf *pf)
 		unbr->full_len = unbr->n_len;
 
 	unbr->padding_len = unbr->full_len - unbr->n_len;
-	unbr->padding_start = pf->buf;
-	unbr->n_start = pf->buf + unbr->padding_len;
+	if (spec.flags & DASH)
+	{
+		unbr->n_start = pf->buf;
+		unbr->padding_start = pf->buf + unbr->n_len;
+	}
+	else
+	{
+		unbr->padding_start = pf->buf;
+		unbr->n_start = pf->buf + unbr->padding_len;
+	}
 }
 
 int unsigned_base_pf(t_pf *pf, t_spec spec)
