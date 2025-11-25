@@ -5,6 +5,6 @@
 int	ft_printf(char const *format, ...);
 
 int	main(void) {
-	printf("%u\n", 4294967296);
+	ft_printf("%u\n", 10);
 	return (0);
 }
