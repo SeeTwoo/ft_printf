@@ -199,6 +199,10 @@ Test(d_tests, simple_integers)
 Test(x_tests, lowercase_hex)
 {
 	assert_fmt(FMT_U_INT, "%x", 0);
+	assert_fmt(FMT_U_INT, "%x", 10);
+	assert_fmt(FMT_U_INT, "%x", 16);
+	assert_fmt(FMT_U_INT, "%x", 17);
+	assert_fmt(FMT_U_INT, "%x", 20);
 }
 
 /* ------------------------ */
