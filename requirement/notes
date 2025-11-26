@@ -20,3 +20,41 @@ d - i: prints an int.
 
 
 if we think of it as padding, string, padding
+nah this shid is gud, we have to go down this way
+
+
+[    string]
+[string    ]
+[0x2f      ]
+[   0x004c5]
+[00000b2   ]
+
+union u_arg {
+	unsigned int	n;
+	uintptr_t		p;
+	char			*s;
+	char			c;
+	int				n;
+}
+
+enum e_kind {
+	CHAR,
+	PTR,
+	INT,
+	UINT,
+	UPHEX,
+	LOHEX,
+	STR
+}
+
+
+struct s_arg {
+	union u_arg	arg;
+	char		*arg_start;
+	size_t		arg_len;
+	size_t		zero_len;
+	char		*spaces_start;
+	size_t		spaces_len;
+	size_t		full_len;
+	char		buf[16];
+}
