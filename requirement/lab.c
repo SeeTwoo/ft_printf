@@ -4,17 +4,29 @@
 #include <limits.h>
 #include <stdint.h>
 
+#include <unistd.h>
+#include <sys/wait.h>
+
 int	main(void)
 {
-	uintptr_t	n = UINT64_MAX;
-	int			i = 0;
+	char	c = 'c';
+	char	s[] = "hello world";
+	int		i = 2934435;
+	float	f = 234.453;
 
-	printf("%llu\n", n);
-	while (n > 16) {
-		i++;
-		n /= 16;
+	int		pids[2];
+
+	pids[0] = fork();
+	if (pids[0] == 0) {
+		printf("hello, here is a long message with a char : %c and a string : %s and an int : %d and a float : %f\n", c, s, i, f);
+		exit(EXIT_SUCCESS);
 	}
-	i++;
-	printf("uintptr_t max len = %d\n", i);
+	pids[1] = fork();
+	if (pids[1] == 0) {
+		printf("hello, here is a long message with a char : %c and a string : %s and an int : %d and a float : %f\n", c, s, i, f);
+		exit(EXIT_SUCCESS);
+	}
+	waitpid(pids[0], 0, 0);
+	waitpid(pids[1], 0, 0);
 	return (0);
 }

@@ -1,7 +1,7 @@
 #ifndef ARGUMENT_H
 # define ARGUMENT_H
 
-enum e_kind {
+enum e_type {
 	CHAR,
 	PTR,
 	INT,
@@ -21,13 +21,14 @@ union u_arg {
 };
 
 struct s_arg {
-	enum e_kind	kind;
-	union u_arg	arg;
-	char		*arg_start;
-	size_t		arg_len;
-	size_t		zero_len;
-	char		*spaces_start;
-	size_t		spaces_len;
+	enum e_type	type;
+	union u_arg	raw;
+	char		*literal;
+	size_t		len;
+	size_t		zeroes;
+	short		sign;
+	char		*padding;
+	size_t		padding_len;
 	size_t		full_len;
 	char		buf[16];
 };
