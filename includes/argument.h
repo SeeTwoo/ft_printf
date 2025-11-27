@@ -1,13 +1,5 @@
-#ifndef COMMUNISM_H
-# define COMMUNISM_H
-
-union u_arg {
-	unsigned int	n;
-	uintptr_t		p;
-	char			*s;
-	char			c;
-	int				n;
-};
+#ifndef ARGUMENT_H
+# define ARGUMENT_H
 
 enum e_kind {
 	CHAR,
@@ -16,9 +8,17 @@ enum e_kind {
 	UINT,
 	UPHEX,
 	LOHEX,
-	STR
+	STR,
+	PERCENT
 };
 
+union u_arg {
+	unsigned int	n;
+	uintptr_t		p;
+	char			*s;
+	char			c;
+	int				n;
+};
 
 struct s_arg {
 	enum e_kind	kind;

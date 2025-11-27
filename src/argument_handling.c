@@ -6,26 +6,7 @@
 #include "pf_struct.h"
 #include "spec_struct.h"
 
-int		char_pf(t_pf *pf, t_spec spec);
-int		decimal_pf(t_pf *pf, t_spec spec);
-int		percent_pf(t_pf *pf, t_spec spec);
-int		string_pf(t_pf *pf, t_spec spec);
-int		unsigned_base_pf(t_pf *pf, t_spec spec);
-
-typedef int	(*t_argfunc)(t_pf *, t_spec);
-
-static const t_argfunc	g_handlers[128] = {
-[0 ...'%' - 1] = NULL,
-['%'] = &percent_pf,
-['%' + 1 ... 'X' - 1] = NULL,
-['X'] = &unsigned_base_pf,
-['c'] = &char_pf,
-['d'] = &decimal_pf,
-['i'] = &decimal_pf,
-['s'] = &string_pf,
-['u'] = &unsigned_base_pf,
-['x'] = &unsigned_base_pf,
-};
+#include "argument_handling.h"
 
 static int	ft_strtoi(char const *s, char const **end)
 {
@@ -60,40 +41,43 @@ static int	parse_spec(t_pf *pf, t_spec *spec)
 	if (*pf->format == '%')
 		return (spec->type = *pf->format, pf->format++, 0);
 	while (is_flag(*pf->format))
-	{
-		if (*pf->format == ' ')
-			spec->flags |= SPACE;
-		else if (*pf->format == '+')
-			spec->flags |= PLUS;
-		else if (*pf->format == '-')
-			spec->flags |= DASH;
-		else if (*pf->format == '0')
-			spec->flags |= ZERO;
-		else if (*pf->format == '#')
-			spec->flags |= SHARP;
-		pf->format++;
-	}
+		spec->flags |= g_flags[*pf->format];
 	spec->width = ft_strtoi(pf->format, &pf->format);
 	if (*pf->format == '.')
 		spec->precision = ft_strtoi(pf->format + 1, &pf->format);
-	spec->type = *pf->format;
+	spec->type = g_types[*pf->format];
 	pf->format++;
 	return (0);
 }
 
 int	argument_handling(t_pf *pf)
 {
-	t_spec		spec;
-	t_argfunc	func;
+	t_spec			spec;
+	t_argfunc		arg_init;
+	struct s_arg	arg;
 
 	spec.flags = 0;
 	spec.width = -1;
 	spec.precision = -1;
 	if (parse_spec(pf, &spec) == -1)
 		return (-1);
-	func = g_handlers[(unsigned char)(spec.type)];
+	arg_init = g_handlers[(unsigned char)(spec.type)];
 	if (!func)
 		return (-1);
-	func(pf, spec);
+	arg_init(pf, spec, &arg);
+
+	if (spec.flags & SHARP && spec.type == UINT)
+	{
+		memcpy(arg.start, "0x", 2);
+		arg.start += 2;
+	}
+	if (arg.zero_len > 0)
+	{
+		memset(arg.start, '0', arg.zero_len);
+		arg.start += arg.zero_len;
+	}
+ 	memcpy(arg.arg_start, arg.lit, arg.len);
+	if (arg.spaces_len > 0)
+		memset(arg.spaces_start, ' ', arg.spaces_len);
 	return (0);
 }
