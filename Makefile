@@ -9,7 +9,9 @@ SRC_FILES = argument_handling.c \
 			decimal_pf.c \
 			ft_allocator.c \
 			ft_printf.c \
-			pf_realloc.c
+			ft_strtoi.c \
+			pf_realloc.c \
+			regular_string.c
 
 SRC = $(addprefix $(SRC_DIR)/, $(SRC_FILES))
 

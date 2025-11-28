@@ -14,5 +14,5 @@ int	ft_strtoi(char const *s, char const **end)
 		digit = c - '0';
 	}
 	*end = s;
-	return (sign * number);
+	return (number);
 }
