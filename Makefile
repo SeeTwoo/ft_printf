@@ -6,15 +6,10 @@ DFLAGS = $(CFLAGS) -g3
 
 SRC_DIR = src
 SRC_FILES = argument_handling.c \
-			char_pf.c \
 			decimal_pf.c \
 			ft_allocator.c \
 			ft_printf.c \
-			percent_pf.c \
-			pf_realloc.c \
-			regular_string.c \
-			string_pf.c \
-			unsigned_base_pf.c
+			pf_realloc.c
 
 SRC = $(addprefix $(SRC_DIR)/, $(SRC_FILES))
 

@@ -11,6 +11,9 @@ static const char	g_base_ten[11] = "0123456789";
 
 int	itoa_pf(uint64_t n, uint8_t div, char *buf, int i)
 {
+	int	temp;
+
+	temp = i + 1;
 	while (n > div)
 	{
 		buf[i] = g_base_ten[n % div];
@@ -18,10 +21,10 @@ int	itoa_pf(uint64_t n, uint8_t div, char *buf, int i)
 		i--;
 	}
 	buf[i] = g_base_ten[n];
-	return (16 - i);
+	return (temp - i);
 }
 
-size_t	full_len(size_t	len, size_t width)
+size_t	full_len(size_t	len, int width)
 {
 	if (width != -1 && width > len)
 		return (width);
@@ -63,5 +66,6 @@ int	decimal_pf(t_pf *pf, t_spec spec, t_arg *arg)
 		arg->arg_dest = pf->buf + pf->len + arg->padding_len;
 		arg->padding = pf->buf + pf->len;
 	}
+	arg->to_cpy = arg->buf.int + 10 - arg->len_to_cpy;
 	return (0);
 }

@@ -1,6 +1,8 @@
 #ifndef ARGUMENT_H
 # define ARGUMENT_H
 
+#include <stdint.h>
+
 enum e_type
 {
 	CHAR,
@@ -24,10 +26,10 @@ union u_arg
 
 union u_buf
 {
-	cahr	ptr[16];
-	char	int[10];
+	char	ptr[16];
+	char	dec[10];
 	char	hex[8];
-}
+};
 
 typedef struct s_arg	t_arg;
 
