@@ -3,17 +3,7 @@
 
 #include <stdint.h>
 
-enum e_type
-{
-	CHAR,
-	PTR,
-	INT,
-	UINT,
-	UPHEX,
-	LOHEX,
-	STR,
-	PERCENT
-};
+#include "e_type.h"
 
 union u_arg
 {

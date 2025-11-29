@@ -1,15 +1,5 @@
-#include <string.h>
-#include <ctype.h>
-#include <limits.h>
-
-#include "flags.h"
-#include "pf_struct.h"
-#include "spec_struct.h"
 
 #include "argument_handling.h"
-
-int	pf_realloc(t_pf *pf, size_t n);
-int	ft_strtoi(char const *s, char const **end);
 
 static inline int	is_flag(char const c)
 {
@@ -38,7 +28,7 @@ static int	parse_spec(t_pf *pf, t_spec *spec)
 	return (0);
 }
 
-static inline void	prefixing(t_pf *pf, t_spec spec, t_arg arg)
+static void	prefixing(t_pf *pf, t_spec spec, t_arg arg)
 {
 	if (arg.type == INT && arg.val.nbr < 0)
 		*(pf->buf + pf->len++) = '-';
@@ -53,7 +43,7 @@ static inline void	prefixing(t_pf *pf, t_spec spec, t_arg arg)
 	}
 }
 
-static inline void	zeroes(t_pf *pf, t_arg arg)
+static void	zeroes(t_pf *pf, t_arg arg)
 {
 	memset(pf->buf + pf->len, '0', arg.zeroes);
 	pf->len += arg.zeroes;
@@ -70,11 +60,8 @@ static void	writing_argument(t_pf *pf, t_spec spec, t_arg arg)
 
 static void	writing_padding(t_pf *pf, t_arg arg)
 {
-	if (arg.padding_len > 0)
-	{
-		memset(pf->buf + pf->len, ' ', arg.padding_len);
-		pf->len += arg.padding_len;
-	}
+	memset(pf->buf + pf->len, ' ', arg.padding_len);
+	pf->len += arg.padding_len;
 }
 
 int	argument_handling(t_pf *pf)
@@ -91,15 +78,10 @@ int	argument_handling(t_pf *pf)
 	arg_init(pf, spec, &arg);
 	if (pf_realloc(pf, arg.full_len) == -1)
 		return (-1);
-	if (spec.flags & DASH)
-	{
-		writing_argument(pf, spec, arg);
+	if (!(spec.flags & DASH) && arg.padding_len > 0)
 		writing_padding(pf, arg);
-	}
-	else
-	{
+	writing_argument(pf, spec, arg);
+	if (spec.flags & DASH && arg.padding_len > 0)
 		writing_padding(pf, arg);
-		writing_argument(pf, spec, arg);
-	}
 	return (0);
 }
