@@ -25,7 +25,6 @@ typedef struct s_arg	t_arg;
 
 struct s_arg
 {
-	enum e_type	type;
 	union u_arg	val;
 	char		*to_cpy;
 	size_t		len_to_cpy;

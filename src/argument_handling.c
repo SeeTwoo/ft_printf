@@ -30,13 +30,13 @@ static int	parse_spec(t_pf *pf, t_spec *spec)
 
 static void	prefixing(t_pf *pf, t_spec spec, t_arg arg)
 {
-	if (arg.type == INT && arg.val.nbr < 0)
+	if (spec.type == INT && arg.val.nbr < 0)
 		*(pf->buf + pf->len++) = '-';
-	else if (arg.type == INT && arg.val.nbr >= 0 && spec.flags & SPACE)
+	else if (spec.type == INT && arg.val.nbr >= 0 && spec.flags & SPACE)
 		*(pf->buf + pf->len++) = ' ';
-	else if (arg.type == INT && arg.val.nbr >= 0 && spec.flags & PLUS)
+	else if (spec.type == INT && arg.val.nbr >= 0 && spec.flags & PLUS)
 		*(pf->buf + pf->len++) = '+';
-	else if (arg.type == PTR || ((arg.type == LOHEX || arg.type == UPHEX) && spec.flags & SHARP))
+	else if (spec.type == PTR || ((spec.type == LOHEX || spec.type == UPHEX) && spec.flags & SHARP))
 	{
 		memcpy(pf->buf + pf->len, "0x", 2);
 		pf->len += 2;

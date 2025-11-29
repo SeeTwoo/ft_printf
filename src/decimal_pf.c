@@ -44,7 +44,6 @@ void	zeroes(t_arg *arg, t_spec spec)
 
 int	decimal_pf(t_pf *pf, t_spec spec, t_arg *arg)
 {
-	arg->type = spec.type;
 	arg->val.nbr = (long)va_arg(pf->arg, int);
 	if (arg->val.nbr >= 0)
 		arg->len_to_cpy = itoa_pf((uint64_t)arg->val.nbr, 10, arg->buf.dec, 9);
