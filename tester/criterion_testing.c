@@ -183,7 +183,6 @@ Test(d_tests, simple_integers)
 	assert_fmt(FMT_INT, "%d", -234567);
 	assert_fmt(FMT_INT, "%d", INT_MAX);
 	assert_fmt(FMT_INT, "%d", INT_MIN);
-	/*
     assert_fmt(FMT_INT, "%5d", 42);
     assert_fmt(FMT_INT, "%05d", 42);
 	assert_fmt(FMT_INT, "%3d", 234567);
@@ -193,7 +192,6 @@ Test(d_tests, simple_integers)
 	assert_fmt(FMT_INT, "%-+30.3d", 234567);
 	assert_fmt(FMT_INT, "%030.3d", 234567);
 	assert_fmt(FMT_INT, "%030.10d", 234567);
-	*/
 }
 
 /* ------------------------ */

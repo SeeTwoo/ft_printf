@@ -25,7 +25,10 @@ static int	parse_spec(t_pf *pf, t_spec *spec)
 	if (*pf->format == '%')
 		return (spec->type = *pf->format, pf->format++, 0);
 	while (is_flag(*pf->format))
+	{
 		spec->flags |= g_flags[(unsigned char)*pf->format];
+		pf->format++;
+	}
 	if (isdigit(*pf->format))
 		spec->width = ft_strtoi(pf->format, &pf->format);
 	if (*pf->format == '.')

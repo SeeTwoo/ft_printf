@@ -6,6 +6,6 @@
 int	ft_printf(char const *format, ...);
 
 int	main(void) {
-	ft_printf("%d", INT_MIN);
+	ft_printf("%05d", 42);
 	return (0);
 }
