@@ -14,7 +14,7 @@ int	itoa_pf(uint64_t n, uint8_t div, char *buf, int i)
 	int	temp;
 
 	temp = i + 1;
-	while (n > div)
+	while (n >= div)
 	{
 		buf[i] = g_base_ten[n % div];
 		n /= div;
@@ -49,7 +49,7 @@ int	decimal_pf(t_pf *pf, t_spec spec, t_arg *arg)
 	if (arg->val.nbr >= 0)
 		arg->len_to_cpy = itoa_pf((uint64_t)arg->val.nbr, 10, arg->buf.dec, 9);
 	else
-		arg->len_to_cpy = itoa_pf((uint64_t)-arg->val.nbr, 10, arg->buf.dec, 9);
+		arg->len_to_cpy = itoa_pf(-((uint64_t)arg->val.nbr), 10, arg->buf.dec, 9);
 	arg->len = arg->len_to_cpy;
 	arg->to_cpy = arg->buf.dec + (10 - arg->len_to_cpy);
 	if (arg->val.nbr < 0 || (arg->val.nbr >= 0 && (spec.flags & SPACE || spec.flags & PLUS)))
