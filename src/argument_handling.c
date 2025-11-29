@@ -26,7 +26,8 @@ static int	parse_spec(t_pf *pf, t_spec *spec)
 		return (spec->type = *pf->format, pf->format++, 0);
 	while (is_flag(*pf->format))
 		spec->flags |= g_flags[(unsigned char)*pf->format];
-	spec->width = ft_strtoi(pf->format, &pf->format);
+	if (isdigit(*pf->format))
+		spec->width = ft_strtoi(pf->format, &pf->format);
 	if (*pf->format == '.')
 		spec->precision = ft_strtoi(pf->format + 1, &pf->format);
 	spec->type = g_types[(unsigned char)*pf->format];
@@ -75,5 +76,6 @@ int	argument_handling(t_pf *pf)
  	memcpy(arg.arg_dest, arg.to_cpy, arg.len_to_cpy);
 	if (arg.padding_len > 0)
 		memset(arg.padding, ' ', arg.padding_len);
+	pf->len += arg.full_len;
 	return (0);
 }
