@@ -10,7 +10,7 @@ int		decimal_pf(t_pf *pf, t_spec spec, t_arg *arg);
 //int		string_pf(t_pf *pf, t_spec spec);
 //int		unsigned_base_pf(t_pf *pf, t_spec spec);
 
-static const int	g_types[256] = {
+static const enum e_type	g_types[256] = {
 ['%'] = PERCENT,
 ['X'] = UPHEX,
 ['c'] = CHAR,

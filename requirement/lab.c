@@ -18,38 +18,29 @@ long	get_time_ms(void)
 
 void	wait_for_start(long start_time)
 {
-	long	time;
-
-	time = (start_time - get_time_ms()) / 2;
 	while (get_time_ms() < start_time)
-	{
-		usleep(time);
-		time = (start_time - get_time_ms()) / 2;
-	}
+		usleep(2);
 }
+
+#define HD "bash : "
+#define CMD_FND "command not found : "
+#define WRONG "catte"
 
 int	main(void)
 {
-	char	a[2050];
-	char	b[2050];
-
-	memset(a, 'a', 2049);
-	memset(b, 'b', 2049);
-	a[2049] = '\0';
-	b[2049] = '\0';
 	int		pids[2];
 
-	long	start_time = get_time_ms() + 3000;
+	long	start_time = get_time_ms() + 100;
 	pids[0] = fork();
 	if (pids[0] == 0) {
 		wait_for_start(start_time);
-		printf("%s%s%s%s\n", a, a, a, a);
+		printf("%s%s%s\n", HD, CMD_FND, WRONG);
 		exit(EXIT_SUCCESS);
 	}
 	pids[1] = fork();
 	if (pids[1] == 0) {
 		wait_for_start(start_time);
-		printf("%s%s%s%s\n", b, b, b, b);
+		printf("%s%s%s\n", HD, CMD_FND, WRONG);
 		exit(EXIT_SUCCESS);
 	}
 	waitpid(pids[0], 0, 0);
