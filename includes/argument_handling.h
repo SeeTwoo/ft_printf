@@ -24,7 +24,7 @@ static const enum e_type	g_types[256] = {
 
 typedef	int	(*t_argfunc)(t_pf *pf, t_spec spec, t_arg *arg);
 
-static const t_argfunc	g_handlers[7] = {
+static const t_argfunc	g_handlers[8] = {
 [CHAR] = NULL, //&character_pf,
 [PTR] = NULL, //NULL, //&pointer_pf,
 [INT] = decimal_pf,
@@ -32,6 +32,7 @@ static const t_argfunc	g_handlers[7] = {
 [UPHEX] = NULL, //&uphex_pf,
 [LOHEX] = NULL, //&lohex_pf,
 [STR] = NULL, //&string_pf
+[PERCENT] = NULL
 };
 
 static const enum e_flag	g_flags[49] = {

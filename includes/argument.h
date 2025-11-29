@@ -39,10 +39,8 @@ struct s_arg
 	union u_arg	val;
 	char		*to_cpy;
 	size_t		len_to_cpy;
-	char		*arg_dest;
 	size_t		len;
 	size_t		zeroes;
-	char		*padding;
 	size_t		padding_len;
 	size_t		full_len;
 	union u_buf	buf;

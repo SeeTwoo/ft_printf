@@ -35,25 +35,43 @@ static int	parse_spec(t_pf *pf, t_spec *spec)
 	return (0);
 }
 
-static inline void	prefixing(t_spec spec, t_arg *arg)
+static inline void	prefixing(t_pf *pf, t_spec spec, t_arg arg)
 {
-	if (arg->type == INT && arg->val.nbr < 0)
-		*arg->arg_dest++ = '-';
-	else if (arg->type == INT && arg->val.nbr >= 0 && spec.flags & SPACE)
-		*arg->arg_dest++ = ' ';
-	else if (arg->type == INT && arg->val.nbr >= 0 && spec.flags & PLUS)
-		*arg->arg_dest++ = '+';
-	else if (arg->type == PTR || ((arg->type == LOHEX || arg->type == UPHEX) && spec.flags & SHARP))
+	if (arg.type == INT && arg.val.nbr < 0)
+		*(pf->buf + pf->len++) = '-';
+	else if (arg.type == INT && arg.val.nbr >= 0 && spec.flags & SPACE)
+		*(pf->buf + pf->len++) = ' ';
+	else if (arg.type == INT && arg.val.nbr >= 0 && spec.flags & PLUS)
+		*(pf->buf + pf->len++) = '+';
+	else if (arg.type == PTR || ((arg.type == LOHEX || arg.type == UPHEX) && spec.flags & SHARP))
 	{
-		memcpy(arg->arg_dest, "0x", 2);
-		arg->arg_dest += 2;
+		memcpy(pf->buf + pf->len, "0x", 2);
+		pf->len += 2;
 	}
 }
 
-static inline void	zeroes(t_arg *arg)
+static inline void	zeroes(t_pf *pf, t_arg arg)
 {
-	memset(arg->arg_dest, '0', arg->zeroes);
-	arg->arg_dest += arg->zeroes;
+	memset(pf->buf + pf->len, '0', arg.zeroes);
+	pf->len += arg.zeroes;
+}
+
+static void	writing_argument(t_pf *pf, t_spec spec, t_arg arg)
+{
+	prefixing(pf, spec, arg);
+	if (arg.zeroes > 0)
+		zeroes(pf, arg);
+ 	memcpy(pf->buf + pf->len, arg.to_cpy, arg.len_to_cpy);
+	pf->len += arg.len_to_cpy;
+}
+
+static void	writing_padding(t_pf *pf, t_arg arg)
+{
+	if (arg.padding_len > 0)
+	{
+		memset(pf->buf + pf->len, ' ', arg.padding_len);
+		pf->len += arg.padding_len;
+	}
 }
 
 int	argument_handling(t_pf *pf)
@@ -70,12 +88,15 @@ int	argument_handling(t_pf *pf)
 	arg_init(pf, spec, &arg);
 	if (pf_realloc(pf, arg.full_len) == -1)
 		return (-1);
-	prefixing(spec, &arg);
-	if (arg.zeroes > 0)
-		zeroes(&arg);
- 	memcpy(arg.arg_dest, arg.to_cpy, arg.len_to_cpy);
-	if (arg.padding_len > 0)
-		memset(arg.padding, ' ', arg.padding_len);
-	pf->len += arg.full_len;
+	if (spec.flags & DASH)
+	{
+		writing_argument(pf, spec, arg);
+		writing_padding(pf, arg);
+	}
+	else
+	{
+		writing_padding(pf, arg);
+		writing_argument(pf, spec, arg);
+	}
 	return (0);
 }
