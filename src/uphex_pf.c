@@ -17,6 +17,8 @@ int uphex_pf(t_pf *pf, t_spec spec, t_arg *arg)
 			16, arg->buf.hex + sizeof(arg->buf.hex) - 1, g_uphex_base);
 	arg->len = arg->len_to_cpy;
 	arg->to_cpy = arg->buf.hex + (sizeof(arg->buf.hex) - arg->len_to_cpy);
+	if (spec.flags & SHARP)
+		arg->len += 2;
 	arg->full_len = full_len(arg->len, spec.width);
 	zeroes(arg, spec);
 	arg->padding_len = arg->full_len - arg->len - arg->zeroes;

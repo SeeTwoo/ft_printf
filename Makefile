@@ -13,6 +13,7 @@ SRC_FILES = argument_handling.c \
 			ft_strtoi.c \
 			itoa_pf.c \
 			lohex_pf.c \
+			percent_pf.c \
 			pf_realloc.c \
 			regular_string.c \
 			string_pf.c \

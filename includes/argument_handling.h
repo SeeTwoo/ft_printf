@@ -16,7 +16,7 @@ int	ft_strtoi(char const *s, char const **end);
 
 int		char_pf(t_pf *pf, t_spec spec, t_arg *arg);
 int		decimal_pf(t_pf *pf, t_spec spec, t_arg *arg);
-//int		percent_pf(t_pf *pf, t_spec spec);
+int		percent_pf(t_pf *pf, t_spec spec, t_arg *arg);
 int		lohex_pf(t_pf *pf, t_spec spec, t_arg *arg);
 int		string_pf(t_pf *pf, t_spec spec, t_arg *arg);
 int		unsigned_pf(t_pf *pf, t_spec spec, t_arg *arg);
@@ -44,7 +44,7 @@ static const t_argfunc	g_handlers[8] = {
 [UPHEX] = uphex_pf,
 [LOHEX] = lohex_pf,
 [STR] = string_pf,
-[PERCENT] = NULL
+[PERCENT] = percent_pf
 };
 
 static const enum e_flag	g_flags[49] = {

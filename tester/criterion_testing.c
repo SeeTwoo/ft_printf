@@ -206,6 +206,7 @@ Test(x_tests, lowercase_hex)
 	assert_fmt(FMT_U_INT, "%x", 16);
 	assert_fmt(FMT_U_INT, "%x", 17);
 	assert_fmt(FMT_U_INT, "%x", 20);
+	assert_fmt(FMT_U_INT, "%#x", 20);
 /*
 	// %30u		160
 	// %1u		160
@@ -229,6 +230,7 @@ Test(X_tests, uppercase_hex)
 	assert_fmt(FMT_U_INT, "%X", 16);
 	assert_fmt(FMT_U_INT, "%X", 17);
 	assert_fmt(FMT_U_INT, "%X", 20);
+	assert_fmt(FMT_U_INT, "%#X", 20);
 }
 
 /* ------------------------ */

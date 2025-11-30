@@ -2,6 +2,7 @@
 # define ARGUMENT_H
 
 #include <stdint.h>
+#include <stddef.h>
 
 #include "e_type.h"
 

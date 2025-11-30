@@ -1,4 +1,3 @@
-
 #include "argument_handling.h"
 
 static inline int	is_flag(char const c)
@@ -13,7 +12,11 @@ static int	parse_spec(t_pf *pf, t_spec *spec)
 	spec->precision = -1;
 	pf->format++;
 	if (*pf->format == '%')
-		return (spec->type = *pf->format, pf->format++, 0);
+	{
+		spec->type = g_types[(unsigned char)*pf->format];
+		pf->format++;
+		return (0);
+	}
 	while (is_flag(*pf->format))
 	{
 		spec->flags |= g_flags[(unsigned char)*pf->format];
@@ -36,9 +39,14 @@ static void	prefixing(t_pf *pf, t_spec spec, t_arg *arg)
 		*(pf->buf + pf->len++) = ' ';
 	else if (spec.type == INT && arg->val.nbr >= 0 && spec.flags & PLUS)
 		*(pf->buf + pf->len++) = '+';
-	else if (spec.type == PTR || ((spec.type == LOHEX || spec.type == UPHEX) && spec.flags & SHARP))
+	else if (spec.type == PTR || ((spec.type == LOHEX) && spec.flags & SHARP))
 	{
 		memcpy(pf->buf + pf->len, "0x", 2);
+		pf->len += 2;
+	}
+	else if (spec.type == UPHEX && spec.flags & SHARP)
+	{
+		memcpy(pf->buf + pf->len, "0X", 2);
 		pf->len += 2;
 	}
 }
@@ -70,12 +78,7 @@ int	argument_handling(t_pf *pf)
 	t_arg		arg;
 	t_argfunc	arg_init;
 
-	arg.to_cpy = NULL;
-	arg.len_to_cpy = 0;
-	arg.len = 0;
-	arg.zeroes = 0;
-	arg.padding_len = 0;
-	arg.full_len = 0;
+	memset(&arg, 0, sizeof(arg));
 	if (parse_spec(pf, &spec) == -1)
 		return (-1);
 	arg_init = g_handlers[(unsigned char)(spec.type)];
