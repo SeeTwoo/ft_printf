@@ -153,7 +153,6 @@ static void assert_fmt(fmt_type type, const char *fmt, ...)
 /*         %c TESTS         */
 /* ------------------------ */
 
-/*
 Test(c_tests, simple_chars)
 {
 	assert_fmt(FMT_CHAR, "%c", 'a');
@@ -161,8 +160,10 @@ Test(c_tests, simple_chars)
 	assert_fmt(FMT_CHAR, "%-5c", 'a');
 	assert_fmt(FMT_CHAR, "%-5.5c", 'a');
 	assert_fmt(FMT_CHAR, "% -5.5c", 'a');
+	assert_fmt(FMT_CHAR, "%.0c", 'a');
+	assert_fmt(FMT_CHAR, "%0.0c", 'a');
+	assert_fmt(FMT_CHAR, "%5.0c", 'a');
 }
-*/
 
 /* ------------------------ */
 /*         %d TESTS         */
@@ -265,7 +266,8 @@ Test(s_tests, null_and_basic)
     assert_fmt(FMT_STR, "%s", NULL);
     assert_fmt(FMT_STR, "%20s", NULL);
     assert_fmt(FMT_STR, "%-20s", NULL);
-//    assert_fmt(FMT_STR, "%.2s", NULL);
+    assert_fmt(FMT_STR, "%.2s", NULL);
+    assert_fmt(FMT_STR, "%.7s", NULL);
     assert_fmt(FMT_STR, "hello, %s", "world");
     assert_fmt(FMT_STR, "%20s", "hello world");
     assert_fmt(FMT_STR, "%0.2s", "hello world");

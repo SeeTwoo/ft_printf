@@ -14,7 +14,7 @@
 int	pf_realloc(t_pf *pf, size_t n);
 int	ft_strtoi(char const *s, char const **end);
 
-//int		char_pf(t_pf *pf, t_spec spec);
+int		char_pf(t_pf *pf, t_spec spec, t_arg *arg);
 int		decimal_pf(t_pf *pf, t_spec spec, t_arg *arg);
 //int		percent_pf(t_pf *pf, t_spec spec);
 int		string_pf(t_pf *pf, t_spec spec, t_arg *arg);
@@ -35,7 +35,7 @@ static const enum e_type	g_types[256] = {
 typedef	int	(*t_argfunc)(t_pf *pf, t_spec spec, t_arg *arg);
 
 static const t_argfunc	g_handlers[8] = {
-[CHAR] = NULL, //&character_pf,
+[CHAR] = &char_pf,
 [PTR] = NULL, //NULL, //&pointer_pf,
 [INT] = decimal_pf,
 [UINT] = NULL, //&unsigned_pf,

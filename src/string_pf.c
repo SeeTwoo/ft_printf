@@ -8,8 +8,6 @@
 int		pf_realloc(t_pf *pf, size_t size);
 size_t	full_len(int len, int width);
 
-//static const char	g_null_string[7] = "(null)";
-
 void	str_len_to_display(t_arg *arg, t_spec spec)
 {
 	arg->len_to_cpy = strlen(arg->val.str);
@@ -20,7 +18,9 @@ void	str_len_to_display(t_arg *arg, t_spec spec)
 int	string_pf(t_pf *pf, t_spec spec, t_arg *arg)
 {
 	arg->val.str = va_arg(pf->arg, char *);
-	if (!arg->val.str)
+	if (!arg->val.str && spec.precision != -1 && spec.precision <= 6)
+		arg->val.str = "";
+	else if (!arg->val.str)
 		arg->val.str = "(null)";
 	str_len_to_display(arg, spec);
 	arg->to_cpy = arg->val.str;

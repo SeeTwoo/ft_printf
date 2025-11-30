@@ -9,6 +9,8 @@
 
 static const char	g_base_ten[11] = "0123456789";
 
+int	itoa_pf(uint64_t n, uint8_t div, char *buf, int i);
+
 int	itoa_pf(uint64_t n, uint8_t div, char *buf, int i)
 {
 	int	temp;
