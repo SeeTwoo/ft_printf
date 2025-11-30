@@ -7,7 +7,6 @@
 #include "spec_struct.h"
 
 int		full_len(int len, int width);
-int		pf_realloc(t_pf *pf, size_t n);
 void	zeroes(t_arg *arg, t_spec spec);
 
 int uphex_pf(t_pf *pf, t_spec spec, t_arg *arg)

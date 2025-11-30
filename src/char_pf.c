@@ -5,7 +5,6 @@
 #include "spec_struct.h"
 #include "flags.h"
 
-int		pf_realloc(t_pf *pf, size_t offset);
 size_t	full_len(int len, int width);
 
 int	char_pf(t_pf *pf, t_spec spec, t_arg *arg)

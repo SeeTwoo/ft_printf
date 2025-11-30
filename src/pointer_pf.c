@@ -7,7 +7,7 @@
 int		full_len(int len, int width);
 void	zeroes(t_arg *arg, t_spec spec);
 
-int	nil_pointer(t_pf *pf, t_spec spec, t_arg *arg)
+static int	nil_pointer(t_pf *pf, t_spec spec, t_arg *arg)
 {
 	(void)pf;
 	arg->to_cpy = "(nil)";

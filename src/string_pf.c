@@ -5,7 +5,6 @@
 #include "spec_struct.h"
 #include "argument.h"
 
-int		pf_realloc(t_pf *pf, size_t size);
 size_t	full_len(int len, int width);
 
 void	str_len_to_display(t_arg *arg, t_spec spec)

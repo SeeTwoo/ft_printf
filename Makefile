@@ -13,6 +13,7 @@ SRC_FILES = argument_handling.c \
 			ft_strtoi.c \
 			ft_vprintf.c \
 			itoa_pf.c \
+			length_functions.c \
 			lohex_pf.c \
 			percent_pf.c \
 			pointer_pf.c \
@@ -32,21 +33,21 @@ $(OBJ_DIR):
 	mkdir -p $(OBJ_DIR)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
-	$(CC) $(CFLAGS) -c $< -o $@
+	@$(CC) $(CFLAGS) -c $< -o $@
 
 OBJ = $(SRC:$(SRC_DIR)%.c=$(OBJ_DIR)%.o)
 
 $(NAME): $(OBJ)
-	ar rcs $(NAME) $(OBJ)
+	@ar rcs $(NAME) $(OBJ)
 
 tester: $(NAME)
-	rm -f tester/tester
-	cc	tester/integers_tests.c \
+	@rm -f tester/tester
+	@cc	tester/integers_tests.c \
 		tester/strings_and_chars_tests.c \
 		tester/hexa_tests.c \
 		tester/assert_fmt.c \
 		libftprintf.a -o tester/tester -lcriterion
-	./tester/tester --verbose
+	@./tester/tester --verbose
 
 debug:
 	$(MAKE) CFLAGS="$(DFLAGS)"
