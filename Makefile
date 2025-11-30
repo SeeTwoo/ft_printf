@@ -15,6 +15,7 @@ SRC_FILES = argument_handling.c \
 			itoa_pf.c \
 			lohex_pf.c \
 			percent_pf.c \
+			pointer_pf.c \
 			pf_realloc.c \
 			regular_string.c \
 			string_pf.c \
@@ -42,6 +43,7 @@ tester: $(NAME)
 	rm -f tester/tester
 	cc	tester/integers_tests.c \
 		tester/strings_and_chars_tests.c \
+		tester/hexa_tests.c \
 		tester/assert_fmt.c \
 		libftprintf.a -o tester/tester -lcriterion
 	./tester/tester --verbose

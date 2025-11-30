@@ -39,7 +39,7 @@ static void	prefixing(t_pf *pf, t_spec spec, t_arg *arg)
 		*(pf->buf + pf->len++) = ' ';
 	else if (spec.type == INT && arg->val.nbr >= 0 && spec.flags & PLUS)
 		*(pf->buf + pf->len++) = '+';
-	else if (spec.type == PTR || ((spec.type == LOHEX) && spec.flags & SHARP))
+	else if ((spec.type == PTR && arg->val.ptr) || ((spec.type == LOHEX) && spec.flags & SHARP))
 	{
 		memcpy(pf->buf + pf->len, "0x", 2);
 		pf->len += 2;

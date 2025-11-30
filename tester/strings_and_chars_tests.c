@@ -16,3 +16,8 @@ Test(c_tests, mandatory_chars)
     assert_fmt("%c", 'a');
     assert_fmt("%c", '\0');
 }
+
+Test(percent_tests, mandatory_percent)
+{
+	assert_fmt("%%");
+}

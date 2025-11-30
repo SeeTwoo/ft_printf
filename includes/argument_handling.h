@@ -18,6 +18,7 @@ int		char_pf(t_pf *pf, t_spec spec, t_arg *arg);
 int		decimal_pf(t_pf *pf, t_spec spec, t_arg *arg);
 int		percent_pf(t_pf *pf, t_spec spec, t_arg *arg);
 int		lohex_pf(t_pf *pf, t_spec spec, t_arg *arg);
+int		pointer_pf(t_pf *pf, t_spec spec, t_arg *arg);
 int		string_pf(t_pf *pf, t_spec spec, t_arg *arg);
 int		unsigned_pf(t_pf *pf, t_spec spec, t_arg *arg);
 int		uphex_pf(t_pf *pf, t_spec spec, t_arg *arg);
@@ -38,7 +39,7 @@ typedef	int	(*t_argfunc)(t_pf *pf, t_spec spec, t_arg *arg);
 
 static const t_argfunc	g_handlers[8] = {
 [CHAR] = &char_pf,
-[PTR] = NULL, //NULL, //&pointer_pf,
+[PTR] = pointer_pf,
 [INT] = decimal_pf,
 [UINT] = unsigned_pf,
 [UPHEX] = uphex_pf,
