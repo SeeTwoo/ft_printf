@@ -11,6 +11,7 @@ SRC_FILES = argument_handling.c \
 			ft_allocator.c \
 			ft_printf.c \
 			ft_strtoi.c \
+			ft_vprintf.c \
 			itoa_pf.c \
 			lohex_pf.c \
 			percent_pf.c \

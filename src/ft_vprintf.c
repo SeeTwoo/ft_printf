@@ -26,14 +26,14 @@ static int	init(t_pf *pf, char const *format)
 	return (0);
 }
 
-int	ft_printf(char const *format, ...)
+int	ft_vprintf(char const *format, va_list arg)
 {
 	t_pf	pf;
 	int		ret;
 
 	if (!format)
 		return (-1);
-	va_start(pf.arg, format);
+	va_copy(pf.arg, arg);
 	if (init(&pf, format) == 1)
 		return (-1);
 	while (*(pf.format))
