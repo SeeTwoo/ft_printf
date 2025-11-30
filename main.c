@@ -6,6 +6,8 @@
 int	ft_printf(char const *format, ...);
 
 int	main(void) {
-	ft_printf("%05d", 42);
+	int	ret;
+	ret = ft_printf("%s", NULL);
+	printf("\n\nreturn value is %d\n", ret);
 	return (0);
 }

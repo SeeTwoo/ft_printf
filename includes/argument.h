@@ -19,6 +19,7 @@ union u_buf
 	char	ptr[16];
 	char	dec[10];
 	char	hex[8];
+	char	str[8];
 };
 
 typedef struct s_arg	t_arg;

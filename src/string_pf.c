@@ -3,76 +3,28 @@
 #include "flags.h"
 #include "pf_struct.h"
 #include "spec_struct.h"
-#include "string_pf.h"
+#include "argument.h"
 
-int	pf_realloc(t_pf *pf, size_t size);
+int		pf_realloc(t_pf *pf, size_t size);
+size_t	full_len(int len, int width);
 
-static int	null_string(t_pf *pf, t_spec spec, t_str str)
+//static const char	g_null_string[7] = "(null)";
+
+void	str_len_to_display(t_arg *arg, t_spec spec)
 {
-	char	s[7];
-
-	strcpy(s, "(null)");
-	str.s = &s[0];
-	str.s_len = 6;
-	if (spec.precision != -1 && (size_t)(spec.precision) < str.s_len)
-		str.s_len = 0;
-	if (str.s_len > (size_t)spec.width)
-		str.full_len = str.s_len;
-	else
-		str.full_len = spec.width;
-	str.padding = str.full_len - str.s_len;
-	if (spec.flags & DASH)
-	{
-		str.s_start = pf->buf + pf->len;
-		str.padding_start = pf->buf + pf->len + str.s_len;
-	}
-	else
-	{
-		str.s_start = pf->buf + pf->len + str.padding;
-		str.padding_start = pf->buf + pf->len;
-	}
-	if (pf_realloc(pf, 6) == -1)
-		return (-1);
-	memcpy(str.s_start, str.s, str.s_len);
-	memset(str.padding_start, ' ', str.padding);
-	pf->len += str.full_len;
-	return (0);
+	arg->len_to_cpy = strlen(arg->val.str);
+	if (spec.precision != -1 && arg->len_to_cpy > (size_t)spec.precision)
+		arg->len_to_cpy = spec.precision;
 }
 
-static void	string_init(t_pf *pf, t_spec spec, t_str *str)
+int	string_pf(t_pf *pf, t_spec spec, t_arg *arg)
 {
-	str->s_len = strlen(str->s);
-	if (spec.precision != -1 && (size_t)(spec.precision) < str->s_len)
-		str->s_len = spec.precision;
-	if (str->s_len > (size_t)spec.width)
-		str->full_len = str->s_len;
-	else
-		str->full_len = spec.width;
-	str->padding = str->full_len - str->s_len;
-	if (spec.flags & DASH)
-	{
-		str->s_start = pf->buf + pf->len;
-		str->padding_start = pf->buf + pf->len + str->s_len;
-	}
-	else
-	{
-		str->s_start = pf->buf + pf->len + str->padding;
-		str->padding_start = pf->buf + pf->len;
-	}
-}
-
-int	string_pf(t_pf *pf, t_spec spec)
-{
-	t_str	str;
-
-	str.s = va_arg(pf->arg, char *);
-	if (!str.s)
-		return (null_string(pf, spec, str));
-	string_init(pf, spec, &str);
-	if (pf_realloc(pf, str.full_len) == -1)
-		return (-1);
-	memcpy(str.s_start, str.s, str.s_len);
-	memset(str.padding_start, ' ', str.padding);
-	pf->len += str.full_len;
+	arg->val.str = va_arg(pf->arg, char *);
+	if (!arg->val.str)
+		arg->val.str = "(null)";
+	str_len_to_display(arg, spec);
+	arg->to_cpy = arg->val.str;
+	arg->full_len = full_len((int)arg->len_to_cpy, spec.width);
+	arg->padding_len = arg->full_len - arg->len_to_cpy;
 	return (0);
 }

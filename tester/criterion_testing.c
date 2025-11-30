@@ -260,15 +260,15 @@ Test(u_tests, unsigned_integers)
 /*         %s TESTS         */
 /* ------------------------ */
 
-/*
 Test(s_tests, null_and_basic)
 {
     assert_fmt(FMT_STR, "%s", NULL);
+	/*
     assert_fmt(FMT_STR, "%20s", NULL);
     assert_fmt(FMT_STR, "%-20s", NULL);
     assert_fmt(FMT_STR, "%.2s", NULL);
     assert_fmt(FMT_STR, "hello, %s", "world");
     assert_fmt(FMT_STR, "%20s", "hello world");
     assert_fmt(FMT_STR, "%0.2s", "hello world");
+	*/
 }
-*/

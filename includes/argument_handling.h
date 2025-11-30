@@ -17,7 +17,7 @@ int	ft_strtoi(char const *s, char const **end);
 //int		char_pf(t_pf *pf, t_spec spec);
 int		decimal_pf(t_pf *pf, t_spec spec, t_arg *arg);
 //int		percent_pf(t_pf *pf, t_spec spec);
-//int		string_pf(t_pf *pf, t_spec spec);
+int		string_pf(t_pf *pf, t_spec spec, t_arg *arg);
 //int		unsigned_base_pf(t_pf *pf, t_spec spec);
 
 static const enum e_type	g_types[256] = {
@@ -41,7 +41,7 @@ static const t_argfunc	g_handlers[8] = {
 [UINT] = NULL, //&unsigned_pf,
 [UPHEX] = NULL, //&uphex_pf,
 [LOHEX] = NULL, //&lohex_pf,
-[STR] = NULL, //&string_pf
+[STR] = string_pf,
 [PERCENT] = NULL
 };
 

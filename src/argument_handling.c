@@ -28,13 +28,13 @@ static int	parse_spec(t_pf *pf, t_spec *spec)
 	return (0);
 }
 
-static void	prefixing(t_pf *pf, t_spec spec, t_arg arg)
+static void	prefixing(t_pf *pf, t_spec spec, t_arg *arg)
 {
-	if (spec.type == INT && arg.val.nbr < 0)
+	if (spec.type == INT && arg->val.nbr < 0)
 		*(pf->buf + pf->len++) = '-';
-	else if (spec.type == INT && arg.val.nbr >= 0 && spec.flags & SPACE)
+	else if (spec.type == INT && arg->val.nbr >= 0 && spec.flags & SPACE)
 		*(pf->buf + pf->len++) = ' ';
-	else if (spec.type == INT && arg.val.nbr >= 0 && spec.flags & PLUS)
+	else if (spec.type == INT && arg->val.nbr >= 0 && spec.flags & PLUS)
 		*(pf->buf + pf->len++) = '+';
 	else if (spec.type == PTR || ((spec.type == LOHEX || spec.type == UPHEX) && spec.flags & SHARP))
 	{
@@ -43,25 +43,25 @@ static void	prefixing(t_pf *pf, t_spec spec, t_arg arg)
 	}
 }
 
-static void	zeroes(t_pf *pf, t_arg arg)
+static void	zeroes(t_pf *pf, t_arg *arg)
 {
-	memset(pf->buf + pf->len, '0', arg.zeroes);
-	pf->len += arg.zeroes;
+	memset(pf->buf + pf->len, '0', arg->zeroes);
+	pf->len += arg->zeroes;
 }
 
-static void	writing_argument(t_pf *pf, t_spec spec, t_arg arg)
+static void	writing_argument(t_pf *pf, t_spec spec, t_arg *arg)
 {
 	prefixing(pf, spec, arg);
-	if (arg.zeroes > 0)
+	if (arg->zeroes > 0)
 		zeroes(pf, arg);
- 	memcpy(pf->buf + pf->len, arg.to_cpy, arg.len_to_cpy);
-	pf->len += arg.len_to_cpy;
+ 	memcpy(pf->buf + pf->len, arg->to_cpy, arg->len_to_cpy);
+	pf->len += arg->len_to_cpy;
 }
 
-static void	writing_padding(t_pf *pf, t_arg arg)
+static void	writing_padding(t_pf *pf, t_arg *arg)
 {
-	memset(pf->buf + pf->len, ' ', arg.padding_len);
-	pf->len += arg.padding_len;
+	memset(pf->buf + pf->len, ' ', arg->padding_len);
+	pf->len += arg->padding_len;
 }
 
 int	argument_handling(t_pf *pf)
@@ -79,9 +79,9 @@ int	argument_handling(t_pf *pf)
 	if (pf_realloc(pf, arg.full_len) == -1)
 		return (-1);
 	if (!(spec.flags & DASH) && arg.padding_len > 0)
-		writing_padding(pf, arg);
-	writing_argument(pf, spec, arg);
+		writing_padding(pf, &arg);
+	writing_argument(pf, spec, &arg);
 	if (spec.flags & DASH && arg.padding_len > 0)
-		writing_padding(pf, arg);
+		writing_padding(pf, &arg);
 	return (0);
 }
