@@ -70,6 +70,12 @@ int	argument_handling(t_pf *pf)
 	t_arg		arg;
 	t_argfunc	arg_init;
 
+	arg.to_cpy = NULL;
+	arg.len_to_cpy = 0;
+	arg.len = 0;
+	arg.zeroes = 0;
+	arg.padding_len = 0;
+	arg.full_len = 0;
 	if (parse_spec(pf, &spec) == -1)
 		return (-1);
 	arg_init = g_handlers[(unsigned char)(spec.type)];

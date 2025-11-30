@@ -18,7 +18,7 @@ void	*ft_malloc(size_t s)
 	ptr = malloc(sizeof(size_t) + s);
 	if (!ptr)
 		return (NULL);
-	*ptr = s;
+	*(size_t *)ptr = s;
 	return (ptr + sizeof(size_t));
 }
 
@@ -32,7 +32,7 @@ void	*ft_realloc(void *ptr, size_t size)
 		return (dest);
 	if (!dest)
 		return (ft_free(ptr), NULL);
-	old = *((char *)ptr - sizeof(size_t));
+	old = *(size_t *)((char *)ptr - sizeof(size_t));
 	if (size < old)
 		memcpy(dest, ptr, size);
 	else
