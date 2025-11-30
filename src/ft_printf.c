@@ -50,5 +50,6 @@ int	ft_printf(char const *format, ...)
 	}
 	ret = write(1, pf.buf, pf.len);
 	ft_free(pf.buf);
+	va_end(pf.arg);
 	return (ret);
 }
