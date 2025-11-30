@@ -199,7 +199,6 @@ Test(d_tests, simple_integers)
 /*         %x TESTS         */
 /* ------------------------ */
 
-/*
 Test(x_tests, lowercase_hex)
 {
 	assert_fmt(FMT_U_INT, "%x", 0);
@@ -207,6 +206,7 @@ Test(x_tests, lowercase_hex)
 	assert_fmt(FMT_U_INT, "%x", 16);
 	assert_fmt(FMT_U_INT, "%x", 17);
 	assert_fmt(FMT_U_INT, "%x", 20);
+/*
 	// %30u		160
 	// %1u		160
 	// %.1		160
@@ -215,14 +215,13 @@ Test(x_tests, lowercase_hex)
 	// %30.5	160
 	// %1.1		160
 	// %1.5		160
-}
 */
+}
 
 /* ------------------------ */
 /*         %X TESTS         */
 /* ------------------------ */
 
-/*
 Test(X_tests, uppercase_hex)
 {
 	assert_fmt(FMT_U_INT, "%X", 0);
@@ -231,13 +230,11 @@ Test(X_tests, uppercase_hex)
 	assert_fmt(FMT_U_INT, "%X", 17);
 	assert_fmt(FMT_U_INT, "%X", 20);
 }
-*/
 
 /* ------------------------ */
 /*         %u TESTS         */
 /* ------------------------ */
 
-/*
 Test(u_tests, unsigned_integers)
 {
 	assert_fmt(FMT_U_INT, "%u", 0);
@@ -255,7 +252,6 @@ Test(u_tests, unsigned_integers)
 	assert_fmt(FMT_U_INT, "%30u", 3045);
 	assert_fmt(FMT_U_INT, "%-30u", 3045);
 }
-*/
 
 /* ------------------------ */
 /*         %s TESTS         */

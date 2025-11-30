@@ -4,29 +4,9 @@
 
 #include "argument.h"
 #include "flags.h"
+#include "itoa_pf.h"
 #include "pf_struct.h"
 #include "spec_struct.h"
-
-static const char	g_base_ten[11] = "0123456789";
-
-//int	itoa_pf(uint64_t n, uint8_t div, char *buf, int i);
-
-int	itoa_pf(uint64_t n, uint8_t div, char *buf, char const *base)
-{
-	int	len;
-
-	len = 0;
-	while (n >= div)
-	{
-		*buf = base[n % div];
-		n /= div;
-		len++;
-		buf--;
-	}
-	*buf = g_base_ten[n];
-	len++;
-	return (len);
-}
 
 size_t	full_len(int len, int width)
 {
@@ -57,7 +37,6 @@ int	decimal_pf(t_pf *pf, t_spec spec, t_arg *arg)
 	arg->to_cpy = arg->buf.dec + (10 - arg->len_to_cpy);
 	if (arg->val.nbr < 0 || (arg->val.nbr >= 0 && (spec.flags & SPACE || spec.flags & PLUS)))
 		arg->len++;
-
 	arg->full_len = full_len(arg->len, spec.width);
 	zeroes(arg, spec);
 	arg->padding_len = arg->full_len - arg->len - arg->zeroes;

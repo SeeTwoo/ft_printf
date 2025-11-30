@@ -11,9 +11,13 @@ SRC_FILES = argument_handling.c \
 			ft_allocator.c \
 			ft_printf.c \
 			ft_strtoi.c \
+			itoa_pf.c \
+			lohex_pf.c \
 			pf_realloc.c \
 			regular_string.c \
-			string_pf.c
+			string_pf.c \
+			unsigned_pf.c \
+			uphex_pf.c
 
 SRC = $(addprefix $(SRC_DIR)/, $(SRC_FILES))
 

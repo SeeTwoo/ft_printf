@@ -17,8 +17,10 @@ int	ft_strtoi(char const *s, char const **end);
 int		char_pf(t_pf *pf, t_spec spec, t_arg *arg);
 int		decimal_pf(t_pf *pf, t_spec spec, t_arg *arg);
 //int		percent_pf(t_pf *pf, t_spec spec);
+int		lohex_pf(t_pf *pf, t_spec spec, t_arg *arg);
 int		string_pf(t_pf *pf, t_spec spec, t_arg *arg);
-//int		unsigned_base_pf(t_pf *pf, t_spec spec);
+int		unsigned_pf(t_pf *pf, t_spec spec, t_arg *arg);
+int		uphex_pf(t_pf *pf, t_spec spec, t_arg *arg);
 
 static const enum e_type	g_types[256] = {
 ['%'] = PERCENT,
@@ -38,9 +40,9 @@ static const t_argfunc	g_handlers[8] = {
 [CHAR] = &char_pf,
 [PTR] = NULL, //NULL, //&pointer_pf,
 [INT] = decimal_pf,
-[UINT] = NULL, //&unsigned_pf,
-[UPHEX] = NULL, //&uphex_pf,
-[LOHEX] = NULL, //&lohex_pf,
+[UINT] = unsigned_pf,
+[UPHEX] = uphex_pf,
+[LOHEX] = lohex_pf,
 [STR] = string_pf,
 [PERCENT] = NULL
 };
