@@ -14,28 +14,6 @@
 	*/
 
 # define PAIRS "00010203040506070809101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899"
-# define INT_MIN_STR "-2147483648"
 
-typedef struct s_nbr
-{
-	long	n;
-	long	abs;
-	int		pair;
-	int		len;
-	int		padding;
-	char	padding_char;
-	char	*padding_start;
-	char	*number_start;
-	char	*temp;
-	int		full_len;
-	char	pairs_literal[200];
-}	t_nbr;
-/*
-	int		n;
-	int		len;
-	int		pair;
-	char	*temp;
-	char	pairs_literals[200];
-	*/
 
 #endif
