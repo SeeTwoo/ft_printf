@@ -1,16 +1,16 @@
 #include "itoa_pf.h"
 
-int	itoa_pf(uint64_t n, uint8_t div, char *buf, int i)
+int	itoa_pf(t_itoa *itoa)
 {
 	int	temp;
 
-	temp = i + 1;
-	while (n >= div)
+	temp = itoa->i + 1;
+	while (itoa->n >= itoa->div)
 	{
-		buf[i] = g_base_ten[n % div];
-		n /= div;
-		i--;
+		itoa->buf[itoa->i] = itoa->base[itoa->n % itoa->div];
+		itoa->n /= itoa->div;
+		itoa->i--;
 	}
-	buf[i] = g_base_ten[n];
-	return (temp - i);
+	itoa->buf[itoa->i] = itoa->base[itoa->n];
+	return (temp - itoa->i);
 }

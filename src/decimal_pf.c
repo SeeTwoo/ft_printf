@@ -9,21 +9,23 @@
 
 static const char	g_base_ten[11] = "0123456789";
 
-int	itoa_pf(uint64_t n, uint8_t div, char *buf, int i);
+//int	itoa_pf(uint64_t n, uint8_t div, char *buf, int i);
 
-int	itoa_pf(uint64_t n, uint8_t div, char *buf, int i)
+int	itoa_pf(uint64_t n, uint8_t div, char *buf, char const *base)
 {
-	int	temp;
+	int	len;
 
-	temp = i + 1;
+	len = 0;
 	while (n >= div)
 	{
-		buf[i] = g_base_ten[n % div];
+		*buf = base[n % div];
 		n /= div;
-		i--;
+		len++;
+		buf--;
 	}
-	buf[i] = g_base_ten[n];
-	return (temp - i);
+	*buf = g_base_ten[n];
+	len++;
+	return (len);
 }
 
 size_t	full_len(int len, int width)
@@ -46,11 +48,11 @@ void	zeroes(t_arg *arg, t_spec spec)
 
 int	decimal_pf(t_pf *pf, t_spec spec, t_arg *arg)
 {
-	arg->val.nbr = (long)va_arg(pf->arg, int);
+	arg->val.nbr = va_arg(pf->arg, int);
 	if (arg->val.nbr >= 0)
-		arg->len_to_cpy = itoa_pf((uint64_t)arg->val.nbr, 10, arg->buf.dec, 9);
+		arg->len_to_cpy = itoa_pf((uint64_t)arg->val.nbr, 10, arg->buf.dec + 9, g_base_ten);
 	else
-		arg->len_to_cpy = itoa_pf(-((uint64_t)arg->val.nbr), 10, arg->buf.dec, 9);
+		arg->len_to_cpy = itoa_pf(-((uint64_t)arg->val.nbr), 10, arg->buf.dec + 9, g_base_ten);
 	arg->len = arg->len_to_cpy;
 	arg->to_cpy = arg->buf.dec + (10 - arg->len_to_cpy);
 	if (arg->val.nbr < 0 || (arg->val.nbr >= 0 && (spec.flags & SPACE || spec.flags & PLUS)))
