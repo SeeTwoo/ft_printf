@@ -1,10 +1,10 @@
 #ifndef ARGUMENT_H
 # define ARGUMENT_H
 
-#include <stdint.h>
-#include <stddef.h>
+# include <stdint.h>
+# include <stddef.h>
 
-#include "e_type.h"
+# include "e_type.h"
 
 union u_arg
 {

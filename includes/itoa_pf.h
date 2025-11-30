@@ -1,7 +1,7 @@
 #ifndef ITOA_PF_H
 # define ITOA_PF_H
 
-#include <stdint.h>
+# include <stdint.h>
 
 static const char	g_base_ten[11] = "0123456789";
 static const char	g_lohex_base[17] = "0123456789abcdef";

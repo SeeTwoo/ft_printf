@@ -1,7 +1,7 @@
-#ifndef STRUCT_OPTIONS_H
-# define STRUCT_OPTIONS_H
+#ifndef SPEC_STRUCT_H
+# define SPEC_STRUCT_H
 
-#include "e_type.h"
+# include "e_type.h"
 
 typedef struct s_spec	t_spec;
 
