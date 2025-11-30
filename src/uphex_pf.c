@@ -9,7 +9,7 @@
 int		full_len(int len, int width);
 void	zeroes(t_arg *arg, t_spec spec);
 
-int uphex_pf(t_pf *pf, t_spec spec, t_arg *arg)
+int	uphex_pf(t_pf *pf, t_spec spec, t_arg *arg)
 {
 	arg->val.unbr = va_arg(pf->arg, unsigned int);
 	arg->len_to_cpy = itoa_pf((uint64_t)arg->val.unbr,

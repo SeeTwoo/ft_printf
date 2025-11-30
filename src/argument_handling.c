@@ -1,9 +1,13 @@
 #include "argument_handling.h"
-
+/*
 static inline int	is_flag(char const c)
 {
 	return (c == ' ' || c == '+' || c == '-' || c == '0' || c == '#');
 }
+
+this should sit as the condition for the while in parse spec but...
+norm you know
+*/
 
 static int	parse_spec(t_pf *pf, t_spec *spec)
 {
@@ -17,7 +21,8 @@ static int	parse_spec(t_pf *pf, t_spec *spec)
 		pf->format++;
 		return (0);
 	}
-	while (is_flag(*pf->format))
+	while (*pf->format == ' ' || *pf->format == '+' || *pf->format == '-'
+		|| *pf->format == '0' || *pf->format == '#')
 	{
 		spec->flags |= g_flags[(unsigned char)*pf->format];
 		pf->format++;
@@ -39,7 +44,8 @@ static void	prefixing(t_pf *pf, t_spec spec, t_arg *arg)
 		*(pf->buf + pf->len++) = ' ';
 	else if (spec.type == INT && arg->val.nbr >= 0 && spec.flags & PLUS)
 		*(pf->buf + pf->len++) = '+';
-	else if ((spec.type == PTR && arg->val.ptr) || ((spec.type == LOHEX) && spec.flags & SHARP))
+	else if ((spec.type == PTR && arg->val.ptr)
+		|| ((spec.type == LOHEX) && spec.flags & SHARP))
 	{
 		memcpy(pf->buf + pf->len, "0x", 2);
 		pf->len += 2;
@@ -51,18 +57,15 @@ static void	prefixing(t_pf *pf, t_spec spec, t_arg *arg)
 	}
 }
 
-static void	zeroes(t_pf *pf, t_arg *arg)
-{
-	memset(pf->buf + pf->len, '0', arg->zeroes);
-	pf->len += arg->zeroes;
-}
-
 static void	writing_argument(t_pf *pf, t_spec spec, t_arg *arg)
 {
 	prefixing(pf, spec, arg);
 	if (arg->zeroes > 0)
-		zeroes(pf, arg);
- 	memcpy(pf->buf + pf->len, arg->to_cpy, arg->len_to_cpy);
+	{
+		memset(pf->buf + pf->len, '0', arg->zeroes);
+		pf->len += arg->zeroes;
+	}
+	memcpy(pf->buf + pf->len, arg->to_cpy, arg->len_to_cpy);
 	pf->len += arg->len_to_cpy;
 }
 
