@@ -40,7 +40,10 @@ $(NAME): $(OBJ)
 
 tester: $(NAME)
 	rm -f tester/tester
-	cc tester/criterion_testing.c libftprintf.a -o tester/tester -lcriterion
+	cc	tester/integers_tests.c \
+		tester/strings_and_chars_tests.c \
+		tester/assert_fmt.c \
+		libftprintf.a -o tester/tester -lcriterion
 	./tester/tester --verbose
 
 debug:
