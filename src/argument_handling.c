@@ -9,6 +9,37 @@ this should sit as the condition for the while in parse spec but...
 norm you know
 */
 
+static const t_argfunc		g_handlers[8] = {
+[CHAR] = &char_pf,
+[PTR] = pointer_pf,
+[INT] = decimal_pf,
+[UINT] = unsigned_pf,
+[UPHEX] = uphex_pf,
+[LOHEX] = lohex_pf,
+[STR] = string_pf,
+[PERCENT] = percent_pf
+};
+
+static const enum e_type	g_types[256] = {
+['%'] = PERCENT,
+['X'] = UPHEX,
+['c'] = CHAR,
+['d'] = INT,
+['i'] = INT,
+['p'] = PTR,
+['s'] = STR,
+['u'] = UINT,
+['x'] = LOHEX,
+};
+
+static const enum e_flag	g_flags[49] = {
+[' '] = SPACE,
+['#'] = SHARP,
+['-'] = DASH,
+['+'] = PLUS,
+['0'] = ZERO,
+};
+
 static int	parse_spec(t_pf *pf, t_spec *spec)
 {
 	spec->flags = 0;
