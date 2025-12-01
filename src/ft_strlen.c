@@ -12,8 +12,6 @@
 
 #include <stddef.h>
 #include <stdint.h>
-#include <string.h>
-#include <stdio.h>
 
 size_t	ft_strlen(char const *s)
 {

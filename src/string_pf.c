@@ -1,15 +1,14 @@
-#include <string.h>
-
 #include "flags.h"
 #include "pf_struct.h"
 #include "spec_struct.h"
+#include "ft_string.h"
 #include "argument.h"
 
 size_t	full_len(int len, int width);
 
 void	str_len_to_display(t_arg *arg, t_spec spec)
 {
-	arg->len_to_cpy = strlen(arg->val.str);
+	arg->len_to_cpy = ft_strlen(arg->val.str);
 	if (spec.precision != -1 && arg->len_to_cpy > (size_t)spec.precision)
 		arg->len_to_cpy = spec.precision;
 }

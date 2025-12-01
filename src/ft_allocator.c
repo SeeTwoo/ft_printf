@@ -1,5 +1,6 @@
-#include <string.h>
 #include <stdlib.h>
+
+#include "ft_string.h"
 
 void	ft_free(void *ptr)
 {
@@ -34,9 +35,9 @@ void	*ft_realloc(void *ptr, size_t size)
 		return (ft_free(ptr), NULL);
 	old = *(size_t *)((char *)ptr - sizeof(size_t));
 	if (size < old)
-		memcpy(dest, ptr, size);
+		ft_memcpy(dest, ptr, size);
 	else
-		memcpy(dest, ptr, old);
+		ft_memcpy(dest, ptr, old);
 	ft_free(ptr);
 	return (dest);
 }

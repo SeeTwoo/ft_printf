@@ -1,9 +1,5 @@
 #include <stdarg.h>
-#include <stdlib.h>
 #include <unistd.h>
-#include <string.h>
-#include <ctype.h>
-#include <limits.h>
 
 #include "flags.h"
 #include "pf_struct.h"

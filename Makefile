@@ -9,7 +9,11 @@ SRC_FILES = argument_handling.c \
 			char_pf.c \
 			decimal_pf.c \
 			ft_allocator.c \
+			ft_isdigit.c \
+			ft_memcpy.c \
+			ft_memset.c \
 			ft_printf.c \
+			ft_strlen.c \
 			ft_strtoi.c \
 			ft_vprintf.c \
 			itoa_pf.c \

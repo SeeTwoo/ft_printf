@@ -58,7 +58,7 @@ static int	parse_spec(t_pf *pf, t_spec *spec)
 		spec->flags |= g_flags[(unsigned char)*pf->format];
 		pf->format++;
 	}
-	if (isdigit(*pf->format))
+	if (ft_isdigit(*pf->format))
 		spec->width = ft_strtoi(pf->format, &pf->format);
 	if (*pf->format == '.')
 		spec->precision = ft_strtoi(pf->format + 1, &pf->format);
@@ -78,12 +78,12 @@ static void	prefixing(t_pf *pf, t_spec spec, t_arg *arg)
 	else if ((spec.type == PTR && arg->val.ptr)
 		|| ((spec.type == LOHEX) && spec.flags & SHARP))
 	{
-		memcpy(pf->buf + pf->len, "0x", 2);
+		ft_memcpy(pf->buf + pf->len, "0x", 2);
 		pf->len += 2;
 	}
 	else if (spec.type == UPHEX && spec.flags & SHARP)
 	{
-		memcpy(pf->buf + pf->len, "0X", 2);
+		ft_memcpy(pf->buf + pf->len, "0X", 2);
 		pf->len += 2;
 	}
 }
@@ -93,16 +93,16 @@ static void	writing_argument(t_pf *pf, t_spec spec, t_arg *arg)
 	prefixing(pf, spec, arg);
 	if (arg->zeroes > 0)
 	{
-		memset(pf->buf + pf->len, '0', arg->zeroes);
+		ft_memset(pf->buf + pf->len, '0', arg->zeroes);
 		pf->len += arg->zeroes;
 	}
-	memcpy(pf->buf + pf->len, arg->to_cpy, arg->len_to_cpy);
+	ft_memcpy(pf->buf + pf->len, arg->to_cpy, arg->len_to_cpy);
 	pf->len += arg->len_to_cpy;
 }
 
 static void	writing_padding(t_pf *pf, t_arg *arg)
 {
-	memset(pf->buf + pf->len, ' ', arg->padding_len);
+	ft_memset(pf->buf + pf->len, ' ', arg->padding_len);
 	pf->len += arg->padding_len;
 }
 
@@ -112,7 +112,7 @@ int	argument_handling(t_pf *pf)
 	t_arg		arg;
 	t_argfunc	arg_init;
 
-	memset(&arg, 0, sizeof(arg));
+	ft_memset(&arg, 0, sizeof(arg));
 	if (parse_spec(pf, &spec) == -1)
 		return (-1);
 	arg_init = g_handlers[(unsigned char)(spec.type)];

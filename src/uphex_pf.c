@@ -1,5 +1,3 @@
-#include <string.h>
-
 #include "argument.h"
 #include "flags.h"
 #include "itoa_pf.h"
