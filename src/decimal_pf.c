@@ -7,7 +7,7 @@
 #include "pf_struct.h"
 #include "spec_struct.h"
 
-size_t	full_len(int len, int width);
+void	full_len(t_arg *arg, t_spec spec);
 int		itoa_pf(uint64_t n, uint8_t div, char *buf, char const *base);
 void	zeroes(t_arg *arg, t_spec spec);
 
@@ -16,16 +16,16 @@ int	decimal_pf(t_pf *pf, t_spec spec, t_arg *arg)
 	arg->val.nbr = va_arg(pf->arg, int);
 	if (arg->val.nbr >= 0)
 		arg->len_to_cpy = itoa_pf((uint64_t)arg->val.nbr, 10,
-				arg->buf.dec + 9, "0123456789");
+				arg->buf + sizeof(arg->buf) - 1, "0123456789");
 	else
 		arg->len_to_cpy = itoa_pf(-((uint64_t)arg->val.nbr), 10,
-				arg->buf.dec + 9, "0123456789");
+				arg->buf + sizeof(arg->buf) - 1, "0123456789");
 	arg->len = arg->len_to_cpy;
-	arg->to_cpy = arg->buf.dec + (10 - arg->len_to_cpy);
+	arg->to_cpy = arg->buf + (sizeof(arg->buf) - arg->len_to_cpy);
 	if (arg->val.nbr < 0 || (arg->val.nbr >= 0
 			&& (spec.flags & SPACE || spec.flags & PLUS)))
 		arg->len++;
-	arg->full_len = full_len(arg->len, spec.width);
+	full_len(arg, spec);
 	zeroes(arg, spec);
 	arg->padding_len = arg->full_len - arg->len - arg->zeroes;
 	return (0);

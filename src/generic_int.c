@@ -4,12 +4,14 @@
 #include "flags.h"
 #include "spec_struct.h"
 
-size_t	full_len(int len, int width)
+void	full_len(t_arg *arg, t_spec spec)
 {
-	if (width != -1 && width > len)
-		return (width);
+	if (spec.precision != -1 && (size_t)spec.precision > arg->len)
+		arg->full_len = spec.precision;
+	else if (spec.width != -1 && (size_t)spec.width > arg->len)
+		arg->full_len = spec.width;
 	else
-		return (len);
+		arg->full_len = arg->len;
 }
 
 void	zeroes(t_arg *arg, t_spec spec)
@@ -17,6 +19,8 @@ void	zeroes(t_arg *arg, t_spec spec)
 	if (spec.precision == -1 && spec.flags & ZERO)
 		arg->zeroes = arg->full_len - arg->len;
 	else if (spec.flags & ZERO && spec.precision > (int)arg->len)
+		arg->zeroes = spec.precision - arg->len;
+	else if (spec.precision > (int)arg->len)
 		arg->zeroes = spec.precision - arg->len;
 	else
 		arg->zeroes = 0;

@@ -8,7 +8,7 @@ int	ft_printf(char const *format, ...);
 int	main(void) {
 	int	ret;
 
-	ret = ft_printf("%%\n");
+	ret = ft_printf("%.5d", 0);
 	printf("\n\nreturn value is %d\n", ret);
 	return (0);
 }

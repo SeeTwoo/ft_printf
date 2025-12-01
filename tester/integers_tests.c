@@ -19,6 +19,8 @@ Test(d_tests, bonus_integers)
     assert_fmt("%.5d", 0);
     assert_fmt("%5d", 1);
     assert_fmt("%.5d", 1);
+	assert_fmt("%.0d", 1);
+	assert_fmt("%5.0d", 1);
 }
 
 Test(u_tests, mandatory_unsigned)

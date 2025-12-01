@@ -15,13 +15,6 @@ union u_arg
 	uint32_t	unbr;
 };
 
-union u_buf
-{
-	char	ptr[16];
-	char	dec[10];
-	char	hex[8];
-};
-
 typedef struct s_arg	t_arg;
 
 struct s_arg
@@ -33,7 +26,7 @@ struct s_arg
 	size_t		zeroes;
 	size_t		padding_len;
 	size_t		full_len;
-	union u_buf	buf;
+	char		buf[16];
 };
 
 #endif
