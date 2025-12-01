@@ -16,8 +16,7 @@ SRC_FILES = argument_handling.c \
 			ft_strlen.c \
 			ft_strtoi.c \
 			ft_vprintf.c \
-			itoa_pf.c \
-			length_functions.c \
+			generic_int.c \
 			lohex_pf.c \
 			percent_pf.c \
 			pointer_pf.c \
