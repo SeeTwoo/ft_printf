@@ -13,6 +13,16 @@ Test(d_tests, mandatory_integers)
     assert_fmt("%d", INT_MIN);
 }
 
+Test(d_bonus_tests, bonus_integers)
+{
+    assert_fmt("%5d", 0);
+    assert_fmt("%.5d", 0);
+    assert_fmt("%d", -1);
+    assert_fmt("%d", 1);
+    assert_fmt("%d", INT_MAX);
+    assert_fmt("%d", INT_MIN);
+}
+
 Test(u_tests, mandatory_unsigned)
 {
     assert_fmt("%u", 0);
