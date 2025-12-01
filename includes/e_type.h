@@ -10,7 +10,8 @@ enum e_type
 	UPHEX,
 	LOHEX,
 	STR,
-	PERCENT
+	PERCENT,
+	WRONG
 };
 
 #endif
