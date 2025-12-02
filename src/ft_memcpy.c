@@ -2,6 +2,7 @@
 #include <emmintrin.h>
 #include <stdio.h>
 
+/*
 void	*ft_memcpy(void *dest, void const *src, size_t n)
 {
 	__m128i	vect;
@@ -18,6 +19,17 @@ void	*ft_memcpy(void *dest, void const *src, size_t n)
 	}
 	while (n-- > 0)
 		*((char *)dest++) = *((char *)src++);
+	return (ret);
+}
+*/
+
+void	*ft_memcpy(void *dest, void const *src, size_t n)
+{
+	void	*ret;
+
+	ret = dest;
+	while (n--)
+		*(char *)dest++ = *(char *)src++;
 	return (ret);
 }
 
