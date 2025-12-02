@@ -49,9 +49,10 @@ tester: $(NAME)
 		tester/integers_tests.c \
 		tester/strings_and_chars_tests.c \
 		tester/hexa_tests.c \
+		tester/pointer_tests.c \
 		tester/assert_fmt.c \
 		libftprintf.a -o tester/tester -lcriterion
-	@./tester/tester --verbose
+	@./tester/tester --verbose=1
 
 debug:
 	$(MAKE) CFLAGS="$(DFLAGS)"
