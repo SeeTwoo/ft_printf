@@ -20,6 +20,10 @@ Test(x_tests, bonus_lohex)
 	assert_fmt("%.10x", 235796);
 	assert_fmt("%2x", 235796);
 	assert_fmt("%10x", 235796);
+	assert_fmt("%.0x", 0);          // prints nothing
+	assert_fmt("%#.0x", 0);         // no "0x"
+	assert_fmt("%.1x", 0);
+	assert_fmt("%#.1x", 0);
 }
 
 Test(X_tests, mandatory_uphex)

@@ -1,0 +1,71 @@
+assert_fmt("%#x", 0x42);
+assert_fmt("%#10x", 0x42);
+assert_fmt("%#-10x", 0x42);
+assert_fmt("%#.8x", 0x42);
+assert_fmt("%#08x", 0x42);
+
+assert_fmt("%08x", 0x123);
+assert_fmt("%.8x", 0x123);
+assert_fmt("%08.3x", 0x123);
+assert_fmt("%08.10x", 0x123);
+
+assert_fmt("%+x", 0x123);
+assert_fmt("% x", 0x123);
+assert_fmt("% +10x", 0x123);
+assert_fmt("% +.5x", 0x123);
+
+assert_fmt("%1x", 0xF);
+assert_fmt("%2x", 0xF);
+assert_fmt("%20x", 0xF);
+assert_fmt("%-1x", 0xF);
+assert_fmt("%-20x", 0xF);
+assert_fmt("%020x", 0xF);
+
+assert_fmt("%X", 0xDEADBEEF);
+assert_fmt("%#X", 0x123);
+assert_fmt("%#10X", 0x123);
+assert_fmt("%08X", 0xABCD);
+
+assert_fmt("%.30x", 0x123);
+assert_fmt("%#.30x", 0x123);
+
+
+
+assert_fmt("%p", NULL);
+assert_fmt("%20p", NULL);
+assert_fmt("%020p", NULL);
+assert_fmt("%.0p", NULL);
+assert_fmt("%#.p", NULL);        // '#' ignored
+
+assert_fmt("%.5p", &c);
+assert_fmt("%10.5p", &c);
+assert_fmt("%-10.5p", &c);
+assert_fmt("%020.10p", &c);
+
+assert_fmt("%30p", &c);
+assert_fmt("%-30p", &c);
+assert_fmt("%30.15p", &c);
+assert_fmt("%-30.15p", &c);
+
+assert_fmt("%0p", &c);
+assert_fmt("%010p", &c);
+
+assert_fmt("%+p", &c);
+assert_fmt("% p", &c);
+assert_fmt("%#+ p", &c);
+
+assert_fmt("%0-30.20p", &c);
+assert_fmt("%-030.20p", &c);
+assert_fmt("%030.2p", &c);
+
+assert_fmt("%.40p", &c);
+
+assert_fmt("%#0-20.10x", 0xABC);
+assert_fmt("% -#020.15x", 0xABCDEF);
+assert_fmt("% -#030.0x", 0);         // precision forces empty, flags ignored
+assert_fmt("%0-#50.30x", 123456);
+
+assert_fmt("%0-#40.30p", &c);
+assert_fmt("% -#020.0p", NULL);
+assert_fmt("%#-50p", NULL);
+
