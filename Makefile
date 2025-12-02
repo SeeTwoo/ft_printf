@@ -49,7 +49,7 @@ tester: $(NAME)
 		tester/strings_and_chars_tests.c \
 		tester/hexa_tests.c \
 		tester/assert_fmt.c \
-		libftprintf.a -o tester/tester -lcriterion
+		libftprintf.a tester/criterion/libcriterion.so.3.2.0 -Itester/criterion/includes -o tester/tester
 	@./tester/tester --verbose
 
 debug:
