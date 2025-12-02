@@ -1,3 +1,4 @@
+#include <limits.h>
 #include <stddef.h>
 //#include "bigass_string.h"
 #include <stdio.h>
@@ -5,6 +6,9 @@
 int	ft_printf(char const *format, ...);
 
 int	main(void) {
-	printf("%013.5x\n", 160);
+	int	ret;
+
+    ret = ft_printf("%.5d", -3407);
+	printf("\n\nreturn value is %d\n", ret);
 	return (0);
 }

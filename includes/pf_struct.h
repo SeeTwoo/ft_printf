@@ -1,12 +1,10 @@
-#ifndef STRUCT_PF_H
-# define STRUCT_PF_H
+#ifndef PF_STRUCT_H
+# define PF_STRUCT_H
 
-#include <stddef.h>
-#include <stdarg.h>
-#include <stdarg.h>
+# include <stddef.h>
+# include <stdarg.h>
 
 typedef struct s_pf		t_pf;
-typedef struct s_spec	t_spec;
 
 struct s_pf
 {

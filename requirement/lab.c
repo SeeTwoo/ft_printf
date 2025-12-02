@@ -1,20 +1,11 @@
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <limits.h>
-#include <stdint.h>
 
-int	main(void)
-{
-	uintptr_t	n = UINT64_MAX;
-	int			i = 0;
-
-	printf("%llu\n", n);
-	while (n > 16) {
-		i++;
-		n /= 16;
-	}
-	i++;
-	printf("uintptr_t max len = %d\n", i);
+int	main(int ac, char **av) {
+	(void)ac;
+	(void)av;
+	if (ac != 2)
+		return (0);
+	int	ret = printf(av[1], -3407);
+	printf("\n\nreturn value was %d\n", ret);
 	return (0);
 }

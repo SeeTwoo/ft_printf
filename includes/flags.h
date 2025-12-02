@@ -3,7 +3,7 @@
 
 enum e_flag
 {
-	PLUS = 1, 
+	PLUS = 1,
 	ZERO = 2,
 	DASH = 4,
 	SHARP = 8,

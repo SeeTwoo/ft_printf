@@ -2,7 +2,7 @@
 #include <emmintrin.h>
 #include <stdio.h>
 
-void	*ft_memcpy(void *dest, void *src, size_t n)
+void	*ft_memcpy(void *dest, void const *src, size_t n)
 {
 	__m128i	vect;
 	void	*ret;
