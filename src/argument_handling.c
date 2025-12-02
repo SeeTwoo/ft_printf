@@ -85,7 +85,9 @@ static void	prefixing(t_pf *pf, t_spec spec, t_arg *arg)
 	else if (spec.type == INT && arg->val.nbr >= 0 && spec.flags & PLUS)
 		*(pf->buf + pf->len++) = '+';
 	else if ((spec.type == PTR && arg->val.ptr)
-		|| ((spec.type == LOHEX) && spec.flags & SHARP))
+		|| ((spec.type == LOHEX && arg->val.ptr
+				&& (spec.precision == -1 || spec.precision > 1))
+			&& spec.flags & SHARP))
 	{
 		ft_memcpy(pf->buf + pf->len, "0x", 2);
 		pf->len += 2;
@@ -105,6 +107,9 @@ static void	writing_argument(t_pf *pf, t_spec spec, t_arg *arg)
 		ft_memset(pf->buf + pf->len, '0', arg->zeroes);
 		pf->len += arg->zeroes;
 	}
+	if ((spec.type == LOHEX || spec.type == UPHEX)
+		&& spec.precision == 0 && arg->val.unbr == 0)
+		return ;
 	ft_memcpy(pf->buf + pf->len, arg->to_cpy, arg->len);
 	pf->len += arg->len;
 }
