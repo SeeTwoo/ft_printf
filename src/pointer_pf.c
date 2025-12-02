@@ -11,10 +11,9 @@ static int	nil_pointer(t_pf *pf, t_spec spec, t_arg *arg)
 {
 	(void)pf;
 	arg->to_cpy = "(nil)";
-	arg->len_to_cpy = 5;
-	arg->len = arg->len_to_cpy;
+	arg->len = 5;
 	full_len(arg, spec);
-	arg->padding_len = arg->full_len - arg->len - arg->zeroes;
+	arg->padding = arg->full_len - arg->len - arg->zeroes;
 	return (0);
 }
 
@@ -23,13 +22,12 @@ int	pointer_pf(t_pf *pf, t_spec spec, t_arg *arg)
 	arg->val.ptr = va_arg(pf->arg, uintptr_t);
 	if (!arg->val.ptr)
 		return (nil_pointer(pf, spec, arg));
-	arg->len_to_cpy = itoa_pf((uint64_t)arg->val.ptr, 16,
+	arg->len = itoa_pf((uint64_t)arg->val.ptr, 16,
 			arg->buf + sizeof(arg->buf) - 1, "0123456789abcdef");
-	arg->len = arg->len_to_cpy;
-	arg->to_cpy = arg->buf + (sizeof(arg->buf) - arg->len_to_cpy);
+	arg->to_cpy = arg->buf + (sizeof(arg->buf) - arg->len);
 	arg->len += 2;
 	full_len(arg, spec);
 	zeroes(arg, spec);
-	arg->padding_len = arg->full_len - arg->len - arg->zeroes;
+	arg->padding = arg->full_len - arg->len - arg->zeroes;
 	return (0);
 }

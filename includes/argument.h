@@ -21,10 +21,9 @@ struct s_arg
 {
 	union u_arg	val;
 	char		*to_cpy;
-	size_t		len_to_cpy;
 	size_t		len;
 	size_t		zeroes;
-	size_t		padding_len;
+	size_t		padding;
 	size_t		full_len;
 	char		buf[16];
 };

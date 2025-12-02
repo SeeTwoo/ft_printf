@@ -10,14 +10,16 @@ void	zeroes(t_arg *arg, t_spec spec);
 int	lohex_pf(t_pf *pf, t_spec spec, t_arg *arg)
 {
 	arg->val.unbr = va_arg(pf->arg, unsigned int);
-	arg->len_to_cpy = itoa_pf((uint64_t)arg->val.unbr,
+	arg->len = itoa_pf((uint64_t)arg->val.unbr,
 			16, arg->buf + sizeof(arg->buf) - 1, "0123456789abcdef");
-	arg->len = arg->len_to_cpy;
-	arg->to_cpy = arg->buf + (sizeof(arg->buf) - arg->len_to_cpy);
+	arg->to_cpy = arg->buf + (sizeof(arg->buf) - arg->len);
+	arg->full_len = arg->len;
 	if (spec.flags & SHARP)
-		arg->len += 2;
-	full_len(arg, spec);
+		arg->full_len += 2;
 	zeroes(arg, spec);
-	arg->padding_len = arg->full_len - arg->len - arg->zeroes;
+	arg->padding = 0;
+	if (spec.width != -1 && spec.width > (int)arg->full_len)
+		arg->padding = spec.width - arg->full_len;
+	arg->full_len += arg->padding;
 	return (0);
 }

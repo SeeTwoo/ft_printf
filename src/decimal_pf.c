@@ -15,18 +15,19 @@ int	decimal_pf(t_pf *pf, t_spec spec, t_arg *arg)
 {
 	arg->val.nbr = va_arg(pf->arg, int);
 	if (arg->val.nbr >= 0)
-		arg->len_to_cpy = itoa_pf((uint64_t)arg->val.nbr, 10,
+		arg->len = itoa_pf((uint64_t)arg->val.nbr, 10,
 				arg->buf + sizeof(arg->buf) - 1, "0123456789");
 	else
-		arg->len_to_cpy = itoa_pf(-((uint64_t)arg->val.nbr), 10,
+		arg->len = itoa_pf(-((uint64_t)arg->val.nbr), 10,
 				arg->buf + sizeof(arg->buf) - 1, "0123456789");
-	arg->len = arg->len_to_cpy;
-	arg->to_cpy = arg->buf + (sizeof(arg->buf) - arg->len_to_cpy);
-	if (arg->val.nbr < 0 || (arg->val.nbr >= 0
-			&& (spec.flags & SPACE || spec.flags & PLUS)))
-		arg->len++;
-	full_len(arg, spec);
+	arg->to_cpy = arg->buf + (sizeof(arg->buf) - arg->len);
 	zeroes(arg, spec);
-	arg->padding_len = arg->full_len - arg->len - arg->zeroes;
+	arg->full_len = arg->len + arg->zeroes;
+	if (arg->val.nbr < 0)
+		arg->full_len++;
+	arg->padding = 0;
+	if (spec.width != -1 && spec.width > (int)arg->full_len)
+		arg->padding = spec.width - arg->full_len;
+	arg->full_len += arg->padding;
 	return (0);
 }

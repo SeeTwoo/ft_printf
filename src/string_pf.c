@@ -8,9 +8,9 @@ size_t	full_len(int len, int width);
 
 void	str_len_to_display(t_arg *arg, t_spec spec)
 {
-	arg->len_to_cpy = ft_strlen(arg->val.str);
-	if (spec.precision != -1 && arg->len_to_cpy > (size_t)spec.precision)
-		arg->len_to_cpy = spec.precision;
+	arg->len = ft_strlen(arg->val.str);
+	if (spec.precision != -1 && arg->len > (size_t)spec.precision)
+		arg->len = spec.precision;
 }
 
 int	string_pf(t_pf *pf, t_spec spec, t_arg *arg)
@@ -22,7 +22,9 @@ int	string_pf(t_pf *pf, t_spec spec, t_arg *arg)
 		arg->val.str = "(null)";
 	str_len_to_display(arg, spec);
 	arg->to_cpy = arg->val.str;
-	arg->full_len = arg->len_to_cpy;
-	arg->padding_len = arg->full_len - arg->len_to_cpy;
+	arg->padding = 0;
+	if (spec.width != -1 && (size_t)spec.width > arg->len)
+		arg->padding = spec.width - arg->len;
+	arg->full_len = arg->len + arg->padding;
 	return (0);
 }

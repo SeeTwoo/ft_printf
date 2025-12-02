@@ -6,25 +6,22 @@
 
 void	full_len(t_arg *arg, t_spec spec)
 {
-	if (spec.precision != -1 && (size_t)spec.precision > arg->len)
-		arg->full_len = spec.precision;
-	else if (spec.width != -1 && (size_t)spec.width > arg->len)
+	arg->full_len = arg->len + arg->zeroes;
+	if (spec.type == INT && arg->val.nbr < 0)
+		arg->full_len++;
+	if (spec.width != -1 && spec.width > (int)arg->full_len)
 		arg->full_len = spec.width;
-	else
-		arg->full_len = arg->len;
 }
 
 void	zeroes(t_arg *arg, t_spec spec)
 {
-	if (spec.precision == -1 && spec.flags & ZERO)
-		arg->zeroes = arg->full_len - arg->len;
-	else if (spec.flags & ZERO && spec.precision > (int)arg->len)
+	if (spec.precision > (int)arg->len)
 		arg->zeroes = spec.precision - arg->len;
-	else if (spec.precision > (int)arg->len)
-		arg->zeroes = spec.precision - arg->len;
+	else if (spec.precision != -1 && spec.precision < (int)arg->len)
+		arg->zeroes = 0;
 	else
 		arg->zeroes = 0;
-}
+ }
 
 int	itoa_pf(uint64_t n, uint8_t div, char *buf, char const *base)
 {

@@ -10,14 +10,13 @@ void	zeroes(t_arg *arg, t_spec spec);
 int	uphex_pf(t_pf *pf, t_spec spec, t_arg *arg)
 {
 	arg->val.unbr = va_arg(pf->arg, unsigned int);
-	arg->len_to_cpy = itoa_pf((uint64_t)arg->val.unbr,
+	arg->len = itoa_pf((uint64_t)arg->val.unbr,
 			16, arg->buf + sizeof(arg->buf) - 1, "0123456789ABCDEF");
-	arg->len = arg->len_to_cpy;
-	arg->to_cpy = arg->buf + (sizeof(arg->buf) - arg->len_to_cpy);
+	arg->to_cpy = arg->buf + (sizeof(arg->buf) - arg->len);
 	if (spec.flags & SHARP)
 		arg->len += 2;
 	full_len(arg, spec);
 	zeroes(arg, spec);
-	arg->padding_len = arg->full_len - arg->len - arg->zeroes;
+	arg->padding = arg->full_len - arg->len - arg->zeroes;
 	return (0);
 }
