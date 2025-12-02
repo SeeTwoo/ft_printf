@@ -45,11 +45,12 @@ $(NAME): $(OBJ)
 
 tester: $(NAME)
 	@rm -f tester/tester
-	@cc	tester/integers_tests.c \
+	@cc \
+		tester/integers_tests.c \
 		tester/strings_and_chars_tests.c \
 		tester/hexa_tests.c \
 		tester/assert_fmt.c \
-		libftprintf.a tester/criterion/libcriterion.so.3.2.0 -Itester/criterion/includes -o tester/tester
+		libftprintf.a -o tester/tester -lcriterion
 	@./tester/tester --verbose
 
 debug:
