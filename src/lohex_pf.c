@@ -17,6 +17,7 @@ int	lohex_pf(t_pf *pf, t_spec spec, t_arg *arg)
 	if (spec.flags & SHARP)
 		arg->full_len += 2;
 	zeroes(arg, spec);
+	arg->full_len += arg->zeroes;
 	arg->padding = 0;
 	if (spec.width != -1 && spec.width > (int)arg->full_len)
 		arg->padding = spec.width - arg->full_len;
