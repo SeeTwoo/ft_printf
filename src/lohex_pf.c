@@ -12,7 +12,7 @@ int	lohex_pf(t_pf *pf, t_spec spec, t_arg *arg)
 	arg->val.unbr = va_arg(pf->arg, unsigned int);
 	arg->len = itoa_pf((uint64_t)arg->val.unbr,
 			16, arg->buf + sizeof(arg->buf) - 1, "0123456789abcdef");
-	arg->to_cpy = arg->buf + (sizeof(arg->buf) - arg->len);
+	arg->raw = arg->buf + (sizeof(arg->buf) - arg->len);
 	arg->full_len = arg->len;
 	if (spec.flags & SHARP && arg->val.unbr != 0)
 		arg->full_len += 2;

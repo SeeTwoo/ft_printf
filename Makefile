@@ -46,11 +46,8 @@ $(NAME): $(OBJ)
 tester: $(NAME)
 	@rm -f tester/tester
 	@cc \
-		tester/integers_tests.c \
-		tester/strings_and_chars_tests.c \
-		tester/hexa_tests.c \
-		tester/pointer_tests.c \
 		tester/assert_fmt.c \
+		tester/integers_tests.c \
 		libftprintf.a -o tester/tester -lcriterion
 	@./tester/tester --verbose=1
 

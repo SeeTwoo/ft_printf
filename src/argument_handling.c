@@ -1,13 +1,4 @@
 #include "argument_handling.h"
-/*
-static inline int	is_flag(char const c)
-{
-	return (c == ' ' || c == '+' || c == '-' || c == '0' || c == '#');
-}
-
-this should sit as the condition for the while in parse spec but...
-norm you know
-*/
 
 static const t_argfunc		g_handlers[8] = {
 [CHAR] = &char_pf,
@@ -49,6 +40,11 @@ static const enum e_flag	g_flags[49] = {
 ['0'] = ZERO,
 };
 
+static int	is_flag(char const c)
+{
+	return (c == ' ' || c == '+' || c == '-' || c == '0' || c == '#');
+}
+
 static int	parse_spec(t_pf *pf, t_spec *spec)
 {
 	spec->flags = 0;
@@ -61,8 +57,7 @@ static int	parse_spec(t_pf *pf, t_spec *spec)
 		pf->format++;
 		return (0);
 	}
-	while (*pf->format == ' ' || *pf->format == '+' || *pf->format == '-'
-		|| *pf->format == '0' || *pf->format == '#')
+	while (is_flag(*pf->format))
 	{
 		spec->flags |= g_flags[(unsigned char)*pf->format];
 		pf->format++;
@@ -76,42 +71,23 @@ static int	parse_spec(t_pf *pf, t_spec *spec)
 	return (0);
 }
 
-static void	prefixing(t_pf *pf, t_spec spec, t_arg *arg)
+static void	writing_argument(t_pf *pf, t_arg *arg)
 {
-	if (spec.type == INT && arg->val.nbr < 0)
-		*(pf->buf + pf->len++) = '-';
-	else if (spec.type == INT && arg->val.nbr >= 0 && spec.flags & SPACE)
-		*(pf->buf + pf->len++) = ' ';
-	else if (spec.type == INT && arg->val.nbr >= 0 && spec.flags & PLUS)
-		*(pf->buf + pf->len++) = '+';
-	else if ((spec.type == PTR && arg->val.ptr)
-		|| ((spec.type == LOHEX && arg->val.ptr
-				&& (spec.precision == -1 || spec.precision > 1))
-			&& spec.flags & SHARP))
+	if (arg->prefix_len > 0)
 	{
-		ft_memcpy(pf->buf + pf->len, "0x", 2);
-		pf->len += 2;
+		ft_memcpy(pf->buf + pf->len, arg->prefix, arg->prefix_len);
+		pf->len += arg->prefix_len;
 	}
-	else if (spec.type == UPHEX && spec.flags & SHARP)
-	{
-		ft_memcpy(pf->buf + pf->len, "0X", 2);
-		pf->len += 2;
-	}
-}
-
-static void	writing_argument(t_pf *pf, t_spec spec, t_arg *arg)
-{
-	prefixing(pf, spec, arg);
 	if (arg->zeroes > 0)
 	{
 		ft_memset(pf->buf + pf->len, '0', arg->zeroes);
 		pf->len += arg->zeroes;
 	}
-	if ((spec.type == LOHEX || spec.type == UPHEX)
-		&& spec.precision == 0 && arg->val.unbr == 0)
-		return ;
-	ft_memcpy(pf->buf + pf->len, arg->to_cpy, arg->len);
-	pf->len += arg->len;
+	if (arg->len > 0)
+	{
+		ft_memcpy(pf->buf + pf->len, arg->raw, arg->len);
+		pf->len += arg->len;
+	}
 }
 
 static void	writing_padding(t_pf *pf, t_arg *arg)
@@ -126,10 +102,7 @@ int	argument_handling(t_pf *pf)
 	t_arg		arg;
 	t_argfunc	arg_init;
 
-	arg.zeroes = 0;
-	arg.padding = 0;
-	arg.full_len = 0;
-	arg.len = 0;
+	ft_memset(&arg, 0, sizeof(t_arg));
 	if (parse_spec(pf, &spec) == -1 || spec.type == WRONG)
 		return (-1);
 	arg_init = g_handlers[(unsigned char)(spec.type)];
@@ -140,7 +113,7 @@ int	argument_handling(t_pf *pf)
 		return (-1);
 	if (!(spec.flags & DASH) && arg.padding > 0)
 		writing_padding(pf, &arg);
-	writing_argument(pf, spec, &arg);
+	writing_argument(pf, &arg);
 	if (spec.flags & DASH && arg.padding > 0)
 		writing_padding(pf, &arg);
 	return (0);

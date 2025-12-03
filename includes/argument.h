@@ -20,8 +20,10 @@ typedef struct s_arg	t_arg;
 struct s_arg
 {
 	union u_arg	val;
-	char		*to_cpy;
+	char		*raw;
 	size_t		len;
+	char		*prefix;
+	size_t		prefix_len;
 	size_t		zeroes;
 	size_t		padding;
 	size_t		full_len;

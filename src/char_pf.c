@@ -11,7 +11,7 @@ int	char_pf(t_pf *pf, t_spec spec, t_arg *arg)
 {
 	arg->val.c = va_arg(pf->arg, int);
 	arg->len = 1;
-	arg->to_cpy = &arg->val.c;
+	arg->raw = &arg->val.c;
 	arg->full_len = arg->len;
 	arg->padding = 0;
 	if (spec.width != -1 && spec.width > 1)
