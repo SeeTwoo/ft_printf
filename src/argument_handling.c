@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                         :::     ::::::::   */
+/*   argument_handling.c                                 :+:     :+:    :+:   */
+/*                                                     +:+ +:+        +:+     */
+/*   By: seetwoo <marvin@42students.fr>              +#+  +:+       +#+       */
+/*                                                 +#+#+#+#+#+   +#+          */
+/*   Created:                                           #+#    #+#            */
+/*   Uptated:                                          ###   ########.fr      */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "argument_handling.h"
 
 static const t_argfunc		g_handlers[8] = {
@@ -12,24 +24,24 @@ static const t_argfunc		g_handlers[8] = {
 };
 
 static const enum e_type	g_types[256] = {
-['\0' ... '%' - 1] = WRONG,
+['\0' ...'%' - 1] = WRONG,
 ['%'] = PERCENT,
-['%' + 1 ... 'X' - 1] = WRONG,
+['%' + 1 ...'X' - 1] = WRONG,
 ['X'] = UPHEX,
-['X' + 1 ... 'c' - 1] = WRONG,
+['X' + 1 ...'c' - 1] = WRONG,
 ['c'] = CHAR,
 ['d'] = INT,
-['d' + 1 ... 'i' - 1] = WRONG,
+['d' + 1 ...'i' - 1] = WRONG,
 ['i'] = INT,
-['i' + 1 ... 'p' - 1] = WRONG,
+['i' + 1 ...'p' - 1] = WRONG,
 ['p'] = PTR,
-['p' + 1 ... 's' - 1] = WRONG,
+['p' + 1 ...'s' - 1] = WRONG,
 ['s'] = STR,
-['s' + 1 ... 'u' - 1] = WRONG,
+['s' + 1 ...'u' - 1] = WRONG,
 ['u'] = UINT,
-['u' + 1 ... 'x' - 1] = WRONG,
+['u' + 1 ...'x' - 1] = WRONG,
 ['x'] = LOHEX,
-['x' + 1 ... 255] = WRONG,
+['x' + 1 ...255] = WRONG,
 };
 
 static const enum e_flag	g_flags[49] = {

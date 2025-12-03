@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                         :::     ::::::::   */
+/*   generic_int.c                                       :+:     :+:    :+:   */
+/*                                                     +:+ +:+        +:+     */
+/*   By: seetwoo <marvin@42students.fr>              +#+  +:+       +#+       */
+/*                                                 +#+#+#+#+#+   +#+          */
+/*   Created:                                           #+#    #+#            */
+/*   Uptated:                                          ###   ########.fr      */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <stdint.h>
 
 #include "argument.h"
@@ -21,12 +33,13 @@ void	zeroes(t_arg *arg, t_spec spec)
 		arg->zeroes = 0;
 	else if (spec.flags & DASH)
 		arg->zeroes = 0;
-	else if (spec.precision == -1 && spec.flags & ZERO && spec.width > (int)arg->full_len)
+	else if (spec.precision == -1 && spec.flags & ZERO
+		&& spec.width > (int)arg->full_len)
 		arg->zeroes = spec.width - arg->full_len;
 	else
 		arg->zeroes = 0;
 	arg->full_len += arg->zeroes;
- }
+}
 
 void	itoa_pf(uint64_t n, uint8_t div, char **buf, char const *base)
 {

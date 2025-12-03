@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                         :::     ::::::::   */
+/*   uphex_pf.c                                          :+:     :+:    :+:   */
+/*                                                     +:+ +:+        +:+     */
+/*   By: seetwoo <marvin@42students.fr>              +#+  +:+       +#+       */
+/*                                                 +#+#+#+#+#+   +#+          */
+/*   Created:                                           #+#    #+#            */
+/*   Uptated:                                          ###   ########.fr      */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "argument.h"
 #include "flags.h"
 #include "pf_struct.h"
@@ -15,6 +27,7 @@ static void	prefix(t_arg *arg, t_spec spec)
 		arg->prefix = "0X";
 		arg->prefix_len = 2;
 	}
+	arg->full_len += arg->prefix_len;
 }
 
 int	uphex_pf(t_pf *pf, t_spec spec, t_arg *arg)
@@ -31,7 +44,6 @@ int	uphex_pf(t_pf *pf, t_spec spec, t_arg *arg)
 	arg->raw = arg->buf + (sizeof(arg->buf) - arg->len);
 	arg->full_len = arg->len;
 	prefix(arg, spec);
-	arg->full_len += arg->prefix_len;
 	zeroes(arg, spec);
 	arg->padding = 0;
 	if (spec.width != -1 && spec.width > (int)arg->full_len)
@@ -39,4 +51,3 @@ int	uphex_pf(t_pf *pf, t_spec spec, t_arg *arg)
 	arg->full_len += arg->padding;
 	return (0);
 }
-

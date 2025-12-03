@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                         :::     ::::::::   */
+/*   ft_memcpy.c                                         :+:     :+:    :+:   */
+/*                                                     +:+ +:+        +:+     */
+/*   By: seetwoo <marvin@42students.fr>              +#+  +:+       +#+       */
+/*                                                 +#+#+#+#+#+   +#+          */
+/*   Created:                                           #+#    #+#            */
+/*   Uptated:                                          ###   ########.fr      */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <string.h>
 #include <emmintrin.h>
 #include <stdio.h>
@@ -32,17 +44,3 @@ void	*ft_memcpy(void *dest, void const *src, size_t n)
 		*(char *)dest++ = *(char *)src++;
 	return (ret);
 }
-
-/*
-int	main(void) {
-	char	src[] = "hello";
-	char	lg_src[] = "this is the base 16 0123456789abcdef";
-	char	dest[64];
-
-	ft_memcpy(dest, src, strlen(src) + 1);
-	printf("dest : %s\n", dest);
-	ft_memcpy(dest, lg_src, strlen(lg_src) + 1);
-	printf("dest : %s\n", dest);
-	return (0);
-}
-*/
