@@ -20,6 +20,7 @@ Test(p_tests, bonus_pointer)
 	assert_fmt("%-50p", NULL);
 	assert_fmt("%.50p", &c);
 	assert_fmt("%025p", assert_fmt);
+	assert_fmt("%+025p", assert_fmt);
 	assert_fmt("%p", NULL);
 	assert_fmt("%20p", NULL);
 	assert_fmt("%020p", NULL);

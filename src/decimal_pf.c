@@ -7,12 +7,14 @@
 #include "pf_struct.h"
 #include "spec_struct.h"
 
+void	compute_padding(t_arg *arg, t_spec spec);
 void	full_len(t_arg *arg, t_spec spec);
 void	itoa_pf(uint64_t n, uint8_t div, char **buf, char const *base);
 void	zeroes(t_arg *arg, t_spec spec);
 
 static void	prefix(t_arg *arg, t_spec spec)
 {
+	arg->prefix = 0;
 	if (arg->val.nbr < 0)
 	{
 		arg->prefix = "-";
@@ -28,6 +30,7 @@ static void	prefix(t_arg *arg, t_spec spec)
 		arg->prefix = " ";
 		arg->prefix_len = 1;
 	}
+	arg->full_len += arg->prefix_len;
 }
 
 int	decimal_pf(t_pf *pf, t_spec spec, t_arg *arg)
@@ -46,12 +49,7 @@ int	decimal_pf(t_pf *pf, t_spec spec, t_arg *arg)
 		arg->len = 0;
 	arg->full_len = arg->len;
 	prefix(arg, spec);
-	arg->full_len += arg->prefix_len;
 	zeroes(arg, spec);
-	arg->full_len += arg->zeroes;
-	arg->padding = 0;
-	if (spec.width != -1 && spec.width > (int)arg->full_len)
-		arg->padding = spec.width - arg->full_len;
-	arg->full_len += arg->padding;
+	compute_padding(arg, spec);
 	return (0);
 }

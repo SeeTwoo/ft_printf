@@ -4,6 +4,7 @@
 #include "ft_string.h"
 #include "argument.h"
 
+void	compute_padding(t_arg *arg, t_spec spec);
 size_t	full_len(int len, int width);
 
 void	str_len_to_display(t_arg *arg, t_spec spec)
@@ -22,9 +23,6 @@ int	string_pf(t_pf *pf, t_spec spec, t_arg *arg)
 		arg->val.str = "(null)";
 	str_len_to_display(arg, spec);
 	arg->raw = arg->val.str;
-	arg->padding = 0;
-	if (spec.width != -1 && (size_t)spec.width > arg->len)
-		arg->padding = spec.width - arg->len;
-	arg->full_len = arg->len + arg->padding;
+	compute_padding(arg, spec);
 	return (0);
 }

@@ -28,4 +28,7 @@ Test(u_tests, bonus_unsigned)
 	assert_fmt("%-15.10u", 3407);
 	assert_fmt("%0-15.10u", 3407);
 	assert_fmt("010u", 3407);
+	assert_fmt("% 10u", 203494);
+	assert_fmt("%+10u", 203494);
+	assert_fmt("%.0u", 0);
 }

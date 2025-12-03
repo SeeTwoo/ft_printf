@@ -25,6 +25,7 @@ void	zeroes(t_arg *arg, t_spec spec)
 		arg->zeroes = spec.width - arg->full_len;
 	else
 		arg->zeroes = 0;
+	arg->full_len += arg->zeroes;
  }
 
 void	itoa_pf(uint64_t n, uint8_t div, char **buf, char const *base)
