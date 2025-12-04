@@ -39,7 +39,7 @@ struct s_arg
 	size_t		zeroes;
 	size_t		padding;
 	size_t		full_len;
-	char		buf[16];
+	char		buf[32];
 };
 
 #endif

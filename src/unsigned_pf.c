@@ -15,6 +15,7 @@
 #include "pf_struct.h"
 #include "spec_struct.h"
 
+void	compute_padding(t_arg *arg, t_spec spec);
 void	full_len(t_arg *arg, t_spec spec);
 void	itoa_pf(uint64_t n, uint8_t div, char **buf, char const *base);
 void	zeroes(t_arg *arg, t_spec spec);
@@ -33,9 +34,6 @@ int	unsigned_pf(t_pf *pf, t_spec spec, t_arg *arg)
 	arg->full_len = arg->len;
 	arg->prefix_len = 0;
 	zeroes(arg, spec);
-	arg->padding = 0;
-	if (spec.width != -1 && spec.width > (int)arg->full_len)
-		arg->padding = spec.width - arg->full_len;
-	arg->full_len += arg->padding;
+	compute_padding(arg, spec);
 	return (0);
 }
