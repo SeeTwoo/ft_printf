@@ -20,4 +20,6 @@ Test(X_tests, bonus_uphex)
 	assert_fmt("%.10X", 235796);
 	assert_fmt("%2X", 235796);
 	assert_fmt("%10X", 235796);
+	assert_fmt("%+ X", 235796);
+	assert_fmt("% +X", 235796);
 }

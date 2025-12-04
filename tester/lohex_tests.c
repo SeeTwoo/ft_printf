@@ -50,4 +50,6 @@ Test(x_tests, bonus_lohex)
 	assert_fmt("%08x", 0xABCD);
 	assert_fmt("%.30x", 0x123);
 	assert_fmt("%#.30x", 0x123);
+	assert_fmt("%+ x", 0x123);
+	assert_fmt("% +x", 0x123);
 }
