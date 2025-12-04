@@ -18,7 +18,6 @@
 #include "flags.h"
 
 void	compute_padding(t_arg *arg, t_spec spec);
-size_t	full_len(int len, int width);
 
 int	char_pf(t_pf *pf, t_spec spec, t_arg *arg)
 {

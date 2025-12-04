@@ -16,15 +16,6 @@
 #include "flags.h"
 #include "spec_struct.h"
 
-void	full_len(t_arg *arg, t_spec spec)
-{
-	arg->full_len = arg->len + arg->zeroes;
-	if (spec.type == INT && arg->val.nbr < 0)
-		arg->full_len++;
-	if (spec.width != -1 && spec.width > (int)arg->full_len)
-		arg->full_len = spec.width;
-}
-
 void	zeroes(t_arg *arg, t_spec spec)
 {
 	if (spec.precision > (int)arg->len)

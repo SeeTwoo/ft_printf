@@ -20,7 +20,6 @@
 #include "spec_struct.h"
 
 void	compute_padding(t_arg *arg, t_spec spec);
-void	full_len(t_arg *arg, t_spec spec);
 void	itoa_pf(uint64_t n, uint8_t div, char **buf, char const *base);
 void	zeroes(t_arg *arg, t_spec spec);
 

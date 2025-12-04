@@ -17,7 +17,6 @@
 #include "argument.h"
 
 void	compute_padding(t_arg *arg, t_spec spec);
-size_t	full_len(int len, int width);
 
 int	null_string(t_arg *arg, t_spec spec)
 {
