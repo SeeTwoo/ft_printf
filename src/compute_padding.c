@@ -1,32 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                         :::     ::::::::   */
-/*   regular_string.c                                    :+:     :+:    :+:   */
+/*   compute_padding.c                                   :+:     :+:    :+:   */
 /*                                                     +:+ +:+        +:+     */
 /*   By: seetwoo <marvin@42students.fr>              +#+  +:+       +#+       */
 /*                                                 +#+#+#+#+#+   +#+          */
-/*   Created: 2025/12/03 23:25:52 by seetwoo           #+#    #+#             */
-/*   Updated: 2025/12/03 23:25:52 by seetwoo          ###   ########.fr       */
+/*   Created: 2025/12/03 22:58:51 by seetwoo           #+#    #+#             */
+/*   Updated: 2025/12/03 22:58:51 by seetwoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pf_struct.h"
-#include "ft_string.h"
+#include "argument.h"
+#include "spec_struct.h"
 
-int	pf_realloc(t_pf *pf, size_t size);
-
-int	regular_string(t_pf *pf)
+void	compute_padding(t_arg *arg, t_spec spec)
 {
-	size_t	offset;
-
-	offset = 0;
-	while (pf->format[offset] && pf->format[offset] != '%')
-		offset++;
-	if (pf_realloc(pf, offset) == -1)
-		return (-1);
-	ft_memcpy(pf->buf + pf->len, pf->format, offset);
-	pf->len += offset;
-	pf->format += offset;
-	pf->buf[pf->len] = '\0';
-	return (0);
+	arg->padding = 0;
+	if (spec.width != -1 && spec.width > (int)arg->full_len)
+		arg->padding = spec.width - arg->full_len;
+	arg->full_len += arg->padding;
 }

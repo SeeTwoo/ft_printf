@@ -13,6 +13,14 @@
 #include <stddef.h>
 #include <stdint.h>
 
+#if ULONG_MAX == 0xffffffff
+# define HIMAGIC 0x80808080UL
+# define LOMAGIC 0x01010101UL
+#else
+# define HIMAGIC 0x8080808080808080UL
+# define LOMAGIC 0x0101010101010101UL
+#endif
+
 size_t	ft_strlen(char const *s)
 {
 	char const		*p;
@@ -28,8 +36,8 @@ size_t	ft_strlen(char const *s)
 	word_ptr = (const uintptr_t *)p;
 	while (1)
 	{
-		if (((*word_ptr) - 0x0101010101010101)
-			& ~(*word_ptr) & 0x8080808080808080)
+		if (((*word_ptr) - HIMAGIC)
+			& ~(*word_ptr) & LOMAGIC)
 			break ;
 		word_ptr++;
 	}

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                         :::     ::::::::   */
+/*   char_pf.c                                           :+:     :+:    :+:   */
+/*                                                     +:+ +:+        +:+     */
+/*   By: seetwoo <marvin@42students.fr>              +#+  +:+       +#+       */
+/*                                                 +#+#+#+#+#+   +#+          */
+/*   Created: 2025/12/03 22:56:30 by seetwoo           #+#    #+#             */
+/*   Updated: 2025/12/03 22:56:30 by seetwoo          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <string.h>
 
 #include "argument.h"
@@ -5,17 +17,14 @@
 #include "spec_struct.h"
 #include "flags.h"
 
-size_t	full_len(int len, int width);
+void	compute_padding(t_arg *arg, t_spec spec);
 
 int	char_pf(t_pf *pf, t_spec spec, t_arg *arg)
 {
 	arg->val.c = va_arg(pf->arg, int);
 	arg->len = 1;
-	arg->to_cpy = &arg->val.c;
+	arg->raw = &arg->val.c;
 	arg->full_len = arg->len;
-	arg->padding = 0;
-	if (spec.width != -1 && spec.width > 1)
-		arg->padding = spec.width - 1;
-	arg->full_len += arg->padding;
+	compute_padding(arg, spec);
 	return (0);
 }

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                         :::     ::::::::   */
+/*   percent_pf.c                                        :+:     :+:    :+:   */
+/*                                                     +:+ +:+        +:+     */
+/*   By: seetwoo <marvin@42students.fr>              +#+  +:+       +#+       */
+/*                                                 +#+#+#+#+#+   +#+          */
+/*   Created: 2025/12/03 23:24:27 by seetwoo           #+#    #+#             */
+/*   Updated: 2025/12/03 23:24:27 by seetwoo          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "argument.h"
 #include "pf_struct.h"
 #include "spec_struct.h"
@@ -9,7 +21,7 @@ int	percent_pf(t_pf *pf, t_spec spec, t_arg *arg)
 	(void)spec;
 	arg->val.c = '%';
 	arg->len = 1;
-	arg->to_cpy = &arg->val.c;
+	arg->raw = &arg->val.c;
 	arg->full_len = 1;
 	arg->zeroes = 0;
 	arg->padding = 0;
