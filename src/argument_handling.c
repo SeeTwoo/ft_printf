@@ -53,22 +53,14 @@ static int	parse_spec(t_pf *pf, t_spec *spec)
 	spec->precision = -1;
 	pf->format++;
 	if (*pf->format == '%')
-	{
-		spec->init_func = g_handlers[(unsigned char)*pf->format];
-		pf->format++;
-		return (0);
-	}
+		return (spec->init_func = g_handlers[(unsigned char)*pf->format++], 0);
 	while (is_flag(*pf->format))
-	{
-		spec->flags |= g_flags[(unsigned char)*pf->format];
-		pf->format++;
-	}
+		spec->flags |= g_flags[(unsigned char)*pf->format++];
 	if (ft_isdigit(*pf->format))
 		spec->width = ft_strtoi(pf->format, &pf->format);
 	if (*pf->format == '.')
 		spec->precision = ft_strtoi(pf->format + 1, &pf->format);
-	spec->init_func = g_handlers[(unsigned char)*pf->format];
-	pf->format++;
+	spec->init_func = g_handlers[(unsigned char)*pf->format++];
 	return (0);
 }
 

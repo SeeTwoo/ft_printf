@@ -6,9 +6,10 @@
 int	ft_printf(char const *format, ...);
 
 int	main(void) {
-	int	ret;
+	int		ret;
+	char	s[] = "hello";
 
-    ret = ft_printf("%.5d", -3407);
+    ret = ft_printf("%c and %s and %d\n", s[0], &s[0], s);
 	printf("\n\nreturn value is %d\n", ret);
 	return (0);
 }

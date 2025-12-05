@@ -51,6 +51,7 @@ tester: $(NAME)
 		tester/char_tests.c \
 		tester/integers_tests.c \
 		tester/lohex_tests.c \
+		tester/multiple_tests.c \
 		tester/percent_tests.c \
 		tester/pointer_tests.c \
 		tester/string_tests.c \
