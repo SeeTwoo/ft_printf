@@ -17,7 +17,6 @@
 # include <limits.h>
 
 # include "argument.h"
-# include "e_type.h"
 # include "flags.h"
 # include "pf_struct.h"
 # include "spec_struct.h"
@@ -35,7 +34,5 @@ int		pointer_pf(t_pf *pf, t_spec spec, t_arg *arg);
 int		string_pf(t_pf *pf, t_spec spec, t_arg *arg);
 int		unsigned_pf(t_pf *pf, t_spec spec, t_arg *arg);
 int		uphex_pf(t_pf *pf, t_spec spec, t_arg *arg);
-
-typedef int	(*t_argfunc)(t_pf *pf, t_spec spec, t_arg *arg);
 
 #endif

@@ -10,4 +10,5 @@ Test(multiple_tests, basic_combination)
 
 	assert_fmt("%s and %p and %c and %d\n", s, &s[0], s[0], s[0]);
 	assert_fmt("%c and %s and %d\n", s[0], s[0], s);
+	assert_fmt("%% and something else\n");
 }

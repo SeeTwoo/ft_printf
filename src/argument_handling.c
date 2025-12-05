@@ -12,36 +12,25 @@
 
 #include "argument_handling.h"
 
-static const t_argfunc		g_handlers[8] = {
-[CHAR] = &char_pf,
-[PTR] = pointer_pf,
-[INT] = decimal_pf,
-[UINT] = unsigned_pf,
-[UPHEX] = uphex_pf,
-[LOHEX] = lohex_pf,
-[STR] = string_pf,
-[PERCENT] = percent_pf
-};
-
-static const enum e_type	g_types[256] = {
-['\0' ...'%' - 1] = WRONG,
-['%'] = PERCENT,
-['%' + 1 ...'X' - 1] = WRONG,
-['X'] = UPHEX,
-['X' + 1 ...'c' - 1] = WRONG,
-['c'] = CHAR,
-['d'] = INT,
-['d' + 1 ...'i' - 1] = WRONG,
-['i'] = INT,
-['i' + 1 ...'p' - 1] = WRONG,
-['p'] = PTR,
-['p' + 1 ...'s' - 1] = WRONG,
-['s'] = STR,
-['s' + 1 ...'u' - 1] = WRONG,
-['u'] = UINT,
-['u' + 1 ...'x' - 1] = WRONG,
-['x'] = LOHEX,
-['x' + 1 ...255] = WRONG,
+static const t_argfunc		g_handlers[256] = {
+['\0' ...'%' - 1] = (t_argfunc)NULL,
+['%'] = &percent_pf,
+['%' + 1 ...'X' - 1] = (t_argfunc)NULL,
+['X'] = &uphex_pf,
+['X' + 1 ...'c' - 1] = (t_argfunc)NULL,
+['c'] = &char_pf,
+['d'] = &decimal_pf,
+['d' + 1 ...'i' - 1] = (t_argfunc)NULL,
+['i'] = &decimal_pf,
+['i' + 1 ...'p' - 1] = (t_argfunc)NULL,
+['p'] = &pointer_pf,
+['p' + 1 ...'s' - 1] = (t_argfunc)NULL,
+['s'] = &string_pf,
+['s' + 1 ...'u' - 1] = (t_argfunc)NULL,
+['u'] = &unsigned_pf,
+['u' + 1 ...'x' - 1] = (t_argfunc)NULL,
+['x'] = &lohex_pf,
+['x' + 1 ...255] = (t_argfunc)NULL,
 };
 
 static const enum e_flag	g_flags[49] = {
@@ -65,7 +54,7 @@ static int	parse_spec(t_pf *pf, t_spec *spec)
 	pf->format++;
 	if (*pf->format == '%')
 	{
-		spec->type = g_types[(unsigned char)*pf->format];
+		spec->init_func = g_handlers[(unsigned char)*pf->format];
 		pf->format++;
 		return (0);
 	}
@@ -78,7 +67,7 @@ static int	parse_spec(t_pf *pf, t_spec *spec)
 		spec->width = ft_strtoi(pf->format, &pf->format);
 	if (*pf->format == '.')
 		spec->precision = ft_strtoi(pf->format + 1, &pf->format);
-	spec->type = g_types[(unsigned char)*pf->format];
+	spec->init_func = g_handlers[(unsigned char)*pf->format];
 	pf->format++;
 	return (0);
 }
@@ -112,15 +101,11 @@ int	argument_handling(t_pf *pf)
 {
 	t_spec		spec;
 	t_arg		arg;
-	t_argfunc	arg_init;
 
 	ft_memset(&arg, 0, sizeof(t_arg));
-	if (parse_spec(pf, &spec) == -1 || spec.type == WRONG)
+	if (parse_spec(pf, &spec) == -1 || spec.init_func == NULL)
 		return (-1);
-	arg_init = g_handlers[(unsigned char)(spec.type)];
-	if (!arg_init)
-		return (-1);
-	arg_init(pf, spec, &arg);
+	spec.init_func(pf, spec, &arg);
 	if (pf_realloc(pf, arg.full_len) == -1)
 		return (-1);
 	if (!(spec.flags & DASH) && arg.padding > 0)
