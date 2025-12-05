@@ -83,12 +83,6 @@ static void	writing_argument(t_pf *pf, t_arg *arg)
 	}
 }
 
-static void	writing_padding(t_pf *pf, t_arg *arg)
-{
-	ft_memset(pf->buf + pf->len, ' ', arg->padding);
-	pf->len += arg->padding;
-}
-
 int	argument_handling(t_pf *pf)
 {
 	t_spec		spec;
@@ -100,10 +94,17 @@ int	argument_handling(t_pf *pf)
 	spec.init_func(pf, spec, &arg);
 	if (pf_realloc(pf, arg.full_len) == -1)
 		return (-1);
-	if (!(spec.flags & DASH) && arg.padding > 0)
-		writing_padding(pf, &arg);
-	writing_argument(pf, &arg);
-	if (spec.flags & DASH && arg.padding > 0)
-		writing_padding(pf, &arg);
+	if (!(spec.flags & DASH))
+	{
+		ft_memset(pf->buf + pf->len, ' ', arg.padding);
+		pf->len += arg.padding;
+		writing_argument(pf, &arg);
+	}
+	else
+	{
+		writing_argument(pf, &arg);
+		ft_memset(pf->buf + pf->len, ' ', arg.padding);
+		pf->len += arg.padding;
+	}
 	return (0);
 }
