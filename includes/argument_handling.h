@@ -5,13 +5,13 @@
 /*                                                     +:+ +:+        +:+     */
 /*   By: seetwoo <marvin@42students.fr>              +#+  +:+       +#+       */
 /*                                                 +#+#+#+#+#+   +#+          */
-/*   Created: 2025/12/03 23:29:05 by seetwoo           #+#    #+#             */
-/*   Updated: 2025/12/03 23:29:05 by seetwoo          ###   ########.fr       */
+/*   Created: 2025/12/05 23:59:42 by seetwoo           #+#    #+#             */
+/*   Updated: 2025/12/05 23:59:42 by seetwoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ARGUMENT_HANDLING_H 
-# define ARGUMENT_HANDLING_H 
+#ifndef ARGUMENT_HANDLING_H
+# define ARGUMENT_HANDLING_H
 
 # include <ctype.h>
 # include <limits.h>

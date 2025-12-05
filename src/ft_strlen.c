@@ -41,7 +41,7 @@ size_t	ft_strlen(char const *s)
 			return (p - (unsigned char const *)s);
 		p++;
 	}
-	p = (unsigned char const *)ft_swar((size_t const *)p);;
+	p = (unsigned char const *)ft_swar((size_t const *)p);
 	i = 0;
 	while (i < sizeof(size_t))
 	{
