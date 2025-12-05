@@ -16,8 +16,6 @@
 # include <stdint.h>
 # include <stddef.h>
 
-# include "e_type.h"
-
 union u_arg
 {
 	int			nbr;
