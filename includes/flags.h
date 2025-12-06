@@ -19,7 +19,9 @@ enum e_flag
 	ZERO = 2,
 	DASH = 4,
 	SHARP = 8,
-	SPACE = 16
+	SPACE = 16,
+	HASPREC = 32,
+	HASWIDTH = 64,
 };
 
 #endif

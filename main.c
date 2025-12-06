@@ -9,7 +9,7 @@ int	main(void) {
 	int		ret;
 	char	s[] = "hello";
 
-    ret = ft_printf("%c and %s and %d\n", s[0], &s[0], s);
+	ret = ft_printf("%*s", 30, s);
 	printf("\n\nreturn value is %d\n", ret);
 	return (0);
 }

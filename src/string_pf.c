@@ -22,7 +22,7 @@ int	null_string(t_arg *arg, t_spec spec)
 {
 	arg->raw = "(null)";
 	arg->len = 6;
-	if (spec.precision != -1 && spec.precision < 6)
+	if (spec.flags & HASPREC && spec.precision < 6)
 		arg->len = 0;
 	arg->prefix_len = 0;
 	arg->zeroes = 0;
@@ -34,7 +34,7 @@ int	null_string(t_arg *arg, t_spec spec)
 void	str_len_to_display(t_arg *arg, t_spec spec)
 {
 	arg->len = ft_strlen(arg->val.str);
-	if (spec.precision != -1 && arg->len > (size_t)spec.precision)
+	if (spec.flags & HASPREC && arg->len > (size_t)spec.precision)
 		arg->len = spec.precision;
 	arg->full_len = arg->len;
 }

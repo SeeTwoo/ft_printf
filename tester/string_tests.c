@@ -19,6 +19,17 @@ Test(s_tests, mandatory_strings)
 	assert_fmt("%s", huger);
 }
 
+//star
+Test(s_tests, stars)
+{
+	char	wee[] = "hello";
+
+	assert_fmt("%*s", 30, wee);
+	assert_fmt("%*s", -30, wee);
+	assert_fmt("%.*s", 30, wee);
+	assert_fmt("%.*s", -30, wee);
+}
+
 //NULL
 Test(s_tests, null_no_precision)
 {

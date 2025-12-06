@@ -12,58 +12,6 @@
 
 #include "argument_handling.h"
 
-static const t_argfunc		g_handlers[256] = {
-['\0' ...'%' - 1] = 0,
-['%'] = &percent_pf,
-['%' + 1 ...'X' - 1] = 0,
-['X'] = &uphex_pf,
-['X' + 1 ...'c' - 1] = 0,
-['c'] = &char_pf,
-['d'] = &decimal_pf,
-['d' + 1 ...'i' - 1] = 0,
-['i'] = &decimal_pf,
-['i' + 1 ...'p' - 1] = 0,
-['p'] = &pointer_pf,
-['p' + 1 ...'s' - 1] = 0,
-['s'] = &string_pf,
-['s' + 1 ...'u' - 1] = 0,
-['u'] = &unsigned_pf,
-['u' + 1 ...'x' - 1] = 0,
-['x'] = &lohex_pf,
-['x' + 1 ...255] = 0
-};
-
-static const enum e_flag	g_flags[49] = {
-[' '] = SPACE,
-['#'] = SHARP,
-['-'] = DASH,
-['+'] = PLUS,
-['0'] = ZERO,
-};
-
-static int	is_flag(char const c)
-{
-	return (c == ' ' || c == '+' || c == '-' || c == '0' || c == '#');
-}
-
-static int	parse_spec(t_pf *pf, t_spec *spec)
-{
-	spec->flags = 0;
-	spec->width = -1;
-	spec->precision = -1;
-	pf->format++;
-	if (*pf->format == '%')
-		return (spec->init_func = g_handlers[(unsigned char)*pf->format++], 0);
-	while (is_flag(*pf->format))
-		spec->flags |= g_flags[(unsigned char)*pf->format++];
-	if (ft_isdigit(*pf->format))
-		spec->width = ft_strtoi(pf->format, &pf->format);
-	if (*pf->format == '.')
-		spec->precision = ft_strtoi(pf->format + 1, &pf->format);
-	spec->init_func = g_handlers[(unsigned char)*pf->format++];
-	return (0);
-}
-
 static void	writing_argument(t_pf *pf, t_arg *arg)
 {
 	if (arg->prefix_len > 0)

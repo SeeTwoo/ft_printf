@@ -56,7 +56,7 @@ int	decimal_pf(t_pf *pf, t_spec spec, t_arg *arg)
 	else
 		itoa_pf(-((uint64_t)arg->val.nbr), 10, &arg->raw, "0123456789");
 	arg->len = temp - arg->raw + 1;
-	if (arg->val.nbr == 0 && spec.precision == 0)
+	if (arg->val.nbr == 0 && spec.flags & HASPREC && spec.precision == 0)
 		arg->len = 0;
 	arg->full_len = arg->len;
 	prefix(arg, spec);

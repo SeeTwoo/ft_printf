@@ -11,12 +11,13 @@
 /* ************************************************************************** */
 
 #include "argument.h"
+#include "flags.h"
 #include "spec_struct.h"
 
 void	compute_padding(t_arg *arg, t_spec spec)
 {
 	arg->padding = 0;
-	if (spec.width != -1 && spec.width > (int)arg->full_len)
+	if (spec.flags & HASWIDTH && spec.width > (int)arg->full_len)
 		arg->padding = spec.width - arg->full_len;
 	arg->full_len += arg->padding;
 }

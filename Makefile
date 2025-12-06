@@ -20,6 +20,7 @@ SRC_FILES = argument_handling.c \
 			generic_int.c \
 			lohex_pf.c \
 			percent_pf.c \
+			parsing.c \
 			pointer_pf.c \
 			pf_realloc.c \
 			regular_string.c \

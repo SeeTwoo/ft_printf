@@ -22,7 +22,7 @@ void	zeroes(t_arg *arg, t_spec spec);
 static void	prefix(t_arg *arg, t_spec spec)
 {
 	arg->prefix_len = 0;
-	if (spec.flags & SHARP && (spec.precision == -1 || spec.precision > 2))
+	if (spec.flags & SHARP && (!(spec.flags & HASPREC) || spec.precision > 2))
 	{
 		arg->prefix = "0x";
 		arg->prefix_len = 2;
@@ -39,7 +39,7 @@ int	lohex_pf(t_pf *pf, t_spec spec, t_arg *arg)
 	temp = arg->raw;
 	itoa_pf((uint64_t)arg->val.unbr, 16, &arg->raw, "0123456789abcdef");
 	arg->len = temp - arg->raw + 1;
-	if (arg->val.unbr == 0 && spec.precision == 0)
+	if (arg->val.unbr == 0 && spec.flags & HASPREC && spec.precision == 0)
 		arg->len = 0;
 	arg->raw = arg->buf + (sizeof(arg->buf) - arg->len);
 	arg->full_len = arg->len;

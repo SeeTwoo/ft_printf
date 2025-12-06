@@ -41,7 +41,7 @@ static void	prefix(t_arg *arg, t_spec spec)
 		arg->prefix = " 0x";
 		arg->prefix_len = 3;
 	}
-	else if (spec.precision == -1 || spec.precision > 2)
+	else if (!(spec.flags & HASPREC) || spec.precision > 2)
 	{
 		arg->prefix = "0x";
 		arg->prefix_len = 2;

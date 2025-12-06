@@ -18,13 +18,13 @@
 
 void	zeroes(t_arg *arg, t_spec spec)
 {
-	if (spec.precision > (int)arg->len)
+	if (spec.flags & HASPREC && spec.precision > (int)arg->len)
 		arg->zeroes = spec.precision - arg->len;
-	else if (spec.precision != -1 && spec.precision < (int)arg->len)
+	else if (spec.flags & HASPREC && spec.precision < (int)arg->len)
 		arg->zeroes = 0;
 	else if (spec.flags & DASH)
 		arg->zeroes = 0;
-	else if (spec.precision == -1 && spec.flags & ZERO
+	else if (!(spec.flags & HASPREC) && spec.flags & ZERO
 		&& spec.width > (int)arg->full_len)
 		arg->zeroes = spec.width - arg->full_len;
 	else
