@@ -19,6 +19,21 @@ Test(s_tests, mandatory_strings)
 	assert_fmt("%s", huger);
 }
 
+//large
+Test(s_tests, large_output)
+{
+	char	large[1026];
+	char	just_under[254];
+	char	s[] = "hello";
+
+	memset(large, 'a', 1025);
+	large[1025] = '\0';
+	memset(just_under, 'a', 253);
+	just_under[253] = '\0';
+	assert_fmt("%s", large);
+	assert_fmt("%s%s", just_under, s);
+}
+
 //star
 Test(s_tests, stars)
 {

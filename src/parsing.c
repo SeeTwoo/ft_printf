@@ -1,15 +1,15 @@
-# include "flags.h"
-# include "pf_struct.h"
-# include "spec_struct.h"
+#include "flags.h"
+#include "pf_struct.h"
+#include "spec_struct.h"
 
-int		char_pf(t_pf *pf, t_spec spec, t_arg *arg);
-int		decimal_pf(t_pf *pf, t_spec spec, t_arg *arg);
-int		percent_pf(t_pf *pf, t_spec spec, t_arg *arg);
-int		lohex_pf(t_pf *pf, t_spec spec, t_arg *arg);
-int		pointer_pf(t_pf *pf, t_spec spec, t_arg *arg);
-int		string_pf(t_pf *pf, t_spec spec, t_arg *arg);
-int		unsigned_pf(t_pf *pf, t_spec spec, t_arg *arg);
-int		uphex_pf(t_pf *pf, t_spec spec, t_arg *arg);
+int	char_pf(t_pf *pf, t_spec spec, t_arg *arg);
+int	decimal_pf(t_pf *pf, t_spec spec, t_arg *arg);
+int	percent_pf(t_pf *pf, t_spec spec, t_arg *arg);
+int	lohex_pf(t_pf *pf, t_spec spec, t_arg *arg);
+int	pointer_pf(t_pf *pf, t_spec spec, t_arg *arg);
+int	string_pf(t_pf *pf, t_spec spec, t_arg *arg);
+int	unsigned_pf(t_pf *pf, t_spec spec, t_arg *arg);
+int	uphex_pf(t_pf *pf, t_spec spec, t_arg *arg);
 
 static const t_argfunc		g_handlers[256] = {
 ['\0' ...'%' - 1] = 0,
@@ -40,8 +40,8 @@ static const enum e_flag	g_flags[49] = {
 ['0'] = ZERO,
 };
 
-int		ft_isdigit(int c);
-int		ft_strtoi(char const *s, char const **end);
+int	ft_isdigit(int c);
+int	ft_strtoi(char const *s, char const **end);
 
 static int	is_flag(char const c)
 {
