@@ -13,51 +13,41 @@
 #include <stddef.h>
 #include <stdint.h>
 
-#if ULONG_MAX == 0xffffffff
-# define HIMAGIC 0x80808080UL
-# define LOMAGIC 0x01010101UL
-#else
-# define HIMAGIC 0x8080808080808080UL
-# define LOMAGIC 0x0101010101010101UL
-#endif
+#define HIMAGIC 0x8080808080808080UL
+#define LOMAGIC 0x0101010101010101UL
+
+size_t const	*ft_swar(size_t const *p)
+{
+	size_t	word;
+
+	while (1)
+	{
+		word = *p;
+		if (((word - LOMAGIC) & ~word & HIMAGIC) != 0)
+			return (p);
+		p++;
+	}
+}
 
 size_t	ft_strlen(char const *s)
 {
-	char const		*p;
-	uintptr_t const	*word_ptr;
+	unsigned char const	*p;
+	size_t				i;
 
-	p = s;
+	p = (unsigned char const *)s;
 	while ((uintptr_t)p & (sizeof(uintptr_t) - 1))
 	{
-		if (!(*p))
-			return (p - s);
+		if (*p == '\0')
+			return (p - (unsigned char const *)s);
 		p++;
 	}
-	word_ptr = (const uintptr_t *)p;
-	while (1)
+	p = (unsigned char const *)ft_swar((size_t const *)p);
+	i = 0;
+	while (i < sizeof(size_t))
 	{
-		if (((*word_ptr) - HIMAGIC)
-			& ~(*word_ptr) & LOMAGIC)
-			break ;
-		word_ptr++;
+		if (p[i] == '\0')
+			return (p + i - (const unsigned char *)s);
+		i++;
 	}
-	p = (char const *)word_ptr;
-	while (*p)
-		p++;
-	return (p - s);
-}
-/*
-int	main(void)
-{
-	char	s[] = "hello";
-	char	empty[] = "";
-	char	longish[] = "  hello, this is a long string ya know";
-
-	printf("len of [%s] is : %lu\n", s, ft_strlen(s));
-	printf("len of [%s] is : %lu\n", empty, ft_strlen(empty));
-	printf("len of [%s] is : %lu\n", longish, ft_strlen(longish));
-	if (strlen(longish) != ft_strlen(longish))
-		return (printf("fuuuuuuck\n"));
 	return (0);
 }
-*/

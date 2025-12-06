@@ -7,9 +7,16 @@ void	assert_fmt(char const *fmt, ...);
 
 Test(s_tests, mandatory_strings)
 {
+	char	wee[] = "hello";
+	char	mid[] = "hey this is 8";
+	char	huger[] = "hey this is a long one to go fur multiple words inside of the swar strlen";
+
     assert_fmt("%s", NULL);
     assert_fmt("%s", "");
     assert_fmt("%s", "hello, world !");
+	assert_fmt("%s", wee);
+	assert_fmt("%s", mid);
+	assert_fmt("%s", huger);
 }
 
 //NULL

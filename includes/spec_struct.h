@@ -17,7 +17,7 @@ typedef struct s_pf		t_pf;
 typedef struct s_spec	t_spec;
 typedef struct s_arg	t_arg;
 
-typedef int	(*t_argfunc)(t_pf *pf, t_spec spec, t_arg *arg);
+typedef int				(*t_argfunc)(t_pf *pf, t_spec spec, t_arg *arg);
 
 struct s_spec
 {
