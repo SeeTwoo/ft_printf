@@ -34,6 +34,8 @@ OBJ_DIR = obj
 
 all: $(NAME)
 
+bonus: all
+
 $(OBJ_DIR):
 	mkdir -p $(OBJ_DIR)
 

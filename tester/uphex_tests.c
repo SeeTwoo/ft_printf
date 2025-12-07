@@ -22,4 +22,23 @@ Test(X_tests, bonus_uphex)
 	assert_fmt("%10X", 235796);
 	assert_fmt("%+ X", 235796);
 	assert_fmt("% +X", 235796);
+
+	assert_fmt("%#X", 0x42);
+	assert_fmt("%#X", 0x123);
+	assert_fmt("%+#X", 0x123);
+
+	assert_fmt("%#.0X", 0);
+	assert_fmt("%#.1X", 0);
+	assert_fmt("%#.8X", 0x42);
+	assert_fmt("%#.30X", 0x123);
+	assert_fmt("%#10.0", 0);
+	assert_fmt("%#0.0", 0);
+	
+	assert_fmt("%#10X", 0x42);
+	assert_fmt("%#10X", 0x123);
+	assert_fmt("%#20X", 0x42);
+
+	assert_fmt("%#-10X", 0x42);
+	assert_fmt("%#020X", 0x42);
+	assert_fmt("%#08X", 0x42);
 }
