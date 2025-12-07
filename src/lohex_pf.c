@@ -22,7 +22,8 @@ void	zeroes(t_arg *arg, t_spec spec);
 static void	prefix(t_arg *arg, t_spec spec)
 {
 	arg->prefix_len = 0;
-	if (spec.flags & SHARP && (!(spec.flags & HASPREC) || spec.precision > 2))
+	if (spec.flags & SHARP && arg->val.unbr != 0
+		&& (!(spec.flags & HASPREC) || spec.precision > 2))
 	{
 		arg->prefix = "0x";
 		arg->prefix_len = 2;

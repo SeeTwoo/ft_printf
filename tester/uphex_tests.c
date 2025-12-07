@@ -1,6 +1,7 @@
 #include <criterion/criterion.h>
 #include <stdarg.h>
 #include <stdlib.h>
+#include <limits.h>
 
 void	assert_fmt(char const *fmt, ...);
 
@@ -24,6 +25,8 @@ Test(X_tests, bonus_uphex)
 	assert_fmt("% +X", 235796);
 
 	assert_fmt("%#X", 0x42);
+	assert_fmt("%#X", 0);
+	assert_fmt("%#X", LONG_MIN);
 	assert_fmt("%#X", 0x123);
 	assert_fmt("%+#X", 0x123);
 
