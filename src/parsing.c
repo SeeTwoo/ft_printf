@@ -1,4 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                         :::     ::::::::   */
+/*   parsing.c                                           :+:     :+:    :+:   */
+/*                                                     +:+ +:+        +:+     */
+/*   By: seetwoo <marvin@42students.fr>              +#+  +:+       +#+       */
+/*                                                 +#+#+#+#+#+   +#+          */
+/*   Created: 2025/12/06 14:54:23 by seetwoo           #+#    #+#             */
+/*   Updated: 2025/12/06 14:54:23 by seetwoo          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "flags.h"
+
 #include "pf_struct.h"
 #include "spec_struct.h"
 
@@ -10,6 +23,8 @@ int	pointer_pf(t_pf *pf, t_spec spec, t_arg *arg);
 int	string_pf(t_pf *pf, t_spec spec, t_arg *arg);
 int	unsigned_pf(t_pf *pf, t_spec spec, t_arg *arg);
 int	uphex_pf(t_pf *pf, t_spec spec, t_arg *arg);
+
+#define UPBOUND 255
 
 static const t_argfunc		g_handlers[256] = {
 ['\0' ...'%' - 1] = 0,
@@ -29,7 +44,7 @@ static const t_argfunc		g_handlers[256] = {
 ['u'] = &unsigned_pf,
 ['u' + 1 ...'x' - 1] = 0,
 ['x'] = &lohex_pf,
-['x' + 1 ...255] = 0
+['x' + 1 ...UPBOUND] = 0
 };
 
 static const enum e_flag	g_flags[49] = {

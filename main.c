@@ -17,7 +17,7 @@ int	main(void) {
 	memset(just_under, 'a', 253);
 	just_under[253] = '\0';
 
-	ret = ft_printf("%s", large);
+	ret = ft_printf("%s%s", just_under, large);
 	printf("\n\nreturn value is %d\n", ret);
 	return (0);
 }
