@@ -40,16 +40,16 @@ $(OBJ_DIR):
 	mkdir -p $(OBJ_DIR)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
-	@$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@
 
 OBJ = $(SRC:$(SRC_DIR)%.c=$(OBJ_DIR)%.o)
 
 $(NAME): $(OBJ)
-	@ar rcs $(NAME) $(OBJ)
+	ar rcs $(NAME) $(OBJ)
 
 tester: $(NAME)
-	@rm -f tester/tester
-	@cc \
+	rm -f tester/tester
+	cc \
 		tester/assert_fmt.c \
 		tester/char_tests.c \
 		tester/integers_tests.c \
@@ -61,7 +61,7 @@ tester: $(NAME)
 		tester/unsigned_tests.c \
 		tester/uphex_tests.c \
 		libftprintf.a -o tester/tester -lcriterion
-	@./tester/tester --verbose=1
+	./tester/tester --verbose=1
 
 debug:
 	$(MAKE) CFLAGS="$(DFLAGS)"

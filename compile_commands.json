@@ -1,0 +1,354 @@
+[
+  {
+    "file": "src/argument_handling.c",
+    "arguments": [
+      "cc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-Iincludes",
+      "-c",
+      "src/argument_handling.c",
+      "-o",
+      "obj/argument_handling.o"
+    ],
+    "directory": "/home/walter/Documents/ft_printf",
+    "output": "obj/argument_handling.o"
+  },
+  {
+    "file": "src/char_pf.c",
+    "arguments": [
+      "cc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-Iincludes",
+      "-c",
+      "src/char_pf.c",
+      "-o",
+      "obj/char_pf.o"
+    ],
+    "directory": "/home/walter/Documents/ft_printf",
+    "output": "obj/char_pf.o"
+  },
+  {
+    "file": "src/compute_padding.c",
+    "arguments": [
+      "cc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-Iincludes",
+      "-c",
+      "src/compute_padding.c",
+      "-o",
+      "obj/compute_padding.o"
+    ],
+    "directory": "/home/walter/Documents/ft_printf",
+    "output": "obj/compute_padding.o"
+  },
+  {
+    "file": "src/decimal_pf.c",
+    "arguments": [
+      "cc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-Iincludes",
+      "-c",
+      "src/decimal_pf.c",
+      "-o",
+      "obj/decimal_pf.o"
+    ],
+    "directory": "/home/walter/Documents/ft_printf",
+    "output": "obj/decimal_pf.o"
+  },
+  {
+    "file": "src/ft_allocator.c",
+    "arguments": [
+      "cc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-Iincludes",
+      "-c",
+      "src/ft_allocator.c",
+      "-o",
+      "obj/ft_allocator.o"
+    ],
+    "directory": "/home/walter/Documents/ft_printf",
+    "output": "obj/ft_allocator.o"
+  },
+  {
+    "file": "src/ft_isdigit.c",
+    "arguments": [
+      "cc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-Iincludes",
+      "-c",
+      "src/ft_isdigit.c",
+      "-o",
+      "obj/ft_isdigit.o"
+    ],
+    "directory": "/home/walter/Documents/ft_printf",
+    "output": "obj/ft_isdigit.o"
+  },
+  {
+    "file": "src/ft_memcpy.c",
+    "arguments": [
+      "cc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-Iincludes",
+      "-c",
+      "src/ft_memcpy.c",
+      "-o",
+      "obj/ft_memcpy.o"
+    ],
+    "directory": "/home/walter/Documents/ft_printf",
+    "output": "obj/ft_memcpy.o"
+  },
+  {
+    "file": "src/ft_memset.c",
+    "arguments": [
+      "cc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-Iincludes",
+      "-c",
+      "src/ft_memset.c",
+      "-o",
+      "obj/ft_memset.o"
+    ],
+    "directory": "/home/walter/Documents/ft_printf",
+    "output": "obj/ft_memset.o"
+  },
+  {
+    "file": "src/ft_printf.c",
+    "arguments": [
+      "cc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-Iincludes",
+      "-c",
+      "src/ft_printf.c",
+      "-o",
+      "obj/ft_printf.o"
+    ],
+    "directory": "/home/walter/Documents/ft_printf",
+    "output": "obj/ft_printf.o"
+  },
+  {
+    "file": "src/ft_strlen.c",
+    "arguments": [
+      "cc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-Iincludes",
+      "-c",
+      "src/ft_strlen.c",
+      "-o",
+      "obj/ft_strlen.o"
+    ],
+    "directory": "/home/walter/Documents/ft_printf",
+    "output": "obj/ft_strlen.o"
+  },
+  {
+    "file": "src/ft_strtoi.c",
+    "arguments": [
+      "cc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-Iincludes",
+      "-c",
+      "src/ft_strtoi.c",
+      "-o",
+      "obj/ft_strtoi.o"
+    ],
+    "directory": "/home/walter/Documents/ft_printf",
+    "output": "obj/ft_strtoi.o"
+  },
+  {
+    "file": "src/ft_vprintf.c",
+    "arguments": [
+      "cc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-Iincludes",
+      "-c",
+      "src/ft_vprintf.c",
+      "-o",
+      "obj/ft_vprintf.o"
+    ],
+    "directory": "/home/walter/Documents/ft_printf",
+    "output": "obj/ft_vprintf.o"
+  },
+  {
+    "file": "src/generic_int.c",
+    "arguments": [
+      "cc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-Iincludes",
+      "-c",
+      "src/generic_int.c",
+      "-o",
+      "obj/generic_int.o"
+    ],
+    "directory": "/home/walter/Documents/ft_printf",
+    "output": "obj/generic_int.o"
+  },
+  {
+    "file": "src/lohex_pf.c",
+    "arguments": [
+      "cc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-Iincludes",
+      "-c",
+      "src/lohex_pf.c",
+      "-o",
+      "obj/lohex_pf.o"
+    ],
+    "directory": "/home/walter/Documents/ft_printf",
+    "output": "obj/lohex_pf.o"
+  },
+  {
+    "file": "src/percent_pf.c",
+    "arguments": [
+      "cc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-Iincludes",
+      "-c",
+      "src/percent_pf.c",
+      "-o",
+      "obj/percent_pf.o"
+    ],
+    "directory": "/home/walter/Documents/ft_printf",
+    "output": "obj/percent_pf.o"
+  },
+  {
+    "file": "src/parsing.c",
+    "arguments": [
+      "cc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-Iincludes",
+      "-c",
+      "src/parsing.c",
+      "-o",
+      "obj/parsing.o"
+    ],
+    "directory": "/home/walter/Documents/ft_printf",
+    "output": "obj/parsing.o"
+  },
+  {
+    "file": "src/pointer_pf.c",
+    "arguments": [
+      "cc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-Iincludes",
+      "-c",
+      "src/pointer_pf.c",
+      "-o",
+      "obj/pointer_pf.o"
+    ],
+    "directory": "/home/walter/Documents/ft_printf",
+    "output": "obj/pointer_pf.o"
+  },
+  {
+    "file": "src/pf_realloc.c",
+    "arguments": [
+      "cc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-Iincludes",
+      "-c",
+      "src/pf_realloc.c",
+      "-o",
+      "obj/pf_realloc.o"
+    ],
+    "directory": "/home/walter/Documents/ft_printf",
+    "output": "obj/pf_realloc.o"
+  },
+  {
+    "file": "src/regular_string.c",
+    "arguments": [
+      "cc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-Iincludes",
+      "-c",
+      "src/regular_string.c",
+      "-o",
+      "obj/regular_string.o"
+    ],
+    "directory": "/home/walter/Documents/ft_printf",
+    "output": "obj/regular_string.o"
+  },
+  {
+    "file": "src/string_pf.c",
+    "arguments": [
+      "cc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-Iincludes",
+      "-c",
+      "src/string_pf.c",
+      "-o",
+      "obj/string_pf.o"
+    ],
+    "directory": "/home/walter/Documents/ft_printf",
+    "output": "obj/string_pf.o"
+  },
+  {
+    "file": "src/unsigned_pf.c",
+    "arguments": [
+      "cc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-Iincludes",
+      "-c",
+      "src/unsigned_pf.c",
+      "-o",
+      "obj/unsigned_pf.o"
+    ],
+    "directory": "/home/walter/Documents/ft_printf",
+    "output": "obj/unsigned_pf.o"
+  },
+  {
+    "file": "src/uphex_pf.c",
+    "arguments": [
+      "cc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-Iincludes",
+      "-c",
+      "src/uphex_pf.c",
+      "-o",
+      "obj/uphex_pf.o"
+    ],
+    "directory": "/home/walter/Documents/ft_printf",
+    "output": "obj/uphex_pf.o"
+  }
+]
